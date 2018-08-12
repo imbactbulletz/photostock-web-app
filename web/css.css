@@ -32,3 +32,6 @@ md-select {
     margin-top: -20px;
 
 }
+.capitalized {
+    text-transform: capitalize;
+}

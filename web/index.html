@@ -17,7 +17,7 @@
 
     <title>Photostock</title>
 </head>
-<body ng-app="photostock-app">
+<body ng-app="photostock-app" ng-controller="NavBarController">
 
 <md-content class="md-padding">
     <md-nav-bar
@@ -25,15 +25,15 @@
             md-no-ink-bar="disableInkBar"
             md-selected-nav-item="currentNavItem"
             nav-bar-aria-label="navigation links">
-        <md-nav-item md-nav-click="goto('page1')" name="page1">
+        <md-nav-item md-nav-click="goto('/')" name="page1">
             Photostock
         </md-nav-item>
         <span flex></span>
-        <md-nav-item md-nav-click="goto('page2')" name="page2">
+        <md-nav-item md-nav-click="goto('login')" name="page2">
             Login
         </md-nav-item>
 
-        <md-nav-item md-nav-click="goto('page3')" name="page3">
+        <md-nav-item md-nav-click="goto('register')" name="page3">
             Register
         </md-nav-item>
         <!-- these require actual routing with ui-router or ng-route, so they
@@ -82,6 +82,10 @@
 
 <!-- Custom scripts -->
 <script src="app.js"></script>
+<script src="./nav_bar/NavBarController.js"></script>
+<script src="./guest/GuestController.js"></script>
 <script src="router.js"></script>
+
+
 </body>
 </html>

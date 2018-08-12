@@ -5,7 +5,7 @@
 
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">Photostock - An image marketplace</span>
+                    <span class="md-headline">Discover Images</span>
                 </md-card-title-text>
             </md-card-title>
 
@@ -14,11 +14,13 @@
                     <md-input-container md-no-float>
                         <input size="50" ng-model="user.address2" placeholder="Search for an image..">
                     </md-input-container>
-                    <md-select ng-model="weapon" placeholder="Search by">
-                        <md-option value="axe">Axe</md-option>
-                        <md-option value="sword">Sword</md-option>
-                        <md-option value="wand">Wand</md-option>
-                        <md-option value="pen">Pen?</md-option>
+
+                    <md-select ng-model="searchCriteria" placeholder="Search by">
+                        <md-option value="artist">Artist</md-option>
+                        <md-option value="category">Category</md-option>
+                        <md-option value="keyword">Keyword</md-option>
+                        <md-option value="title">Title</md-option>
+
                     </md-select>
 
                     <md-button class="md-raised md-primary capitalized search-button" ng-click="getBooks()">Search</md-button>
