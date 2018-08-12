@@ -1,0 +1,30 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Photostock - An image marketplace</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <div layout="row" layout-align="start center">
+                    <md-input-container md-no-float>
+                        <input size="50" ng-model="user.address2" placeholder="Search for an image..">
+                    </md-input-container>
+                    <md-select ng-model="weapon" placeholder="Search by">
+                        <md-option value="axe">Axe</md-option>
+                        <md-option value="sword">Sword</md-option>
+                        <md-option value="wand">Wand</md-option>
+                        <md-option value="pen">Pen?</md-option>
+                    </md-select>
+
+                    <md-button class="md-raised md-primary capitalized search-button" ng-click="getBooks()">Search</md-button>
+                </div>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

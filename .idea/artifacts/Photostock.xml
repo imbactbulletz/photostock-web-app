@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Photostock">
+    <output-path>$PROJECT_DIR$/out/artifacts/Photostock</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Photostock/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Photostock" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.annotation.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.jms.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.mail-api-1.6.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.persistence.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.resource.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.servlet.jsp.jstl.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.transaction.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/jboss-jaxrs-api_2.0_spec-1.0.1.Final.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/jboss-jaxrs-api_2.1_spec-1.0.0.Final.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/lib/mysql-connector-java-5.1.37-bin.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
