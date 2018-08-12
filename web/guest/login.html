@@ -12,10 +12,20 @@
             <md-card-content>
                 <div layout="column" layout-align="start center">
                     <md-input-container md-no-float>
-                        <input size="50" ng-model="user.address2" placeholder="Username">
+                        <input required size="50" ng-model="user.address1" placeholder="Username">
+                        <div ng-messages="" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                Please enter a username.
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container md-no-float>
-                        <input size="50" ng-model="user.address2" placeholder="Password">
+                        <input required type="password" size="50" ng-model="user.address2" placeholder="Password">
+                        <div ng-messages="" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                Please enter a password.
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
 
