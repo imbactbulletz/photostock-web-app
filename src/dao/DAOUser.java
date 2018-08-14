@@ -10,7 +10,7 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
 
     // Queries
     private final String LOGIN = "SELECT * FROM USER WHERE USERNAME = \"%s\" AND PASSWORD = \"%s\"";
-
+    private final String REGISTER = "INSERT INTO USER (USERNAME, PASSWORD, EMAIL, COUNTRY) VALUES ( \"%s\", \"%s\", \"%s\", \"%s\")";
 
     public DAOUser() {
         super(User.class);
@@ -21,13 +21,12 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
         Connection connection = createConnection();
         User result = null;
 
+        // validation
         if(connection == null || user.getUsername() == null || user.getPassword() == null || user.getUsername().equals("")
         || user.getPassword().equals("")){
 
             return null;
         }
-
-        System.out.println("[DBG] " + user.getUsername() + " " + user.getPassword());
 
         String query = String.format(LOGIN, user.getUsername(), user.getPassword());
 
@@ -54,6 +53,43 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
 
     @Override
     public User register(User user) {
-        return null;
+        Connection connection = createConnection();
+
+        // validation
+        if(connection == null || user.getUsername() == null || user.getPassword() == null || user.getEmail() == null || user.getUsername().equals("")
+                || user.getPassword().equals("") || user.getEmail().equals("")){
+
+            return null;
+        }
+
+        // validating the non-required parameters
+        if(user.getCountry() == null){
+            user.setCountry("");
+        }
+
+        String query = String.format(REGISTER, user.getUsername(), user.getPassword(), user.getEmail(), user.getCountry());
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            connection.close();
+
+
+            // table didn't change
+            if (result == 0) {
+                return null;
+            }
+
+            //  table changed, logging the user in and returning the full object
+            else{
+                return this.login(user);
+            }
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -32,5 +32,17 @@ public class ControllerUser {
         return Response.ok(result).build();
     }
 
+    @POST
+    @Path("/register")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response register(User user){
+        User result = this.service.register(user);
 
+        if(result == null){
+            return Response.noContent().build();
+        }
+
+        return Response.ok(result).build();
+    }
 }
