@@ -1,1 +1,1 @@
-var app = angular.module("photostock-app", ["ngRoute", "ngMaterial"]);
+var app = angular.module("photostock-app", ["ngRoute", "ngMaterial", "ngMessages"]);

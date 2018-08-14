@@ -10,20 +10,20 @@
             </md-card-title>
 
             <md-card-content>
-                <form role="form" ng-submit="login()" novalidate>
+                <form role="form" name="loginForm" ng-submit="login()" novalidate>
                     <div layout="column" layout-align="start center">
                         <md-input-container md-no-float>
-                            <input required size="50" ng-model="user.username" placeholder="Username">
-                            <div ng-messages="" role="alert">
-                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            <input required size="50" ng-model="user.username" name="username" placeholder="Username">
+                            <div ng-messages="loginForm.username.$error">
+                                <div ng-message="required">
                                     Please enter a username.
                                 </div>
                             </div>
                         </md-input-container>
                         <md-input-container md-no-float>
-                            <input required type="password" size="50" ng-model="user.password" placeholder="Password">
-                            <div ng-messages="" role="alert">
-                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            <input required type="password" size="50" ng-model="user.password" name="password" placeholder="Password">
+                            <div ng-messages="loginForm.password.$error" role="alert">
+                                <div ng-message="required">
                                     Please enter a password.
                                 </div>
                             </div>
