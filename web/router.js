@@ -9,7 +9,18 @@ app.config(function ($routeProvider) {
         })
 
         .when("/login", {
-            templateUrl: "guest/login.html"
+            templateUrl: "guest/login.html",
+            controller: "GuestController"
+        })
+
+        .when("/register", {
+            templateUrl: "guest/register.html",
+            controller: "GuestController"
+        })
+
+        .when("/forgotPassword", {
+            templateUrl: "guest/forgot_password.html",
+            controller: "GuestController"
         })
 
         .otherwise({

@@ -2,8 +2,7 @@ var app = angular.module("photostock-app");
 
 app.controller("GuestController", ['$scope', '$location', function ($scope, $location){
 
-
-    // navigation through navbar
+    // navigate through navbar
     $scope.goto = function(page){
         alert("opened");
 
@@ -18,6 +17,27 @@ app.controller("GuestController", ['$scope', '$location', function ($scope, $loc
 
             default:
                 $location.path("/");
+        }
+    };
+
+
+    $scope.login = function(){
+        var user = $scope.user;
+
+
+        // validates
+        if (user === undefined || user.username === undefined || user.password === undefined || user.username == "" || user.password == ""){
+            return;
+        }
+
+
+        $scope.loginError = true;
+    };
+
+
+    $scope.goto = function(page){
+        if(page == "/forgotPassword"){
+            $location.path("/forgotPassword");
         }
     }
 }]);

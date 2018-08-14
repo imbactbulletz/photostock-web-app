@@ -1,0 +1,106 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Register on Photostock</span>
+                </md-card-title-text>
+
+            </md-card-title>
+
+            <md-card-content>
+                <br>
+                <p align="center">What would you like to register as?</p>
+                <div ng-cloak>
+                    <md-content>
+                        <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+                            <md-tab label="Individual">
+                                <md-content class="md-padding">
+                                    <h6 class="subheading-3">Please fill in your information below.</h6>
+
+                                    <div layout="column" layout-align="start center">
+                                        <md-input-container md-no-float>
+                                            <input required md-asterisk size="50" ng-model="user.address1" placeholder="Username">
+                                            <div ng-messages="" role="alert">
+                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                    Please enter a username.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container md-no-float>
+                                            <input required type="password" size="50" ng-model="user.address2" placeholder="Password">
+                                            <div ng-messages="" role="alert">
+                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                    Please enter a password.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container md-no-float>
+                                            <input required type="email" size="50" ng-model="user.address2" placeholder="E-mail">
+                                            <div ng-messages="" role="alert">
+                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                    Please enter an e-mail.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container md-no-float>
+                                            <input type="password" size="50" ng-model="user.address2" placeholder="Country">
+                                        </md-input-container>
+                                    </div>
+
+                                    <div layout="row" layout-align="center">
+                                        <md-button class="md-raised md-primary capitalized" ng-click="getBooks()">Register</md-button>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Company">
+                                <md-content class="md-padding">
+                                    <h6 class="subheading-3">Please fill in your information below.</h6>
+
+                                    <div layout="column" layout-align="start center">
+                                        <md-input-container md-no-float>
+                                            <input required md-asterisk size="50" ng-model="user.address1" placeholder="Company name">
+                                            <div ng-messages="" role="alert">
+                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                    Please enter a company name.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container md-no-float>
+                                            <input required size="50" ng-model="user.address2" placeholder="Location">
+                                            <div ng-messages="" role="alert">
+                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                    Please enter a location.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container md-no-float>
+                                            <input required type="email" size="50" ng-model="user.address2" placeholder="PIB">
+                                            <div ng-messages="" role="alert">
+                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                    Please enter an PIB.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <p></p>
+                                    </div>
+
+                                    <div layout="row" layout-align="center">
+                                        <md-button class="md-raised md-primary capitalized" ng-click="getBooks()">Register</md-button>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                </div>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

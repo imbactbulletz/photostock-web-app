@@ -35,3 +35,13 @@ md-select {
 .capitalized {
     text-transform: capitalize;
 }
+
+md-content {
+    background: white;
+}
+
+.login_error {
+    color: rgba(255, 13, 0, 0.77);
+    font-size: 12px;
+    margin-bottom: 20px;
+}
