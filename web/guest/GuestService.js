@@ -11,5 +11,9 @@ app.factory('GuestService', ['$http', function($http){
         return $http.post("http://localhost:8080/Photostock/rest/user/register", user);
     };
 
+    service.registerCompany = function(company){
+        return $http.post("http://localhost:8080/Photostock/rest/company/register", company);
+    };
+
     return service;
 }]);

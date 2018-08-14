@@ -19,7 +19,6 @@
                             <md-tab label="Individual">
                                 <form name="individualForm" role="form">
                                 <md-content class="md-padding">
-                                    <h6 class="subheading-3">Please fill in your information below.</h6>
 
                                     <div layout="column" layout-align="start center">
                                         <md-input-container md-no-float>
@@ -62,7 +61,6 @@
                             <md-tab label="Company">
                                 <form name="companyForm" role="form" novalidate>
                                 <md-content class="md-padding">
-                                    <h6 class="subheading-3">Please fill in your information below.</h6>
 
                                     <div layout="column" layout-align="start center">
                                         <md-input-container md-no-float>
@@ -83,10 +81,19 @@
                                         </md-input-container>
 
                                         <md-input-container md-no-float>
-                                            <input required type="email" size="50" ng-model="company.pib" name="pib" placeholder="PIB">
+                                            <input required type="text" size="50" ng-model="company.pib" name="pib" placeholder="PIB">
                                             <div ng-messages="companyForm.pib.$error">
                                                 <div ng-message="required">
                                                     Please enter a PIB.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container md-no-float>
+                                            <input required type="text" size="50" ng-model="company.provision" name="provision" placeholder="Number of percents you ask for each photo">
+                                            <div ng-messages="companyForm.provision_percent.$error">
+                                                <div ng-message="required">
+                                                    Please enter a percentage.
                                                 </div>
                                             </div>
                                         </md-input-container>
@@ -102,7 +109,7 @@
                                         <br><br>
                                     </div>
                                     <div layout="row" layout-align="center">
-                                        <md-button class="md-raised md-primary capitalized" ng-click="getBooks()">Register</md-button>
+                                        <md-button class="md-raised md-primary capitalized" ng-click="registerCompany()">Register</md-button>
                                     </div>
                                 </md-content>
                                 </form>

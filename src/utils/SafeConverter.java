@@ -12,10 +12,10 @@ public class SafeConverter {
     }
 
 
-    public static double toSafeDouble(Object o){
-        double id = 0;
+    public static float toSafeFloat(Object o){
+        float id = 0;
         try{
-            id = Double.parseDouble(o == null ? "0" : o.toString());
+            id = Float.parseFloat(o == null ? "0" : o.toString());
         }catch(NumberFormatException e){
 
         }

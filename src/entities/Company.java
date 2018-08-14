@@ -1,5 +1,6 @@
 package entities;
 
+import com.sun.javafx.binding.StringFormatter;
 import utils.SafeConverter;
 
 public class Company extends BasicEntity {
@@ -8,12 +9,16 @@ public class Company extends BasicEntity {
     private String address;
     private String membership;
     private String pib;
+    private String status;
+    private String provision;
 
     // column names
     private String NAME = "NAME";
     private String ADDRESS = "ADDRESS";
     private String MEMBERSHIP = "MEMBERSHIP";
     private String PIB = "PIB";
+    private String STATUS = "STATUS";
+    private String PROVISION_PERCENT = "PROVISION_PERCENT";
 
     public Company(){
         super();
@@ -22,6 +27,8 @@ public class Company extends BasicEntity {
         this.columnNames.add(ADDRESS);
         this.columnNames.add(MEMBERSHIP);
         this.columnNames.add(PIB);
+        this.columnNames.add(STATUS);
+        this.columnNames.add(PROVISION_PERCENT);
     }
 
     @Override
@@ -43,6 +50,14 @@ public class Company extends BasicEntity {
             return this.pib;
         }
 
+        if(STATUS.equals(columnName)){
+            return this.status;
+        }
+
+        if(PROVISION_PERCENT.equals(columnName)){
+            return this.provision;
+        }
+
         return super.getValueForColumnName(columnName);
     }
 
@@ -62,6 +77,14 @@ public class Company extends BasicEntity {
 
         if(PIB.equals(columnName)){
             this.setPib(SafeConverter.toSafeString(value));
+        }
+
+        if(STATUS.equals(columnName)){
+            this.setStatus(SafeConverter.toSafeString(value));
+        }
+
+        if(PROVISION_PERCENT.equals(columnName)){
+            this.setProvision(SafeConverter.toSafeString(value));
         }
 
         super.setValueForColumnName(columnName, value);
@@ -97,6 +120,22 @@ public class Company extends BasicEntity {
 
     public void setPib(String pib) {
         this.pib = pib;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getProvision() {
+        return provision;
+    }
+
+    public void setProvision(String provision) {
+        this.provision = provision;
     }
 }
 

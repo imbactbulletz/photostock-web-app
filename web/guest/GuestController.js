@@ -66,8 +66,6 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
 
     $scope.register = function() {
 
-        alert("ALERT ZENERAAAAAAAAAAAAL");
-
         var user = angular.copy($scope.user);
 
         // validates
@@ -88,6 +86,36 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
                 // saving the user to rootScope
                 $rootScope.user = response.data;
             }
+        });
+    };
+
+
+
+
+    $scope.registerCompany = function(){
+        var company = angular.copy($scope.company);
+
+
+
+        //validates
+        if(company === undefined || company.name === undefined || company.membership === undefined || company.pib === undefined
+            || company.name == "" || company.membership == "" || company.pib == ""){
+            return;
+        }
+        alert("ALERT ZENERAAAAAAAAAAAL");
+
+        GuestService.registerCompany(company).then(function(response){
+           var returned_value = response.data;
+
+           if(returned_value == null){
+               $scope.registrationCompanyerror = true;
+               alert("Registration failed.");
+           }
+
+           else{
+               alert("Now you need to wait for operator to approve your membership!");
+           }
+
         });
     };
 

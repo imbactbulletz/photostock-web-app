@@ -2,6 +2,7 @@ package dao;
 
 import com.sun.org.apache.regexp.internal.RE;
 import entities.Company;
+import utils.SafeConverter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +10,7 @@ import java.sql.PreparedStatement;
 public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOCompany{
 
     // Queries
-    private final String REGISTER = "INSERT INTO COMPANY (NAME, ADDRESS, MEMBERSHIP, PIB) VALUES (\"%s\", \"%s\", \"%s\", \"%s\")";
-
+    private final String REGISTER = "INSERT INTO COMPANY (NAME, ADDRESS, MEMBERSHIP, PIB, PROVISION_PERCENT) VALUES (\"%s\", \"%s\", \"%s\", \"%s\", %f)";
     public DAOCompany(){
         super(Company.class);
     }
@@ -22,6 +22,7 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
 
     @Override
     public Company register(Company company) {
+        System.out.println("ALERT ZENERAAAAAAAAAAAAAAAL");
         Connection connection = createConnection();
 
         if(connection == null || company.getName() == null || company.getMembership() == null || company.getPib() == null
@@ -34,8 +35,8 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
             company.setAddress("");
         }
 
-        String query = String.format(REGISTER, company.getName(), company.getAddress(), company.getMembership(), company.getPib());
 
+        String query = String.format(REGISTER, company.getName(), company.getAddress(), company.getMembership(), company.getPib(), SafeConverter.toSafeFloat(company.getProvision()));
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -49,6 +50,8 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
 
             // table changed, returning the company
             else {
+
+                // todo login company
                 return company;
             }
         }
