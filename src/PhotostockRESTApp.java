@@ -1,3 +1,4 @@
+import controllers.ControllerCompany;
 import controllers.ControllerUser;
 
 import javax.ws.rs.ApplicationPath;
@@ -13,7 +14,7 @@ public class PhotostockRESTApp extends Application{
         Set<Class<?>> classes = new HashSet<Class<?>>();
 
         classes.add(ControllerUser.class);
-
+        classes.add(ControllerCompany.class);
         return classes;
     }
 }

@@ -1,7 +1,6 @@
 var app = angular.module("photostock-app");
 
 app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestService', function ($scope, $rootScope, $location, GuestService) {
-
     // navigate through navbar
     $scope.goto = function (page) {
         alert("opened");

@@ -60,43 +60,52 @@
                                 </form>
                             </md-tab>
                             <md-tab label="Company">
+                                <form name="companyForm" role="form" novalidate>
                                 <md-content class="md-padding">
                                     <h6 class="subheading-3">Please fill in your information below.</h6>
 
                                     <div layout="column" layout-align="start center">
                                         <md-input-container md-no-float>
-                                            <input required md-asterisk size="50" ng-model="user.address1" placeholder="Company name">
-                                            <div ng-messages="" role="alert">
-                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                            <input required md-asterisk size="50" ng-model="company.name" name="name" placeholder="Company name">
+                                            <div ng-messages="companyForm.name.$error">
+                                                <div ng-message="required">
                                                     Please enter a company name.
                                                 </div>
                                             </div>
                                         </md-input-container>
                                         <md-input-container md-no-float>
-                                            <input required size="50" ng-model="user.address2" placeholder="Location">
-                                            <div ng-messages="" role="alert">
-                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                                    Please enter a location.
+                                            <input required size="50" ng-model="company.address" name="address" placeholder="Address">
+                                            <div ng-messages="companyForm.address.$error">
+                                                <div ng-message="required">
+                                                    Please enter an address.
                                                 </div>
                                             </div>
                                         </md-input-container>
 
                                         <md-input-container md-no-float>
-                                            <input required type="email" size="50" ng-model="user.address2" placeholder="PIB">
-                                            <div ng-messages="" role="alert">
-                                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                                    Please enter an PIB.
+                                            <input required type="email" size="50" ng-model="company.pib" name="pib" placeholder="PIB">
+                                            <div ng-messages="companyForm.pib.$error">
+                                                <div ng-message="required">
+                                                    Please enter a PIB.
                                                 </div>
                                             </div>
                                         </md-input-container>
 
-                                        <p></p>
-                                    </div>
+                                        <h6 class="subheading-3">Choose a membership type:</h6>
+                                        <md-radio-group layout="row" ng-model="company.membership">
 
+                                            <md-radio-button value="regular" required>Standard</md-radio-button>
+                                            <md-radio-button value="silver"> Silver</md-radio-button>
+                                            <md-radio-button value="gold">Gold</md-radio-button>
+
+                                        </md-radio-group>
+                                        <br><br>
+                                    </div>
                                     <div layout="row" layout-align="center">
                                         <md-button class="md-raised md-primary capitalized" ng-click="getBooks()">Register</md-button>
                                     </div>
                                 </md-content>
+                                </form>
                             </md-tab>
                         </md-tabs>
                     </md-content>
