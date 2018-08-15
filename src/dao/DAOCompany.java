@@ -22,7 +22,7 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
 
     @Override
     public Company register(Company company) {
-        System.out.println("ALERT ZENERAAAAAAAAAAAAAAAL");
+
         Connection connection = createConnection();
 
         if(connection == null || company.getName() == null || company.getMembership() == null || company.getPib() == null

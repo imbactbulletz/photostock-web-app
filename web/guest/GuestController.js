@@ -32,9 +32,10 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
         GuestService.login(user).then(function (response) {
             var returned_value = response.data;
 
+
             // bad login
-            if (returned_value == null) {
-                $scope.loginError = true;
+            if (returned_value == undefined || returned_value == "") {
+                $scope.loginErrorMessage = "Wrong username/password.";
                 return;
             }
 

@@ -30,7 +30,7 @@
                         </md-input-container>
                     </div>
 
-                    <div class="login_error" ng-if="loginError" align="center">You have entered a wrong username/password.</div>
+                    <div class="error" align="center"> {{loginErrorMessage}} </div>
 
                     <div layout="row" layout-align="center">
                         <md-button type="submit" class="md-raised md-primary capitalized">Login</md-button>
