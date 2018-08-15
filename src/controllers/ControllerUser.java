@@ -97,4 +97,11 @@ public class ControllerUser {
             return true;
         }
     }
+
+    @POST
+    @Path("/changePassword")
+    @Produces("application/json")
+    public boolean changePassword(User user){
+        return this.service.changePassword(user);
+    }
 }

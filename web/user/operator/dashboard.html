@@ -1,0 +1,61 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="dashboard_container">
+
+            <md-card-content>
+                <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+                    <md-tab label="User panel">
+                        <md-content>
+                            <div layout-align="center">
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Username</th>
+                                                <th>Password</th>
+                                                <th>E-mail</th>
+                                                <th>Country</th>
+                                                <th>Account type</th>
+                                                <th>Account status</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr align="center">
+                                            <td align="center">1</td>
+                                            <td align="center">stefan</td>
+                                            <td align="center">stefan</td>
+                                            <td align="center">cveticstefancpl@gmail.com</td>
+                                            <td align="center">Serbia</td>
+                                            <td align="center">administrator</td>
+                                            <td align="center">active</td>
+                                            <td align="center"><md-button class="md-raised md-primary" ng-click="register()">REMOVE USER</md-button></td>
+                                            <td align="center"><md-button class="md-raised md-primary" ng-click="register()">STATS</md-button></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="Pending applications">
+                        <md-content>
+                            Pending applications go here.
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="Category statistics">
+                        <md-content>
+                            Some stat data goes here.
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

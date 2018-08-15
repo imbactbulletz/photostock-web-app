@@ -51,3 +51,13 @@ div .error {
     font-size: 12px;
     margin-bottom: 20px;
 }
+
+/* centers content*/
+.dashboard_container {
+    padding: 15px 25px;
+    width: 80%;
+    max-width: 2000px;
+    left: 50%;top: 50%;
+
+}
+

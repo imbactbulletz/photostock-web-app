@@ -39,6 +39,15 @@ app.config(function ($routeProvider) {
             templateUrl: "user/regular/sent_password.html"
         })
 
+        .when("/operator_dashboard",{
+            templateUrl: "user/operator/dashboard.html",
+            controller: "OperatorController"
+        })
+
+        .when("/setup_initial_settings",{
+            templateUrl: "user/operator/setup_initial_settings.html",
+            controller: "OperatorController"
+        })
 
         .otherwise({
             redirectTo: "/"

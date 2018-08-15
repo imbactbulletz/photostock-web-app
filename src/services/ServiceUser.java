@@ -30,5 +30,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.getUser(username);
     }
 
+    @Override
+    public boolean changePassword(User user) {
+        return this.dao.changePassword(user);
+    }
+
 
 }

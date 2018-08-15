@@ -62,7 +62,13 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             }
 
             else if (returned_value.account_type === "operator") {
-                alert("You've logged in with an operator account!");
+                if( returned_value.account_status === "unverified"){
+                    $location.path("/setup_initial_settings");
+                }
+
+                else {
+                    $location.path("/operator_dashboard")
+                }
             }
 
             // saving user to rootScope
@@ -94,7 +100,6 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
         });
     };
 
-
     $scope.sendPassword = function(){
 
         var username = angular.copy($scope.forgottenUsername);
@@ -111,7 +116,7 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
                 return;
             }
             else{
-                $location.path("/sent_password")
+                $location.path("/sent_password");
             }
         });
     };
