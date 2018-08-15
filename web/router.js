@@ -23,6 +23,23 @@ app.config(function ($routeProvider) {
             controller: "GuestController"
         })
 
+        .when("/registration_successful_individual", {
+            templateUrl: "guest/registration_successful_individual.html"
+        })
+
+        .when("/registration_successful_company", {
+            templateUrl: "guest/registration_successful_company.html"
+        })
+
+        .when("/unverified_account",{
+            templateUrl: "user/regular/unverified_account.html"
+        })
+
+        .when("/sent_password",{
+            templateUrl: "user/regular/sent_password.html"
+        })
+
+
         .otherwise({
             redirectTo: "/"
         });

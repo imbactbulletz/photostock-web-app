@@ -15,5 +15,9 @@ app.factory('GuestService', ['$http', function($http){
         return $http.post("http://localhost:8080/Photostock/rest/company/register", company);
     };
 
+    service.sendPassword = function(username){
+        return $http.get("http://localhost:8080/Photostock/rest/user/sendPassword=" + username);
+    };
+
     return service;
 }]);

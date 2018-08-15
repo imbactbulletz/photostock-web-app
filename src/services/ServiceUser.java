@@ -19,4 +19,16 @@ public class ServiceUser implements IServiceUser{
     public User register(User user) {
         return this.dao.register(user);
     }
+
+    @Override
+    public boolean activate(String username) {
+        return this.dao.activate(username);
+    }
+
+    @Override
+    public User getUser(String username) {
+        return this.dao.getUser(username);
+    }
+
+
 }

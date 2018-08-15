@@ -39,6 +39,12 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             }
 
             if (returned_value.account_type === "regular") {
+
+                if(returned_value.account_status === "unverified"){
+                    $location.path("/unverified_account");
+                    return;
+                }
+
                 alert("You've logged in with a regular account!");
             }
 
@@ -76,20 +82,38 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
         GuestService.register(user).then(function(response){
             var returned_value = response.data;
 
+
             // failed registration
-            if(returned_value == null){
-                alert("Registration failed.");
-                $scope.registrationError = true;
+            if(returned_value == ""){ // empty 204 no content
+                $scope.registrationErrorMessage = "User with such username/e-mail already exists.";
             }
             else{
-                alert("You have successfully registered!");
-                // saving the user to rootScope
-                $rootScope.user = response.data;
+                $location.path("/registration_successful_individual");
             }
         });
     };
 
 
+    $scope.sendPassword = function(){
+
+        var username = angular.copy($scope.forgottenUsername);
+
+        if(username === undefined){
+            $scope.forgottenPasswordErrorMessage = "Please enter a username.";
+            return;
+        }
+
+        GuestService.sendPassword(username).then(function(response){
+            var returned_value = response.data;
+            if(returned_value == null){
+                $scope.forgottenPasswordErrorMessage = "No such username has been found.";
+                return;
+            }
+            else{
+                $location.path("/sent_password")
+            }
+        });
+    };
 
 
     $scope.registerCompany = function(){
@@ -102,18 +126,17 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             || company.name == "" || company.membership == "" || company.pib == ""){
             return;
         }
-        alert("ALERT ZENERAAAAAAAAAAAL");
 
         GuestService.registerCompany(company).then(function(response){
            var returned_value = response.data;
 
-           if(returned_value == null){
-               $scope.registrationCompanyerror = true;
-               alert("Registration failed.");
+
+           if(returned_value == undefined || returned_value == ""){
+               $scope.registrationCompanyErrorMessage = "Company with such name/PIB already exists.";
            }
 
            else{
-               alert("Now you need to wait for operator to approve your membership!");
+               $location.path("/registration_successful_company");
            }
 
         });

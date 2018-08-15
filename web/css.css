@@ -45,3 +45,9 @@ md-content {
     font-size: 12px;
     margin-bottom: 20px;
 }
+
+div .error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
