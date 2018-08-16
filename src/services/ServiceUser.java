@@ -42,5 +42,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.getAllUsers();
     }
 
+    @Override
+    public boolean deleteUser(String username) {
+        return this.dao.deleteUser(username);
+    }
+
 
 }

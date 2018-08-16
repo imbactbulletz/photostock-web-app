@@ -12,28 +12,28 @@
                                     <table md-data-table>
                                         <thead md-trim-column-names>
                                             <tr>
-                                                <th>#</th>
-                                                <th>Username</th>
-                                                <th>Password</th>
-                                                <th>E-mail</th>
-                                                <th>Country</th>
-                                                <th>Account type</th>
-                                                <th>Account status</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th width="5%">#</th>
+                                                <th width="12%">Username</th>
+                                                <th width="10%">Password</th>
+                                                <th width="15%">E-mail</th>
+                                                <th width="10%">Country</th>
+                                                <th width="13%">Account type</th>
+                                                <th width="13%">Account status</th>
+                                                <th width="10%"></th>
+                                                <th width="12%"></th>
                                             </tr>
                                         </thead>
                                         <tbody ng-repeat="uzer in $root.users">
                                         <tr align="center" ng-if="uzer.account_type != 'administrator' && uzer.username != user.username">
-                                            <td align="center">{{ $index + 1}}</td>
-                                            <td align="center">{{ uzer.username}}</td>
-                                            <td align="center">{{ uzer.password}}</td>
-                                            <td align="center">{{ uzer.email}}</td>
-                                            <td align="center">{{ uzer.country}}</td>
-                                            <td align="center">{{ uzer.account_type}}</td>
-                                            <td align="center">{{ uzer.account_status}}</td>
-                                            <td align="center"><md-button class="md-raised md-primary" ng-click="" name="{{uzer.username}}" >REMOVE USER</md-button></td>
-                                            <td align="center"><md-button class="md-raised md-primary" ng-click="" name="{{uzer.username}}">STATS</md-button></td>
+                                            <td>{{ $index + 1}}</td>
+                                            <td>{{ uzer.username}}</td>
+                                            <td>{{ uzer.password}}</td>
+                                            <td>{{ uzer.email}}</td>
+                                            <td>{{ uzer.country}}</td>
+                                            <td>{{ uzer.account_type}}</td>
+                                            <td>{{ uzer.account_status}}</td>
+                                            <td><md-button class="md-raised md-primary" ng-click="">STATS</md-button></td>
+                                            <td><md-button class="md-accent md-raised md-hue-3" ng-click="removeUser(uzer.username)">REMOVE</md-button></td>
                                         </tr>
                                         </tbody>
                                     </table>

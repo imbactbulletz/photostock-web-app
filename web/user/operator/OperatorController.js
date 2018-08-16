@@ -31,4 +31,27 @@ app.controller("OperatorController", ['$scope', 'OperatorService', '$location', 
         });
     };
 
+    $scope.removeUser = function(username){
+
+        if(username === undefined){
+            alert("Could not delete user. No username exists.");
+        }
+
+        OperatorService.removeUser(username).then(function(response){
+            var returned_value = response.data;
+
+
+            if(returned_value == true){
+                //calling service to get all users
+                OperatorService.getAllUsers().then(function(response){
+                    $rootScope.users = response.data;
+                });
+            }
+
+            else {
+                alert("There was an error deleting the user.");
+            }
+        });
+
+    };
 }]);

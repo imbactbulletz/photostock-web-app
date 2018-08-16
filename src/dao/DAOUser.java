@@ -17,6 +17,7 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
     private final String GET_USER = "SELECT * FROM USER WHERE USERNAME = \"%s\"";
     private final String CHANGE_PASSWORD = "UPDATE USER SET PASSWORD = \"%s\", ACCOUNT_STATUS = 'active' WHERE USERNAME = \"%s\"";
     private final String GET_ALL_USERS = "SELECT * FROM USER";
+    private final String DELETE_USER = "DELETE FROM USER WHERE USERNAME = \"%s\"";
 
     public DAOUser() {
         super(User.class);
@@ -207,4 +208,33 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
         }
 
     }
+
+    @Override
+    public boolean deleteUser(String username) {
+        Connection connection = createConnection();
+
+        if(connection == null || username == null){
+            return false;
+        }
+
+        String query = String.format(DELETE_USER, username);
+
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0){
+                return false;
+            }
+            else
+                return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }

@@ -32,20 +32,20 @@
             Photostock
         </md-nav-item>
         <span flex></span>
-        <md-nav-item ng-hide="$root.user" md-nav-click="goto('login')" name="page2">
+        <md-nav-item ng-hide="$root.user" md-nav-click="goto('login')" name="login">
             Login
         </md-nav-item>
 
-        <md-nav-item ng-hide="$root.user" md-nav-click="goto('register')" name="page3">
+        <md-nav-item ng-hide="$root.user" md-nav-click="goto('register')" name="register">
             Register
         </md-nav-item>
 
 
-        <md-nav-item ng-show="$root.user" md-nav-click="goto('register')" name="page3">
+        <md-nav-item ng-if="$root.user.account_type == 'operator'" md-nav-click="goto('operator_settings')" name="settings">
             Settings
         </md-nav-item>
 
-        <md-nav-item ng-show="$root.user" md-nav-click="goto('register')" name="page3">
+        <md-nav-item ng-show="$root.user" md-nav-click="goto('register')" name="logout">
             Logout
         </md-nav-item>
 

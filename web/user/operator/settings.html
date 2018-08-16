@@ -1,0 +1,40 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Settings</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <form name="changePasswordForm" role="form" ng-submit="forgotPassword()" novalidate>
+
+
+                    <div layout="row" layout-align="start center">
+                        <p>Password:</p> &nbsp&nbsp&nbsp
+                        <md-input-container md-no-float>
+                            <input type="password" required size="50" ng-model="user.password" name="password" placeholder="Password">
+                            <div ng-messages="changePasswordForm.password.$error">
+                                <div ng-message="required">
+                                    Please enter a password.
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div class="error" align="center"> {{changePasswordErrorMessage}} </div>
+
+                    <div layout="row" layout-align="center">
+                        <md-button class="md-raised md-primary capitalized" ng-click="changePassword()">Submit
+                        </md-button>
+
+                    </div>
+                </form>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

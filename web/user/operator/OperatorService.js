@@ -11,5 +11,9 @@ app.factory('OperatorService', ['$http', function($http){
         return $http.post("http://localhost:8080/Photostock/rest/user/getAllUsers");
     };
 
+    service.removeUser = function(username){
+        return $http.post("http://localhost:8080/Photostock/rest/user/deleteUser", username);
+    };
+
     return service;
 }]);

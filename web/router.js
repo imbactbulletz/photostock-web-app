@@ -49,6 +49,11 @@ app.config(function ($routeProvider) {
             controller: "OperatorController"
         })
 
+        .when("/operator_settings",{
+            templateUrl: "user/operator/settings.html",
+            controller: "OperatorController"
+        })
+
         .otherwise({
             redirectTo: "/"
         });

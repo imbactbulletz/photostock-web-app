@@ -112,4 +112,12 @@ public class ControllerUser {
     public List<User> getAllUsers(){
         return this.service.getAllUsers();
     }
+
+    @POST
+    @Path("/deleteUser")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public boolean deleteUser(String username){
+        return this.service.deleteUser(username);
+    }
 }

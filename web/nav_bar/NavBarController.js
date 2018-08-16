@@ -14,6 +14,10 @@ app.controller("NavBarController", ['$scope', '$location', function ($scope, $lo
                 $location.path("/register");
                 break;
 
+            case "operator_settings":
+                $location.path("/operator_settings");
+                break;
+
             default:
                 $location.path("/");
         }
