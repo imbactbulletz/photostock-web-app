@@ -62,6 +62,7 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             }
 
             else if (returned_value.account_type === "operator") {
+
                 if( returned_value.account_status === "unverified"){
                     $location.path("/setup_initial_settings");
                 }

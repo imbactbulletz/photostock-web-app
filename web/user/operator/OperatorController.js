@@ -1,6 +1,13 @@
 var app = angular.module("photostock-app");
 
-app.controller("OperatorController", ['$scope', 'OperatorService', '$location', function($scope, OperatorService, $location){
+app.controller("OperatorController", ['$scope', 'OperatorService', '$location', '$rootScope', function($scope, OperatorService, $location, $rootScope){
+
+
+    //calling service to get all users
+    OperatorService.getAllUsers().then(function(response){
+        $rootScope.users = response.data;
+    });
+
 
     $scope.changePassword = function(){
 
@@ -18,6 +25,7 @@ app.controller("OperatorController", ['$scope', 'OperatorService', '$location', 
                 return;
             }
             else{
+
                 $location.path("/operator_dashboard");
             }
         });

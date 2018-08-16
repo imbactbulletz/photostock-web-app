@@ -7,5 +7,9 @@ app.factory('OperatorService', ['$http', function($http){
         return $http.post("http://localhost:8080/Photostock/rest/user/changePassword", user);
     };
 
+    service.getAllUsers = function(){
+        return $http.post("http://localhost:8080/Photostock/rest/user/getAllUsers");
+    };
+
     return service;
 }]);

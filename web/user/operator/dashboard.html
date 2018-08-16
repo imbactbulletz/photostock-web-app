@@ -23,17 +23,17 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr align="center">
-                                            <td align="center">1</td>
-                                            <td align="center">stefan</td>
-                                            <td align="center">stefan</td>
-                                            <td align="center">cveticstefancpl@gmail.com</td>
-                                            <td align="center">Serbia</td>
-                                            <td align="center">administrator</td>
-                                            <td align="center">active</td>
-                                            <td align="center"><md-button class="md-raised md-primary" ng-click="register()">REMOVE USER</md-button></td>
-                                            <td align="center"><md-button class="md-raised md-primary" ng-click="register()">STATS</md-button></td>
+                                        <tbody ng-repeat="uzer in $root.users">
+                                        <tr align="center" ng-if="uzer.account_type != 'administrator' && uzer.username != user.username">
+                                            <td align="center">{{ $index + 1}}</td>
+                                            <td align="center">{{ uzer.username}}</td>
+                                            <td align="center">{{ uzer.password}}</td>
+                                            <td align="center">{{ uzer.email}}</td>
+                                            <td align="center">{{ uzer.country}}</td>
+                                            <td align="center">{{ uzer.account_type}}</td>
+                                            <td align="center">{{ uzer.account_status}}</td>
+                                            <td align="center"><md-button class="md-raised md-primary" ng-click="" name="{{uzer.username}}" >REMOVE USER</md-button></td>
+                                            <td align="center"><md-button class="md-raised md-primary" ng-click="" name="{{uzer.username}}">STATS</md-button></td>
                                         </tr>
                                         </tbody>
                                     </table>
