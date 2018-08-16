@@ -61,7 +61,8 @@ app.controller("AdministratorController", ['$scope', 'AdministratorService', 'Op
 
         if(user === undefined || user.username === undefined || user.password === undefined ||
             user.email === undefined || user.username == "" || user.password == "" || user.email == ""){
-            addOperatorErrorMessage = "Please fill out all the fields.";
+            $scope.addOperatorErrorMessage = "Please fill out all the fields.";
+            return;
         }
 
         AdministratorService.addUser(user).then(function(){

@@ -39,13 +39,11 @@
                                                 </md-input-container>
                                             </div>
 
-                                            <div class="error" align="center"> {{addOperatorErrorMessage}} </div>
 
-                                            <div layout="row" layout-align="center">
+                                            <div class="button-div" layout="row" layout-align="center">
                                                 <md-button type="submit" class="md-raised md-primary capitalized">Add Operator</md-button>
-
-
                                             </div>
+                                            <div class="error" align="center" ng-show="addOperatorErrorMessage">{{addOperatorErrorMessage}}</div>
                                         </form>
                                     </md-card-content>
 
