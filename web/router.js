@@ -54,6 +54,12 @@ app.config(function ($routeProvider) {
             controller: "OperatorController"
         })
 
+
+        .when("/administrator_dashboard",{
+            templateUrl: "user/administrator/dashboard.html",
+            controller: "AdministratorController"
+        })
+
         .otherwise({
             redirectTo: "/"
         });

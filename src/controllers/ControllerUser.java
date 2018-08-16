@@ -120,4 +120,12 @@ public class ControllerUser {
     public boolean deleteUser(String username){
         return this.service.deleteUser(username);
     }
+
+    @POST
+    @Path("/addUser")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public boolean addUser(User user){
+        return this.service.addUser(user);
+    }
 }

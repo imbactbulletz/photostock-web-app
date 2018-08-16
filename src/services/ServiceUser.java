@@ -47,5 +47,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.deleteUser(username);
     }
 
+    @Override
+    public boolean addUser(User user) {
+        return this.dao.addUser(user);
+    }
+
 
 }

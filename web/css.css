@@ -60,3 +60,20 @@ div .error {
     left: 50%;top: 50%;
 
 }
+
+input {
+    max-height: 20px;
+}
+
+md-input-container {
+    display: inline-block;
+    position: relative;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 1px 0;
+    vertical-align: middle;
+    /*
+     * The .md-input class is added to the input/textarea
+     */ }

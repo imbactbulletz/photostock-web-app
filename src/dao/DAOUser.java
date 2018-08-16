@@ -18,7 +18,7 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
     private final String CHANGE_PASSWORD = "UPDATE USER SET PASSWORD = \"%s\", ACCOUNT_STATUS = 'active' WHERE USERNAME = \"%s\"";
     private final String GET_ALL_USERS = "SELECT * FROM USER";
     private final String DELETE_USER = "DELETE FROM USER WHERE USERNAME = \"%s\"";
-
+    private final String ADD_OPERATOR = "INSERT INTO USER (USERNAME,PASSWORD,EMAIL,COUNTRY, ACCOUNT_TYPE) VALUES ( \"%s\", \"%s\", \"%s\", \"%s\", 'operator')";
     public DAOUser() {
         super(User.class);
     }
@@ -231,6 +231,47 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
                 return true;
         }
         catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addUser(User user) {
+        Connection connection = createConnection();
+
+        // validation
+        if (connection == null || user.getUsername() == null || user.getPassword() == null || user.getEmail() == null || user.getUsername().equals("")
+                || user.getPassword().equals("") || user.getEmail().equals("")) {
+
+            return false;
+        }
+
+        // validating the non-required parameters
+        if (user.getCountry() == null) {
+            user.setCountry("");
+        }
+
+        String query = String.format(ADD_OPERATOR, user.getUsername(), user.getPassword(), user.getEmail(), user.getCountry());
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            connection.close();
+
+
+            // table didn't change
+            if (result == 0) {
+                return false;
+            }
+
+            //  table changed, logging the user in and returning the full object
+            else {
+                return true;
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

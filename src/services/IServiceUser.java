@@ -12,4 +12,5 @@ public interface IServiceUser {
     boolean changePassword(User user);
     List<User> getAllUsers();
     boolean deleteUser(String username);
+    boolean addUser(User user);
 }

@@ -1,0 +1,103 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="dashboard_container">
+
+            <md-card-content>
+                <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+                    <md-tab label="Manage elevated accounts">
+                        <md-content>
+                            <div layout-align="center">
+                                <md-card>
+                                    <md-card-content>
+                                        <form role="form" name="addOperatorForm" ng-submit="addOperator()" novalidate>
+                                            <div layout="column" layout-align="start center">
+                                                <md-input-container md-no-float>
+                                                    <input required size="50" ng-model="tmp_operator.username" name="username" placeholder="Username">
+                                                    <div ng-messages="addOperatorForm.username.$error">
+                                                        <div ng-message="required">
+                                                            Please enter a username.
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+                                                <md-input-container md-no-float>
+                                                    <input required type="password" size="50" ng-model="tmp_operator.password" name="password" placeholder="Password">
+                                                    <div ng-messages="addOperatorForm.password.$error" role="alert">
+                                                        <div ng-message="required">
+                                                            Please enter a password.
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+
+                                                <md-input-container md-no-float>
+                                                    <input required type="email" size="50" ng-model="tmp_operator.email" name="email" placeholder="E-mail">
+                                                    <div ng-messages="addOperatorForm.password.$error" role="alert">
+                                                        <div ng-message="required">
+                                                            Please enter an e-mail.
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+                                            <div class="error" align="center"> {{addOperatorErrorMessage}} </div>
+
+                                            <div layout="row" layout-align="center">
+                                                <md-button type="submit" class="md-raised md-primary capitalized">Add Operator</md-button>
+
+
+                                            </div>
+                                        </form>
+                                    </md-card-content>
+
+                                </md-card>
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                        <tr>
+                                            <th width="5%">#</th>
+                                            <th width="12%">Username</th>
+                                            <th width="10%">Password</th>
+                                            <th width="15%">E-mail</th>
+                                            <th width="10%">Country</th>
+                                            <th width="13%">Account type</th>
+                                            <th width="13%">Account status</th>
+                                            <th width="10%"></th>
+                                            <th width="12%"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="uzer in $root.users">
+                                        <tr align="center" ng-if="(uzer.account_type == 'administrator' || uzer.account_type == 'operator' || uzer.account_type == 'moderator') &&  uzer.username != user.username">
+                                            <td>{{ $index + 1}}</td>
+                                            <td>{{ uzer.username}}</td>
+                                            <td>{{ uzer.password}}</td>
+                                            <td>{{ uzer.email}}</td>
+                                            <td>{{ uzer.country}}</td>
+                                            <td>{{ uzer.account_type}}</td>
+                                            <td>{{ uzer.account_status}}</td>
+                                            <td><md-button class="md-raised md-primary" ng-click="">STATS</md-button></td>
+                                            <td><md-button class="md-accent md-raised md-hue-3" ng-click="removeUser(uzer.username)">REMOVE</md-button></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="Pending applications">
+                        <md-content>
+                            Pending applications go here.
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="Category statistics">
+                        <md-content>
+                            Some stat data goes here.
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

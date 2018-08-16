@@ -1,6 +1,6 @@
 var app = angular.module("photostock-app");
 
-app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService', '$location', '$rootScope', function($scope, OperatorService, UserService, $location, $rootScope){
+app.controller("AdministratorController", ['$scope', 'AdministratorService', 'OperatorService', 'UserService', '$location', '$rootScope', function($scope, AdministratorService, OperatorService, UserService, $location, $rootScope){
 
 
     //calling service to get all users
@@ -17,7 +17,7 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
             return;
         }
 
-        UserService.changePassword(user).then(function(response){
+        OperatorService.changePassword(user).then(function(response){
             var returned_value = response.data;
 
             if(returned_value == null || returned_value == false){
@@ -51,6 +51,23 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
             else {
                 alert("There was an error deleting the user.");
             }
+        });
+
+    };
+
+    $scope.addOperator = function(){
+
+        var user = angular.copy($scope.tmp_operator);
+
+        if(user === undefined || user.username === undefined || user.password === undefined ||
+            user.email === undefined || user.username == "" || user.password == "" || user.email == ""){
+            addOperatorErrorMessage = "Please fill out all the fields.";
+        }
+
+        AdministratorService.addUser(user).then(function(){
+            OperatorService.getAllUsers().then(function(response){
+                $rootScope.users = response.data;
+            });
         });
 
     };

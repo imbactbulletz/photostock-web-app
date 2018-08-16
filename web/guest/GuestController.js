@@ -39,6 +39,10 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
                 return;
             }
 
+
+            // saving user to rootScope
+            $rootScope.user = response.data;
+
             if (returned_value.account_type === "regular") {
 
                 if(returned_value.account_status === "unverified"){
@@ -58,7 +62,7 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             }
 
             else if (returned_value.account_type === "administrator") {
-                alert("You've logged in with an administrator account!");
+                $location.path("/administrator_dashboard")
             }
 
             else if (returned_value.account_type === "operator") {
@@ -71,9 +75,6 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
                     $location.path("/operator_dashboard")
                 }
             }
-
-            // saving user to rootScope
-            $rootScope.user = response.data;
         });
     };
 
