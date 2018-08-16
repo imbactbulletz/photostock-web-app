@@ -5,8 +5,10 @@ import entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
+public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
 
     // Queries
     private final String LOGIN = "SELECT * FROM USER WHERE USERNAME = \"%s\" AND PASSWORD = \"%s\"";
@@ -14,6 +16,7 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
     private final String ACTIVATE = "UPDATE USER SET ACCOUNT_STATUS = \"active\" WHERE USERNAME = \"%s\" and ACCOUNT_STATUS = \"unverified\"";
     private final String GET_USER = "SELECT * FROM USER WHERE USERNAME = \"%s\"";
     private final String CHANGE_PASSWORD = "UPDATE USER SET PASSWORD = \"%s\", ACCOUNT_STATUS = 'active' WHERE USERNAME = \"%s\"";
+    private final String GET_ALL_USERS = "SELECT * FROM USER";
 
     public DAOUser() {
         super(User.class);
@@ -25,29 +28,26 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
         User result = null;
 
         // validation
-        if(connection == null || user.getUsername() == null || user.getPassword() == null || user.getUsername().equals("")
-        || user.getPassword().equals("")){
+        if (connection == null || user.getUsername() == null || user.getPassword() == null || user.getUsername().equals("")
+                || user.getPassword().equals("")) {
 
             return null;
         }
 
         String query = String.format(LOGIN, user.getUsername(), user.getPassword());
 
-        try{
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next() == false) {
                 connection.close();
                 return null;
-            }
-
-            else{
+            } else {
                 result = readFromResultSet(resultSet);
                 connection.close();
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -59,20 +59,20 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
         Connection connection = createConnection();
 
         // validation
-        if(connection == null || user.getUsername() == null || user.getPassword() == null || user.getEmail() == null || user.getUsername().equals("")
-                || user.getPassword().equals("") || user.getEmail().equals("")){
+        if (connection == null || user.getUsername() == null || user.getPassword() == null || user.getEmail() == null || user.getUsername().equals("")
+                || user.getPassword().equals("") || user.getEmail().equals("")) {
 
             return null;
         }
 
         // validating the non-required parameters
-        if(user.getCountry() == null){
+        if (user.getCountry() == null) {
             user.setCountry("");
         }
 
         String query = String.format(REGISTER, user.getUsername(), user.getPassword(), user.getEmail(), user.getCountry());
 
-        try{
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             int result = preparedStatement.executeUpdate();
 
@@ -85,12 +85,11 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
             }
 
             //  table changed, logging the user in and returning the full object
-            else{
+            else {
                 return this.login(user);
             }
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -101,26 +100,24 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
         Connection connection = createConnection();
 
         // validating data
-        if(connection == null || username == null){
+        if (connection == null || username == null) {
             return false;
         }
 
         String query = String.format(ACTIVATE, username);
 
 
-        try{
-           PreparedStatement preparedStatement = connection.prepareStatement(query);
-           preparedStatement.executeUpdate();
-           int resultSet = preparedStatement.getUpdateCount();
-           connection.close();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.executeUpdate();
+            int resultSet = preparedStatement.getUpdateCount();
+            connection.close();
 
-           if(resultSet == 0){
-               return false;
-           }
-           else
-               return true;
-        }
-        catch(Exception e){
+            if (resultSet == 0) {
+                return false;
+            } else
+                return true;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -130,25 +127,24 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
     public User getUser(String username) {
         Connection connection = createConnection();
 
-        if(connection == null || username == null){
+        if (connection == null || username == null) {
             return null;
         }
 
         String query = String.format(GET_USER, username);
 
-        try{
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if(resultSet.next() == false){
+            if (resultSet.next() == false) {
                 connection.close();
                 return null;
             }
 
             // returns the User from RS
             return readFromResultSet(resultSet);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -160,29 +156,55 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser{
         Connection connection = createConnection();
 
         // validating data
-        if(connection == null || user == null | user.getUsername() == null || user.getPassword() == null){
+        if (connection == null || user == null | user.getUsername() == null || user.getPassword() == null) {
             return false;
         }
 
         String query = String.format(CHANGE_PASSWORD, user.getPassword(), user.getUsername());
 
-        System.out.println(query);
 
-        try{
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
             int resultSet = preparedStatement.getUpdateCount();
             connection.close();
 
-            if(resultSet == 0){
+            if (resultSet == 0) {
                 return false;
-            }
-            else
+            } else
                 return true;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        Connection connection = createConnection();
+        List<User> users = new ArrayList<User>();
+
+        if (connection == null) {
+            return null;
+        }
+
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_USERS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            while (resultSet.next()) {
+                users.add(readFromResultSet(resultSet));
+            }
+
+            connection.close();
+            return users;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }

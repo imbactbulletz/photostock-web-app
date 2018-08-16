@@ -3,6 +3,8 @@ package services;
 import dao.DAOUser;
 import entities.User;
 
+import java.util.List;
+
 public class ServiceUser implements IServiceUser{
     protected DAOUser dao;
 
@@ -33,6 +35,11 @@ public class ServiceUser implements IServiceUser{
     @Override
     public boolean changePassword(User user) {
         return this.dao.changePassword(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return this.dao.getAllUsers();
     }
 
 

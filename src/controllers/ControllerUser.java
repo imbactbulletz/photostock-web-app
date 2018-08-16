@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.List;
 
 @Path("/user")
 public class ControllerUser {
@@ -103,5 +104,12 @@ public class ControllerUser {
     @Produces("application/json")
     public boolean changePassword(User user){
         return this.service.changePassword(user);
+    }
+
+    @POST
+    @Path("/getAllUsers")
+    @Produces("application/json")
+    public List<User> getAllUsers(){
+        return this.service.getAllUsers();
     }
 }
