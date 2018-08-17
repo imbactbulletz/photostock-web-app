@@ -1,3 +1,4 @@
+import controllers.ControllerApplication;
 import controllers.ControllerCompany;
 import controllers.ControllerUser;
 
@@ -15,6 +16,7 @@ public class PhotostockRESTApp extends Application{
 
         classes.add(ControllerUser.class);
         classes.add(ControllerCompany.class);
+        classes.add(ControllerApplication.class);
         return classes;
     }
 }

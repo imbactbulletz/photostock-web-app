@@ -273,6 +273,7 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
 
         } catch (Exception e) {
             e.printStackTrace();
+            closeConnection(connection);
             return false;
         }
     }
