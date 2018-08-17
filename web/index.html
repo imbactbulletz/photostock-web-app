@@ -40,6 +40,9 @@
             Register
         </md-nav-item>
 
+        <md-nav-item ng-if="$root.user.account_type == 'regular' && $root.user.account_status == 'active'" md-nav-click="goto('application')" name="application">
+            Apply as a Vendor
+        </md-nav-item>
 
         <md-nav-item ng-if="$root.user.account_type == 'operator'" md-nav-click="goto('operator_settings')" name="settings">
             Settings

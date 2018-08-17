@@ -64,7 +64,7 @@
                                         </tr>
                                         </thead>
                                         <tbody ng-repeat="uzer in $root.users">
-                                        <tr align="center" ng-if="(uzer.account_type == 'administrator' || uzer.account_type == 'operator' || uzer.account_type == 'moderator') &&  uzer.username != user.username">
+                                        <tr align="center" ng-if="uzer.username != user.username">
                                             <td>{{ $index + 1}}</td>
                                             <td>{{ uzer.username}}</td>
                                             <td>{{ uzer.password}}</td>
