@@ -1,0 +1,28 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Vendor Application</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <div layout="column" align="center">
+                    Before becoming a vendor we need you to upload 10 photos so we can review them.
+                    <br><br>
+                    <form name="applicationForm" ng-submit="uploadTestPhotos()">
+                    <input onchange="angular.element(this).scope().setPhotos(this.files)" type="file" class="inp-file" multiple accept="image/*">
+                    <br><br>
+                    <md-button type="submit" class="md-raised md-primary capitalized">Submit</md-button>
+
+                    </form>
+                </div>
+
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

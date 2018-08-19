@@ -55,6 +55,15 @@ app.config(function ($routeProvider) {
         })
 
 
+        .when("/application",{
+            templateUrl: "user/regular/application.html",
+            controller: "RegularUserController"
+        })
+
+        .when("/sent_application",{
+            templateUrl: "user/regular/sent_application.html"
+        })
+
         .when("/administrator_dashboard",{
             templateUrl: "user/administrator/dashboard.html",
             controller: "AdministratorController"

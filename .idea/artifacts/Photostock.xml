@@ -18,6 +18,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/lib/jboss-jaxrs-api_2.0_spec-1.0.1.Final.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/lib/jboss-jaxrs-api_2.1_spec-1.0.0.Final.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/web/lib/mysql-connector-java-5.1.37-bin.jar" />
+          <element id="library" level="project" name="org.jboss.resteasy:resteasy-multipart-provider:2.2.3.GA" />
         </element>
       </element>
     </root>

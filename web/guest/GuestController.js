@@ -1,6 +1,6 @@
 var app = angular.module("photostock-app");
 
-app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestService', function ($scope, $rootScope, $location, GuestService) {
+app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestService', 'UserService', function ($scope, $rootScope, $location, GuestService, UserService) {
     // navigate through navbar
     $scope.goto = function (page) {
         alert("opened");
@@ -48,6 +48,23 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
                 if(returned_value.account_status === "unverified"){
                     $location.path("/unverified_account");
                     return;
+                }
+
+                // checking for user apps
+                else{
+                    var username = angular.copy($scope.user.username);
+
+                    UserService.hasPendingApplication(username).then(function(response){
+                        var returned_value = response.data;
+
+                        if(returned_value){
+                            $rootScope.user.pending_application = true;
+                        }
+
+                        else {
+                            $rootScope.user.pending_application = false;
+                        }
+                    });
                 }
 
                 alert("You've logged in with a regular account!");

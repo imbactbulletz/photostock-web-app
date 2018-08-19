@@ -78,3 +78,8 @@ md-input-container {
      * The .md-input class is added to the input/textarea
      */ }
 
+.inp-file {
+
+    margin: 0 0 0 10px;
+
+}

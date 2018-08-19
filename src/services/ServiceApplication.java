@@ -13,4 +13,14 @@ public class ServiceApplication implements IServiceApplication{
     public boolean makeApplication(String applicant) {
         return this.dao.makeApplication(applicant);
     }
+
+    @Override
+    public boolean hasPendingApplication(String applicant) {
+        return this.dao.hasPendingApplication(applicant);
+    }
+
+    @Override
+    public String getApplicationID(String applicant) {
+        return this.dao.getApplicationID(applicant);
+    }
 }

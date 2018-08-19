@@ -136,5 +136,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="org.jboss.resteasy:resteasy-multipart-provider:2.2.3.GA" level="project" />
   </component>
 </module>

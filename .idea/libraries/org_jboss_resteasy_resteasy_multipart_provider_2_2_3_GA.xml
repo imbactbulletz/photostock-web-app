@@ -1,0 +1,29 @@
+<component name="libraryTable">
+  <library name="org.jboss.resteasy:resteasy-multipart-provider:2.2.3.GA" type="repository">
+    <properties maven-id="org.jboss.resteasy:resteasy-multipart-provider:2.2.3.GA" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/resteasy-multipart-provider-2.2.3.GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resteasy-jaxrs-2.2.3.GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxrs-api-2.2.3.GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/scannotation-1.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javassist-3.12.1.GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsr250-api-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/activation-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-httpclient-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpclient-4.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpcore-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jcip-annotations-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/resteasy-jaxb-provider-2.2.3.GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-impl-2.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxb-api-2.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/sjsxp-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/stax-api-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mail-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/apache-mime4j-0.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

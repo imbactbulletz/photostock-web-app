@@ -11,6 +11,7 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
     //Queries
     private final String MAKE_APP = "INSERT INTO APPLICATION (APPLICANT) VALUES (\"%s\")";
     private final String GET_PENDING_APPS_FOR_APPLICANT = "SELECT * FROM APPLICATION WHERE APPLICANT = \"%s\" AND STATUS = 'pending'";
+    private final String GET_APPLICATION_ID = "SELECT ID FROM APPLICATION WHERE APPLICANT = \"%s\" AND STATUS = 'pending'";
 
     public DAOApplication(){
         super(Application.class);
@@ -60,6 +61,76 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
             e.printStackTrace();
             closeConnection(connection);
             return false;
+        }
+    }
+
+
+    // checks if pending applications exist for a given applicant
+    @Override
+    public boolean hasPendingApplication(String applicant) {
+        Connection connection = createConnection();
+
+        if(connection == null || applicant == null) {
+            return false;
+        }
+
+        // checking how many PENDING applications user has - only one activation that is PENDING
+        // may exist at once in DB
+        String query = String.format(GET_PENDING_APPS_FOR_APPLICANT, applicant);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // no pending app exists
+            if(!resultSet.next()){
+                return false;
+            }
+
+            // one or more pending apps exist
+            else {
+                return true;
+            }
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            closeConnection(connection);
+            return false;
+        }
+    }
+
+    @Override
+    public String getApplicationID(String applicant) {
+        Connection connection = createConnection();
+
+        if(connection == null || applicant == null) {
+            return null;
+        }
+
+        // checking how many PENDING applications user has - only one activation that is PENDING
+        // may exist at once in DB
+        String query = String.format(GET_PENDING_APPS_FOR_APPLICANT, applicant);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // no pending app exists
+            if(!resultSet.next()){
+                return null;
+            }
+
+            // one or more pending apps exist
+            else {
+                return String.valueOf(readFromResultSet(resultSet).getId());
+            }
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            closeConnection(connection);
+            return null;
         }
     }
 }

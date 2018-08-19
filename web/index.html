@@ -40,7 +40,7 @@
             Register
         </md-nav-item>
 
-        <md-nav-item ng-if="$root.user.account_type == 'regular' && $root.user.account_status == 'active'" md-nav-click="goto('application')" name="application">
+        <md-nav-item ng-if="$root.user.account_type == 'regular' && $root.user.account_status == 'active' && $root.user.pending_application == false" md-nav-click="goto('application')" name="application">
             Apply as a Vendor
         </md-nav-item>
 
@@ -76,6 +76,9 @@
 <!-- Angular Router -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
+<!-- Angular File Model -->
+<script src='https://rawgit.com/ghostbar/angular-file-model/master/angular-file-model.js'></script>
+
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -95,6 +98,7 @@
 <script src="./nav_bar/NavBarController.js"></script>
 <script src="./guest/GuestController.js"></script>
 <script src="./user/UserService.js"></script>
+<script src="./user/regular/RegularUserController.js"></script>
 <script src="./user/operator/OperatorService.js"></script>
 <script src="./user/operator/OperatorController.js"></script>
 <script src="./user/administrator/AdministratorService.js"></script>
