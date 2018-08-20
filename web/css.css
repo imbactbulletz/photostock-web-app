@@ -23,6 +23,18 @@
 
 }
 
+/* uploaded photos container */
+.preview-container {
+    padding: 15px 25px;
+    width: auto;
+    height: 200px;
+    max-width: 900px;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;bottom: 5%;
+
+}
+
 /* aligns md-select with other input elements */
 md-select {
     margin-top: 2px;

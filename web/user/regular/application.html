@@ -17,12 +17,16 @@
                     <input onchange="angular.element(this).scope().setPhotos(this.files)" type="file" class="inp-file" multiple accept="image/*">
                     <br><br>
                     <md-button type="submit" class="md-raised md-primary capitalized">Submit</md-button>
-
                     </form>
                 </div>
 
             </md-card-content>
 
+        </md-card>
+        <md-card class="preview-container" ng-show="testPhotosURL">
+            <md-card-content>
+                <img ng-repeat="photoURL in testPhotosURL" ng-src="{{photoURL}}" width="80" height="80">
+            </md-card-content>
         </md-card>
     </div>
 </div>

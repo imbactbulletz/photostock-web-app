@@ -23,6 +23,21 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
 
 
     $scope.setPhotos = function(photos){
-        $scope.testPhotos = photos;
-    }
+        // since object is hot-swapped we need to tell angular that we swapped it
+        $scope.$apply(function(){
+            $scope.testPhotos = photos;
+            $scope.testPhotos.alertCount = $scope.testPhotos.length;
+
+
+            // converting blobs to local image URLs
+            var testPhotosURL = [];
+
+            angular.forEach($scope.testPhotos, function(entry){
+                testPhotosURL.push(URL.createObjectURL(entry));
+            });
+
+            $scope.testPhotosURL = testPhotosURL;
+
+        });
+    };
 }]);
