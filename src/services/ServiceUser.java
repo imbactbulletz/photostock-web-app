@@ -52,5 +52,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.addUser(user);
     }
 
+    @Override
+    public boolean promoteToVendor(String username) {
+        return this.dao.promoteToVendor(username);
+    }
+
 
 }

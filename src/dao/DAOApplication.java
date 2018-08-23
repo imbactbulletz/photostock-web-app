@@ -1,10 +1,13 @@
 package dao;
 
 import entities.Application;
+import utils.SafeConverter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAOApplication extends DAOAbstractDatabase<Application> implements IDAOApplication {
 
@@ -12,7 +15,8 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
     private final String MAKE_APP = "INSERT INTO APPLICATION (APPLICANT) VALUES (\"%s\")";
     private final String GET_PENDING_APPS_FOR_APPLICANT = "SELECT * FROM APPLICATION WHERE APPLICANT = \"%s\" AND STATUS = 'pending'";
     private final String GET_APPLICATION_ID = "SELECT ID FROM APPLICATION WHERE APPLICANT = \"%s\" AND STATUS = 'pending'";
-
+    private final String GET_ALL_APPLICATIONS = "SELECT * FROM APPLICATION WHERE STATUS ='pending'";
+    private final String RATE_USER = "UPDATE APPLICATION SET RATING = %s, STATUS = '%s' WHERE APPLICANT='%s'";
     public DAOApplication(){
         super(Application.class);
     }
@@ -131,6 +135,71 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
             e.printStackTrace();
             closeConnection(connection);
             return null;
+        }
+    }
+
+    @Override
+    public List<Application> getPendingApplications() {
+        Connection connection = createConnection();
+
+        if(connection == null)
+            return null;
+
+        List<Application> applications = new ArrayList<Application>();
+
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_APPLICATIONS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                Application application = readFromResultSet(resultSet);
+                applications.add(application);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return applications;
+    }
+
+    @Override
+    public boolean rateApplication(String username, String rating) {
+        Connection connection = createConnection();
+
+        if(username == null || rating == null){
+            return false;
+        }
+
+        Integer int_rating = SafeConverter.toSafeInt(rating);
+
+
+        String status;
+
+        if(int_rating > 4 ){
+            status = "approved";
+        }
+        else{
+            status = "denied";
+        }
+        String query = String.format(RATE_USER, rating, status, username);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0){
+                return false;
+            }
+
+            return true;
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 }

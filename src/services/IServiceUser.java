@@ -13,4 +13,5 @@ public interface IServiceUser {
     List<User> getAllUsers();
     boolean deleteUser(String username);
     boolean addUser(User user);
+    boolean promoteToVendor(String username);
 }

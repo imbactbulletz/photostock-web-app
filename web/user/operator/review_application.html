@@ -1,0 +1,32 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center stretch">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Review Application</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content style="max-height: 600px; overflow-y:auto;">
+                <div ng-repeat="photo in $root.application_photos">
+                    <img style="padding: 10px;" ng-src="{{'data:image/*;base64,'+photo.data}}" layout-fill>
+                </div>
+            </md-card-content>
+            <form name="rateForm" role="form" ng-submit="rateApplication()">
+            <div style="padding: 10px;" layout="column" align="center" layout-align="center start">
+                <md-input-container md-no-float>
+                        <input required type="number" size="50" ng-model="$root.rating" name="rating" placeholder="Rate user">
+                        <div ng-messages="rateForm.rating.$error">
+                            <div ng-message="required">
+                                Please enter a number from 1 to 5.
+                            </div>
+                        </div>
+                </md-input-container>
+                <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+            </div>
+            </form>
+        </md-card>
+    </div>
+</div>

@@ -8,6 +8,16 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
         $rootScope.users = response.data;
     });
 
+    OperatorService.getPendingApplications().then(function(response){
+        var pending_applications = response.data;
+
+        if(pending_applications === undefined){
+            alert("COULD NOT FETCH PENDING APPLICATIONS");
+            return;
+        }
+
+        $rootScope.pending_applications = response.data;
+    });
 
     $scope.changePassword = function(){
 
@@ -55,4 +65,35 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
 
     };
 
+    $scope.reviewApplication = function(applicant){
+          OperatorService.getApplicationPhotos(applicant).then(function(response){
+              var application_photos = response.data;
+
+              if(application_photos === undefined){
+                  alert("COULD NOT FETCH APPLICATION PHOTOS");
+                  return;
+              }
+
+              $rootScope.application_photos = application_photos;
+              $location.path("/review_application");
+              $rootScope.applicant = applicant;
+          });
+    };
+
+    $scope.rateApplication = function(){
+        var rating = $rootScope.rating;
+        var applicant = $rootScope.applicant;
+
+        OperatorService.rateApplication(applicant, rating).then(function(response){
+            var successfully_rated = response.data;
+
+            if(successfully_rated){
+                alert("You have sucessfully rated the user");
+            }
+
+            else {
+                alert("Could not rate the user!");
+            }
+        });
+    };
 }]);

@@ -55,6 +55,11 @@ app.config(function ($routeProvider) {
         })
 
 
+        .when("/review_application",{
+            templateUrl: "user/operator/review_application.html",
+            controller: "OperatorController"
+        })
+
         .when("/application",{
             templateUrl: "user/regular/application.html",
             controller: "RegularUserController"

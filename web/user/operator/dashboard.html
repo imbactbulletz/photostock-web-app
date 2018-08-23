@@ -44,7 +44,26 @@
 
                     <md-tab label="Pending applications">
                         <md-content>
-                            Pending applications go here.
+                            <div layout-align="center">
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>By</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="pending_application in $root.pending_applications">
+                                            <tr align="center">
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ pending_application.applicant }}</td>
+                                                <td><td><md-button class="md-raised md-primary" ng-click="reviewApplication(pending_application.applicant)">Review application</md-button></td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
                         </md-content>
                     </md-tab>
 

@@ -1,12 +1,10 @@
 package controllers;
 
+import entities.Application;
 import entities.ApplicationPhoto;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-import services.IServiceApplication;
-import services.IServiceApplicationPhoto;
-import services.ServiceApplication;
-import services.ServiceApplicationPhoto;
+import services.*;
 import utils.FileUtil;
 
 import javax.ws.rs.*;
@@ -21,10 +19,12 @@ import java.util.Map;
 public class ControllerApplication {
     private IServiceApplication applicationService;
     private IServiceApplicationPhoto applicationPhotoService;
+    private IServiceUser userService;
 
     public ControllerApplication(){
         this.applicationService = new ServiceApplication();
         this.applicationPhotoService = new ServiceApplicationPhoto();
+        this.userService = new ServiceUser();
     }
 
 
@@ -124,5 +124,38 @@ public class ControllerApplication {
         }
 
         return applicationPhotos;
+    }
+
+    @GET
+    @Path("/getPendingApplications")
+    @Produces("application/json")
+    public List<Application> getPendingApplications(){
+        return this.applicationService.getPendingApplications();
+    }
+
+
+    @GET
+    @Path("/rateApplication/applicant={applicant}/rating={rating}")
+    @Produces("application/json")
+    public boolean rateApplication(@PathParam("applicant") String applicant, @PathParam("rating") String rating){
+
+        if( applicant == null || rating == null){
+            return false;
+        }
+
+        boolean res = this.applicationService.rateApplication(applicant, rating);
+
+        if(!res){
+            return false;
+        }
+
+        Integer int_rating = Integer.valueOf(rating);
+
+        if(int_rating > 4){
+            this.userService.promoteToVendor(applicant);
+        }
+
+
+        return true;
     }
 }

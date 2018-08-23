@@ -13,5 +13,5 @@ public interface IDAOUser {
     List<User> getAllUsers();
     boolean deleteUser(String username);
     boolean addUser(User user);
-
+    boolean promoteToVendor(String username);
 }

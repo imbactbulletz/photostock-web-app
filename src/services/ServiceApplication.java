@@ -1,6 +1,9 @@
 package services;
 
 import dao.DAOApplication;
+import entities.Application;
+
+import java.util.List;
 
 public class ServiceApplication implements IServiceApplication{
     protected DAOApplication dao;
@@ -22,5 +25,15 @@ public class ServiceApplication implements IServiceApplication{
     @Override
     public String getApplicationID(String applicant) {
         return this.dao.getApplicationID(applicant);
+    }
+
+    @Override
+    public List<Application> getPendingApplications() {
+        return this.dao.getPendingApplications();
+    }
+
+    @Override
+    public boolean rateApplication(String username, String rating) {
+        return this.dao.rateApplication(username, rating);
     }
 }

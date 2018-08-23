@@ -37,9 +37,5 @@ app.factory('UserService', ['$http', function($http){
         return $http.post("http://localhost:8080/Photostock/rest/app/hasPendingApplication", username);
     };
 
-    service.getFile = function(){
-        return $http.get("http://localhost:8080/Photostock/rest/app/getApplicationPhotos=test");
-    };
-
     return service;
 }]);

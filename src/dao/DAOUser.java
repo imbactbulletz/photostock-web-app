@@ -19,6 +19,8 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
     private final String GET_ALL_USERS = "SELECT * FROM USER";
     private final String DELETE_USER = "DELETE FROM USER WHERE USERNAME = \"%s\"";
     private final String ADD_OPERATOR = "INSERT INTO USER (USERNAME,PASSWORD,EMAIL,COUNTRY, ACCOUNT_TYPE) VALUES ( \"%s\", \"%s\", \"%s\", \"%s\", 'operator')";
+    private final String PROMOTE_TO_VENDOR = "UPDATE USER SET ACCOUNT_TYPE = 'vendor' WHERE USERNAME = '%s'";
+
     public DAOUser() {
         super(User.class);
     }
@@ -274,6 +276,30 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
         } catch (Exception e) {
             e.printStackTrace();
             closeConnection(connection);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean promoteToVendor(String username) {
+        Connection connection = createConnection();
+        if(connection == null || username == null){
+            return false;
+        }
+
+        String query = String.format(PROMOTE_TO_VENDOR, username);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+            return true;
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
             return false;
         }
     }

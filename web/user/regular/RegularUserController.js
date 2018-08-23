@@ -6,8 +6,15 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
         var username = angular.copy($scope.user.username);
         var photos = $scope.testPhotos;
 
+        // validation
+        if(photos.length < 10){
+            alert("YOU HAVE TO SELECT EXACTLY 10 IMAGES");
+            return;
+        }
+        
         UserService.uploadTestPhotos(username, photos).then(function(response){
             var successfully_uploaded = response.data;
+
 
             if(successfully_uploaded){
                 // settings rootscope object so 'APPLY AS A VENDOR' doesn't appear
@@ -51,9 +58,5 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
             });
         });
 
-        UserService.getFile().then(function (response) {
-           var returned_data = response.data;
-           alert("ALERT ZENERAAAAAAAAAAAAAAAAL");
-        });
     };
 }]);
