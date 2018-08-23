@@ -28,6 +28,7 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
             $scope.testPhotos = photos;
             $scope.testPhotos.alertCount = $scope.testPhotos.length;
 
+            var debug = photos;
 
             // converting blobs to local image URLs
             var testPhotosURL = [];
@@ -38,6 +39,21 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
 
             $scope.testPhotosURL = testPhotosURL;
 
+
+            angular.forEach($scope.testPhotosURL, function(testPhotoURL){
+                var img = new Image();
+                img.src = testPhotoURL;
+
+                img.onload = function(){
+                    //todo logika za proveravanje velicine slike
+                };
+                console.log(img.width, img.height);
+            });
+        });
+
+        UserService.getFile().then(function (response) {
+           var returned_data = response.data;
+           alert("ALERT ZENERAAAAAAAAAAAAAAAAL");
         });
     };
 }]);

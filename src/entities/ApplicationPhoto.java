@@ -1,11 +1,12 @@
 package entities;
 
-import utils.SafeConverter;
-
 public class ApplicationPhoto extends BasicEntity {
     // attributes
     private String application;
     private String path;
+
+    // base64 encoded image
+    String data;
 
     // columns
     private String APPLICATION = "APPLICATION";
@@ -33,11 +34,11 @@ public class ApplicationPhoto extends BasicEntity {
     @Override
     public void setValueForColumnName(String columnName, Object value) {
         if(APPLICATION.equals(columnName)){
-            this.setApplication(application);
+            this.setApplication(String.valueOf(application));
         }
 
         if(PATH.equals(columnName)){
-            this.setPath(path);
+            this.setPath(String.valueOf(value));
         }
 
         super.setValueForColumnName(columnName, value);
@@ -57,5 +58,13 @@ public class ApplicationPhoto extends BasicEntity {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

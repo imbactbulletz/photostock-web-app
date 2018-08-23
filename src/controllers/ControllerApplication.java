@@ -1,18 +1,17 @@
 package controllers;
 
+import entities.ApplicationPhoto;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import services.IServiceApplication;
 import services.IServiceApplicationPhoto;
-import services.ServiceApplicationPhoto;
 import services.ServiceApplication;
+import services.ServiceApplicationPhoto;
 import utils.FileUtil;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MultivaluedMap;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -95,4 +94,35 @@ public class ControllerApplication {
 
     }
 
+
+    @GET
+    @Path("/getApplicationPhotos={applicant}")
+    @Produces("application/json")
+    public List<ApplicationPhoto> getApplicationPhotos(@PathParam("applicant") String applicant) throws Exception {
+
+        // getting application ID for a given username
+         String appID = applicationService.getApplicationID(applicant);
+
+         if(appID == null){
+             return null;
+         }
+
+         // getting all application photos that relate to application ID
+         List<ApplicationPhoto> applicationPhotos = applicationPhotoService.getAllPhotosFor(appID);
+
+
+         // encoding images as base64 and setting as data into ApplicationPhoto
+        for(ApplicationPhoto applicationPhoto : applicationPhotos){
+            // getting photo path
+            String photoPath = applicationPhoto.getPath();
+            // creating an image out of it
+            BufferedImage image = FileUtil.readBufferedImage(photoPath);
+            // encoding in base64
+            String encodedImage = FileUtil.encodeImage(image);
+            // setting the encoded image as a model data
+            applicationPhoto.setData(encodedImage);
+        }
+
+        return applicationPhotos;
+    }
 }
