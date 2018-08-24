@@ -11,9 +11,11 @@
 7. Ocenjivanje kupljenih slika i autora od kojih je kupljeno
 8. Ostavljanje komentara za autora od kojeg je kupljena slika
 9. Unos kreditne kartice
+
     -- Jul --
 10. Deaktivacija naloga
 11. Istorijski pregled kupljenih slika i mogucnost ponovnog preuzimanja
+    
     -- Septembar --
 12. Filtracija prioriteta prikaza po rezultatu pretrage
 13. Biranje nacina za nastupanje (firma/samostalno i pravljenje aplikacije za firmu)
@@ -23,6 +25,7 @@
 15. Unos podataka o kartici pre pordaje slike
 16. Restrikcija kacenja slika (3 dnevno, 8 nedeljno)
 17. Obavestavanje putem mail-a o prodatoj slici
+    
     -- Jul -- 
 18. Brisanje slika koje su postavljene za prodaju
 
@@ -36,6 +39,7 @@
 23. Odobravanje slika za prodaju
 24. Statistika za korisnike
 25. Statistika za kategorije
+    
     -- Septembar --
 26. Odobravanje pristupa firmama
 
