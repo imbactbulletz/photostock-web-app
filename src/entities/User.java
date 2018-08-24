@@ -11,6 +11,8 @@ public class User extends BasicEntity {
     private String country;
     private String account_type;
     private String account_status;
+    private String creditcard;
+    private String company;
 
     // column names
     private String USERNAME = "USERNAME";
@@ -19,7 +21,8 @@ public class User extends BasicEntity {
     private String COUNTRY = "COUNTRY";
     private String ACCOUNT_TYPE = "ACCOUNT_TYPE";
     private String ACCOUNT_STATUS = "ACCOUNT_STATUS";
-
+    private String CREDIT_CARD = "CREDIT_CARD";
+    private String COMPANY = "COMPANY";
 
     public User(){
         super();
@@ -30,6 +33,9 @@ public class User extends BasicEntity {
         this.columnNames.add(COUNTRY);
         this.columnNames.add(ACCOUNT_TYPE);
         this.columnNames.add(ACCOUNT_STATUS);
+        this.columnNames.add(CREDIT_CARD);
+        this.columnNames.add(COMPANY);
+
     }
 
     @Override
@@ -56,6 +62,14 @@ public class User extends BasicEntity {
 
         if(ACCOUNT_STATUS.equals(columnName)){
             return this.account_status;
+        }
+
+        if(CREDIT_CARD.equals(columnName)){
+            return this.creditcard;
+        }
+
+        if(COMPANY.equals(columnName)){
+            return this.company;
         }
 
         return super.getValueForColumnName(columnName);
@@ -87,6 +101,14 @@ public class User extends BasicEntity {
 
         if(ACCOUNT_STATUS.equals(columnName)){
             this.setAccount_status(SafeConverter.toSafeString(value));
+        }
+
+        if(CREDIT_CARD.equals(columnName)){
+            this.setCreditcard(SafeConverter.toSafeString(value));
+        }
+
+        if(COMPANY.equals(columnName)){
+            this.setCompany(SafeConverter.toSafeString(value));
         }
 
         super.setValueForColumnName(columnName, value);
@@ -140,4 +162,21 @@ public class User extends BasicEntity {
     public void setAccount_status(String account_status) {
         this.account_status = account_status;
     }
+
+    public String getCreditcard() {
+        return creditcard;
+    }
+
+    public void setCreditcard(String creditcard) {
+        this.creditcard = creditcard;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 }
+
