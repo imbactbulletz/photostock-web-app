@@ -20,8 +20,8 @@
                     </md-input-container>
 
 
-                    <md-select ng-model="category" placeholder="Category">
-                        <md-option ng-repeat="category in $root.categories" value="category.name">{{ category.name}}</md-option>
+                    <md-select ng-model="photoCategory" placeholder="Category">
+                        <md-option ng-repeat="category in $root.categories" value="{{category.name}}">{{ category.name }}</md-option>
                     </md-select>
 
                     <md-input-container md-no-float>

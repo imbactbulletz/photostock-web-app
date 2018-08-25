@@ -27,6 +27,8 @@ app.controller("VendorController", ['$scope', '$location', 'VendorService', '$ro
 
     $scope.uploadPhoto = function(){
 
+        var resolutions = [];
+        var prices = [];
         // iterating through all available resolutions in rootscope
         angular.forEach($rootScope.resolutions, function(entry){
             // if a resolution was checked then an object in rootscope is created with resolution's name and its 'checked' attribute is set to 'true'
@@ -52,7 +54,33 @@ app.controller("VendorController", ['$scope', '$location', 'VendorService', '$ro
                    alert("YOU CANT SELL PICTURES IN HIGHER RESOLUTIONS THAN THEIR OWN!");
                    return;
                }
+
+               // adding resolutions and prices for picture in arrays
+               resolutions.push(entry.name);
+               prices.push($rootScope[entry.name].price)
            }
+        });
+
+
+        var title = $scope.photoTitle;
+        var category = $scope.photoCategory;
+        var description = $scope.photoDescription;
+        var username = $rootScope.user.username;
+        var photo = $scope.photo;
+
+
+        var resolutions_str = resolutions.join(";");
+
+        var prices_str = prices.join(";");
+
+        
+        VendorService.uploadPhoto(title, category, description, resolutions_str, prices_str, photo, username).then(function(response){
+            var successful = response.data;
+
+            if(successful){
+                alert("ALERT ZENERAAAAAAAAAL");
+            }
+
         });
 
     };
