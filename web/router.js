@@ -54,7 +54,6 @@ app.config(function ($routeProvider) {
             controller: "OperatorController"
         })
 
-
         .when("/review_application",{
             templateUrl: "user/operator/review_application.html",
             controller: "OperatorController"
@@ -72,6 +71,11 @@ app.config(function ($routeProvider) {
         .when("/administrator_dashboard",{
             templateUrl: "user/administrator/dashboard.html",
             controller: "AdministratorController"
+        })
+
+        .when("/upload",{
+            templateUrl: "user/vendor/upload.html",
+            controller: "VendorController"
         })
 
         .otherwise({

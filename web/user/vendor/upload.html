@@ -1,0 +1,53 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Upload a photo</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <form role="uploadForm" ng-submit="uploadPhoto()">
+                <div align="center end">
+                    <input onchange="angular.element(this).scope().setPhotos(this.files)" type="file" class="inp-file" accept="image/*" required>
+                </div>
+                <md-data-table-container>
+                    <table md-data-table>
+                        <thead md-trim-column-names>
+                        <tr>
+                            <th>Resolution</th>
+                            <th>Price Range</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="resolution in $root.resolutions">
+                        <tr align="center">
+                            <td>{{ resolution.name }}</td>
+                            <td>{{ resolution.lowestPrice }} - {{ resolution.highestPrice}} $</td>
+                            <td><md-checkbox ng-model="$root[resolution.name].checked" aria-label="Checkbox 1"> </md-checkbox></td>
+                            <td>
+                                <md-input-container md-no-float>
+                                <input required type="number" size="50" ng-model="$root[resolution.name].price" placeholder="Enter price">
+                            </md-input-container></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-data-table-container>
+
+                <div layout="column" align="center">
+                        <md-button type="submit" class="md-raised md-primary capitalized">Upload</md-button>
+                </div>
+            </md-card-content>
+            </form>
+        </md-card>
+
+        <md-card class="preview-container" ng-show="testPhotosURL">
+            <md-card-content>
+                <img ng-repeat="photoURL in testPhotosURL" ng-src="{{photoURL}}" width="80" height="80">
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

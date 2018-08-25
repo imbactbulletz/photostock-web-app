@@ -44,13 +44,15 @@
             Apply as a Vendor
         </md-nav-item>
 
+        <md-nav-item ng-if="$root.user.account_type == 'vendor' && $root.user.account_status == 'active'" md-nav-click="goto('upload')" name="upload">
+            Upload
+        </md-nav-item>
+
+
         <md-nav-item ng-if="$root.user.account_type == 'operator'" md-nav-click="goto('operator_settings')" name="settings">
             Settings
         </md-nav-item>
 
-        <md-nav-item ng-show="$root.user" md-nav-click="goto('register')" name="logout">
-            Logout
-        </md-nav-item>
 
     </md-nav-bar>
 
@@ -103,5 +105,7 @@
 <script src="./user/operator/OperatorController.js"></script>
 <script src="./user/administrator/AdministratorService.js"></script>
 <script src="./user/administrator/AdministratorController.js"></script>
+<script src="./user/vendor/VendorController.js"></script>
+<script src="./user/vendor/VendorService.js"></script>
 </body>
 </html>

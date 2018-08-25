@@ -20,7 +20,9 @@ app.controller("NavBarController", ['$scope', '$location', function ($scope, $lo
             case "application":
                 $location.path("/application");
                 break;
-
+            case "upload":
+                $location.path("/upload");
+                break;
             default:
                 $location.path("/");
         }
