@@ -22,6 +22,19 @@ public class SafeConverter {
         return id;
     }
 
+    public static double toSafeDouble(Object o){
+        double id = 0;
+
+        try {
+            id = Double.parseDouble(o == null ? "0" : o.toString());
+        }
+        catch (NumberFormatException e){
+
+        }
+
+        return id;
+    }
+
     public static boolean toSafeBoolean(Object o){
         boolean result = false;
 
