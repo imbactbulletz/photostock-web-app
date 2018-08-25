@@ -2,6 +2,7 @@ var app = angular.module("photostock-app");
 
 app.controller("VendorController", ['$scope', '$location', 'VendorService', '$rootScope', function ($scope, $location, VendorService, $rootScope) {
 
+    // getting all the resolutions
     VendorService.getAllResolutions().then(function (response) {
         var resolutions = response.data;
 
@@ -11,6 +12,18 @@ app.controller("VendorController", ['$scope', '$location', 'VendorService', '$ro
 
         $rootScope.resolutions = resolutions;
     });
+
+    // getting all the categories
+    VendorService.getAllCategories().then(function(response){
+        var categories = response.data;
+
+        if(categories === undefined){
+            alert("COULD NOT FETCH CATEGORIES");
+        }
+
+        $rootScope.categories = categories;
+    });
+
 
     $scope.uploadPhoto = function(){
 

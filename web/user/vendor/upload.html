@@ -11,8 +11,23 @@
 
             <md-card-content>
                 <form role="uploadForm" ng-submit="uploadPhoto()">
-                <div align="center end">
+                <div align="center end" style="margin-left:40%; margin-bottom:30px; margin-top:40px;">
                     <input onchange="angular.element(this).scope().setPhotos(this.files)" type="file" class="inp-file" accept="image/*" required>
+                </div>
+                <div layout="row" align="center end">
+                    <md-input-container md-no-float>
+                        <input required md-asterisk size="50" ng-model="photoTitle" placeholder="Title">
+                    </md-input-container>
+
+
+                    <md-select ng-model="category" placeholder="Category">
+                        <md-option ng-repeat="category in $root.categories" value="category.name">{{ category.name}}</md-option>
+                    </md-select>
+
+                    <md-input-container md-no-float>
+                        <input required md-asterisk size="50" ng-model="photoDescription" placeholder="Description">
+                    </md-input-container>
+
                 </div>
                 <md-data-table-container>
                     <table md-data-table>
@@ -44,9 +59,10 @@
             </form>
         </md-card>
 
-        <md-card class="preview-container" ng-show="testPhotosURL">
+        <!-- Exists just to help us determine image dimensions -->
+        <md-card class="preview-container" ng-show="never">
             <md-card-content>
-                <img ng-repeat="photoURL in testPhotosURL" ng-src="{{photoURL}}" width="80" height="80">
+                <img ng-src="{{photoURL}}" width="80" height="80">
             </md-card-content>
         </md-card>
     </div>

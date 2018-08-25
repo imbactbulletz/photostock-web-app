@@ -1,7 +1,4 @@
-import controllers.ControllerApplication;
-import controllers.ControllerCompany;
-import controllers.ControllerResolution;
-import controllers.ControllerUser;
+import controllers.*;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -19,6 +16,7 @@ public class PhotostockRESTApp extends Application{
         classes.add(ControllerCompany.class);
         classes.add(ControllerApplication.class);
         classes.add(ControllerResolution.class);
+        classes.add(ControllerCategory.class);
         return classes;
     }
 }
