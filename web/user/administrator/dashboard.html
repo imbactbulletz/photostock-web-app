@@ -82,15 +82,50 @@
                         </md-content>
                     </md-tab>
 
-                    <md-tab label="Pending applications">
+                    <md-tab label="Categories">
                         <md-content>
-                            Pending applications go here.
-                        </md-content>
-                    </md-tab>
+                            <div layout-align="center">
+                                <md-card>
+                                    <md-card-content>
+                                        <form role="form" name="addCategoryForm" ng-submit="addCategory()" novalidate>
+                                            <div layout="column" layout-align="start center">
+                                                <md-input-container md-no-float>
+                                                    <input style="margin-top: 10px;" required size="50" ng-model="tmp_category_name" name="category" placeholder="Add a category">
+                                                    <div ng-messages="addCategoryForm.category.$error">
+                                                        <div ng-message="required">
+                                                            Please enter a category
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
 
-                    <md-tab label="Category statistics">
-                        <md-content>
-                            Some stat data goes here.
+
+                                            <div class="button-div" layout="row" layout-align="center">
+                                                <md-button type="submit" class="md-raised md-primary capitalized">Submit</md-button>
+                                            </div>
+                                            <div class="error" align="center" ng-show="addOperatorErrorMessage">{{addCategoryErrorMessage}}</div>
+                                        </form>
+                                    </md-card-content>
+
+                                </md-card>
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="category in $root.categories">
+                                        <tr align="center">
+                                            <td>{{ $index + 1}}</td>
+                                            <td>{{ category.name}}</td>
+                                            <td><md-button class="md-accent md-raised md-hue-3" ng-click="deleteCategory(category.name)">REMOVE</md-button></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
                         </md-content>
                     </md-tab>
                 </md-tabs>

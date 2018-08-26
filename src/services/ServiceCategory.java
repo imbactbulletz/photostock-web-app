@@ -17,4 +17,14 @@ public class ServiceCategory implements IServiceCategory {
     public List<Category> getAllCategories() {
         return this.dao.getAllCategories();
     }
+
+    @Override
+    public boolean addCategory(String name) {
+        return this.dao.addCategory(name);
+    }
+
+    @Override
+    public boolean deleteCategory(String name) {
+        return this.dao.deleteCategory(name);
+    }
 }
