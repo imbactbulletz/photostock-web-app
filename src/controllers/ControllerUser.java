@@ -145,4 +145,16 @@ public class ControllerUser {
 
         return this.service.changeSettings(username, password, creditCard, deactivate);
     }
+
+    @GET
+    @Path("/hasCreditCard={username}")
+    @Produces("application/json")
+    public boolean hasCreditCard(@PathParam("username") String username){
+        User tmp = service.getUser(username);
+
+        if(tmp == null || tmp.getCreditcard() == null )
+            return false;
+
+        return true;
+    }
 }

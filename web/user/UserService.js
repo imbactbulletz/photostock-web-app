@@ -61,5 +61,11 @@ app.factory('UserService', ['$http', function($http){
           headers: {'Content-Type': undefined}
       });
     };
+
+
+    service.getCreditCard = function(username){
+      return $http.get("http://localhost:8080/Photostock/rest/user/hasCreditCard=" + username);
+    };
+
     return service;
 }]);

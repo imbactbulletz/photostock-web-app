@@ -67,6 +67,7 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
         var username = $rootScope.user.username;
 
         UserService.userSettings(username, password, credit_card, deactivate).then(function(response){
+
            var succeeded = response.data;
 
            if(succeeded){
