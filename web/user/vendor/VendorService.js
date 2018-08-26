@@ -30,5 +30,10 @@ app.factory('VendorService', ['$http', function($http){
 
     };
 
+
+    service.canUpload = function(username){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/canUpload=" + username);
+    };
+
     return service;
 }]);

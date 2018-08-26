@@ -9,11 +9,10 @@ import services.ServicePhotoResolution;
 import utils.FileUtil;
 import utils.SafeConverter;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import java.io.InputStream;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.UUID;
 
 @Path("/photo")
@@ -48,9 +47,11 @@ public class ControllerPhoto {
         // saving photo
         String file_path = FileUtil.saveFile(file_is, UUID.randomUUID().toString());
 
+        // getting today's date in SQL format
+        Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
 
         // inserting the photo into db
-        int photoID= servicePhoto.insertPhoto(title, category, description, username, file_path);
+        int photoID = servicePhoto.insertPhoto(title, category, description, username, file_path, currentDate);
 
 
 
@@ -63,5 +64,28 @@ public class ControllerPhoto {
         }
 
         return true;
+    }
+
+
+    @GET
+    @Path("/canUpload={username}")
+    @Produces("application/json")
+    public boolean canUpload(@PathParam("username") String username){
+
+
+        // getting the number of photos uploaded today
+        int uploadedToday = this.servicePhoto.getCountBy(username, 1);
+
+        if(uploadedToday >= 3 || uploadedToday == -1)
+            return false;
+
+        // getting the number of photos uploaded in last
+        int uploadedLastWeek = this.servicePhoto.getCountBy(username, 7);
+
+        if(uploadedLastWeek >= 8 || uploadedLastWeek == -1)
+            return false;
+
+        return true;
+
     }
 }

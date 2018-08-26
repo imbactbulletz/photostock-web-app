@@ -2,6 +2,8 @@ package entities;
 
 import utils.SafeConverter;
 
+import java.sql.Date;
+
 public class Photo extends BasicEntity {
 
     // attributes
@@ -11,6 +13,7 @@ public class Photo extends BasicEntity {
     String uploadedBy;
     String path;
     String approved;
+    Date dateUploaded;
 
     // column names
     String TITLE = "TITLE";
@@ -19,6 +22,8 @@ public class Photo extends BasicEntity {
     String UPLOADEDBY = "UPLOADEDBY";
     String PATH = "PATH";
     String APPROVED = "APPROVED";
+    String DATEUPLOADED = "DATE_UPLOADED";
+
 
     public Photo(){
         super();
@@ -29,6 +34,7 @@ public class Photo extends BasicEntity {
         this.columnNames.add(UPLOADEDBY);
         this.columnNames.add(PATH);
         this.columnNames.add(APPROVED);
+        this.columnNames.add(DATEUPLOADED);
     }
 
     @Override
@@ -55,6 +61,10 @@ public class Photo extends BasicEntity {
 
         if(APPROVED.equals(columnName)){
             return this.approved;
+        }
+
+        if(DATEUPLOADED.equals(columnName)){
+            return this.dateUploaded;
         }
 
         return super.getValueForColumnName(columnName);
@@ -84,6 +94,10 @@ public class Photo extends BasicEntity {
 
         if(APPROVED.equals(columnName)){
             this.setApproved(SafeConverter.toSafeString(value));
+        }
+
+        if(DATEUPLOADED.equals(columnName)){
+            this.setDateUploaded(SafeConverter.toSafeDate(value));
         }
 
         super.setValueForColumnName(columnName, value);
@@ -135,5 +149,13 @@ public class Photo extends BasicEntity {
 
     public void setApproved(String approved) {
         this.approved = approved;
+    }
+
+    public Date getDateUploaded() {
+        return dateUploaded;
+    }
+
+    public void setDateUploaded(Date dateUploaded) {
+        this.dateUploaded = dateUploaded;
     }
 }

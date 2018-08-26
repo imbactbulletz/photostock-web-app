@@ -3,6 +3,7 @@ package dao;
 import entities.Photo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -10,22 +11,22 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
 
 
     // queries
-    private static final String INSERT_PHOTO = "INSERT INTO PHOTO (TITLE, CATEGORY, DESCRIPTION, UPLOADEDBY, PATH) VALUES ('%s', '%s', '%s', '%s', '%s')";
-
+    private static final String INSERT_PHOTO = "INSERT INTO PHOTO (TITLE, CATEGORY, DESCRIPTION, UPLOADEDBY, PATH, DATE_UPLOADED) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
+    private static final String COUNT_FOR_LAST_N_DAYS = "SELECT * FROM PHOTO WHERE UPLOADEDBY = '%s' AND DATE_UPLOADED BETWEEN CURDATE() - INTERVAL %d DAY AND CURDATE()";
 
     public DAOPhoto(){
         super(Photo.class);
     }
 
     @Override
-    public int insertPhoto(String title, String category, String description, String uploadedBy, String path) {
+    public int insertPhoto(String title, String category, String description, String uploadedBy, String path, Date date) {
         Connection connection = createConnection();
 
-        if(connection == null || title == null || category == null || description == null || uploadedBy == null || path == null){
+        if(connection == null || title == null || category == null || description == null || uploadedBy == null || path == null || date == null){
             return -1;
         }
 
-        String query = String.format(INSERT_PHOTO, title, category, description, uploadedBy, path);
+        String query = String.format(INSERT_PHOTO, title, category, description, uploadedBy, path, date.toString());
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -49,6 +50,29 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
         catch (Exception e){
             e.printStackTrace();
             return -1;
+        }
+    }
+
+    @Override
+    public int getCountBy(String username, int daysOffset) {
+        Connection connection = createConnection();
+
+        if(connection == null || username == null)
+            return -1;
+
+        String query = String.format(COUNT_FOR_LAST_N_DAYS, username, daysOffset);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.last();
+
+            return  resultSet.getRow();
+        }
+        catch(Exception e){
+         e.printStackTrace();
+         return -1;
         }
     }
 }

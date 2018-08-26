@@ -1,5 +1,7 @@
 package utils;
 
+import java.sql.Date;
+
 public class SafeConverter {
     public static int toSafeInt(Object o){
         int id = 0;
@@ -50,5 +52,10 @@ public class SafeConverter {
 
     public static String toSafeString(Object o){
         return o == null ? "" : o.toString();
+    }
+
+
+    public static Date toSafeDate(Object o ){
+        return o instanceof Date ? (Date)o: null;
     }
 }
