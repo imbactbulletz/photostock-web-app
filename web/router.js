@@ -83,6 +83,11 @@ app.config(function ($routeProvider) {
             controller: "RegularUserController"
         })
 
+        .when("/uploaded_photos",{
+            templateUrl: "user/vendor/uploaded_photos.html",
+            controller: "VendorController"
+        })
+
         .otherwise({
             redirectTo: "/"
         });

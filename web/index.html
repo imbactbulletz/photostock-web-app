@@ -48,6 +48,9 @@
             Upload
         </md-nav-item>
 
+        <md-nav-item ng-if="$root.user.account_type == 'vendor'" md-nav-click="goto('uploaded_photos')" name="uploaded_photos">
+            Uploaded photos
+        </md-nav-item>
 
         <md-nav-item ng-if="$root.user.account_type == 'operator'" md-nav-click="goto('operator_settings')" name="operator_settings">
             Settings

@@ -1,8 +1,10 @@
 package services;
 
 import dao.DAOPhoto;
+import entities.Photo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ServicePhoto implements IServicePhoto {
 
@@ -20,5 +22,15 @@ public class ServicePhoto implements IServicePhoto {
     @Override
     public int getCountBy(String username, int daysOffset) {
         return this.dao.getCountBy(username, daysOffset);
+    }
+
+    @Override
+    public boolean deletePhoto(String photoID) {
+        return this.dao.deletePhoto(photoID);
+    }
+
+    @Override
+    public List<Photo> getPhotosFor(String username) {
+        return this.dao.getPhotosForUser(username);
     }
 }

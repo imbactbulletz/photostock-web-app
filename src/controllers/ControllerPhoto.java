@@ -1,5 +1,6 @@
 package controllers;
 
+import entities.Photo;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import services.IServicePhoto;
@@ -10,9 +11,11 @@ import utils.FileUtil;
 import utils.SafeConverter;
 
 import javax.ws.rs.*;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 @Path("/photo")
@@ -87,5 +90,33 @@ public class ControllerPhoto {
 
         return true;
 
+    }
+
+    @GET
+    @Path("/deletePhoto={id}")
+    @Consumes("multipart/form-data")
+    public boolean deletePhoto(@PathParam("id") String id) throws Exception {
+
+        return this.servicePhoto.deletePhoto(id);
+    }
+
+    @GET
+    @Path("/getPhotosFor={username}")
+    @Produces("application/json")
+    public List<Photo> getPhotosFor(@PathParam("username") String username){
+
+        List<Photo> photos = servicePhoto.getPhotosFor(username);
+
+        for(Photo photo : photos){
+            String photoPath = photo.getPath();
+
+            BufferedImage image = FileUtil.readBufferedImage(photoPath);
+
+            String encodedImage = FileUtil.encodeImage(image);
+
+            photo.setData(encodedImage);
+        }
+
+        return photos;
     }
 }

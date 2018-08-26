@@ -15,6 +15,10 @@ public class Photo extends BasicEntity {
     String approved;
     Date dateUploaded;
 
+
+
+    String data;
+
     // column names
     String TITLE = "TITLE";
     String CATEGORY = "CATEGORY";
@@ -157,5 +161,13 @@ public class Photo extends BasicEntity {
 
     public void setDateUploaded(Date dateUploaded) {
         this.dateUploaded = dateUploaded;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

@@ -25,6 +25,18 @@ app.controller("VendorController", ['$scope', '$location', 'VendorService', '$ro
     });
 
 
+    // getting uploaded photos
+    VendorService.getUploadedPhotos($rootScope.user.username).then(function(response){
+        var uploaded_photos = response.data;
+
+        if(uploaded_photos === undefined){
+            alert("COULD NOT FETCH UPLOADED PHOTOS");
+            return;
+        }
+
+        $rootScope.uploadedPhotos = uploaded_photos;
+    });
+
     $scope.uploadPhoto = function(){
 
         var username = $rootScope.user.username;
@@ -142,5 +154,23 @@ app.controller("VendorController", ['$scope', '$location', 'VendorService', '$ro
                 };
 
         });
-    }
+    };
+
+
+    $scope.deletePhoto = function(ID){
+
+        VendorService.deletePhoto(ID).then(function(response){
+            // getting uploaded photos
+            VendorService.getUploadedPhotos($rootScope.user.username).then(function(response){
+                var uploaded_photos = response.data;
+
+                if(uploaded_photos === undefined){
+                    alert("COULD NOT FETCH UPLOADED PHOTOS");
+                    return;
+                }
+
+                $rootScope.uploadedPhotos = uploaded_photos;
+            })
+        });
+    };
 }]);

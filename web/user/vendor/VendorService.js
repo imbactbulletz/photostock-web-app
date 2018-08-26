@@ -35,5 +35,13 @@ app.factory('VendorService', ['$http', function($http){
         return $http.get("http://localhost:8080/Photostock/rest/photo/canUpload=" + username);
     };
 
+    service.getUploadedPhotos = function(username){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/getPhotosFor=" + username);
+    };
+
+    service.deletePhoto = function(ID){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/deletePhoto=" + ID);
+    };
+
     return service;
 }]);
