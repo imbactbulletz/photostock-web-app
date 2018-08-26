@@ -113,8 +113,6 @@ app.controller("AdministratorController", ['$scope', 'AdministratorService', 'Op
 
     $scope.deleteCategory = function(name){
         AdministratorService.deleteCategory(name).then(function(response){
-            alert("ALEEERT ZENERAAAAAAL");
-
             var succeeded = response.data;
 
             if(succeeded){
