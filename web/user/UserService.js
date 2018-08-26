@@ -37,5 +37,29 @@ app.factory('UserService', ['$http', function($http){
         return $http.post("http://localhost:8080/Photostock/rest/app/hasPendingApplication", username);
     };
 
+    service.userSettings = function(username, changed_password, changed_credit_card, deactivate){
+
+      alert("ALERT ZENERAAAAAAAAAL");
+
+      var inData = new FormData();
+
+      inData.append('username', username);
+
+      if(changed_password)
+          inData.append('password', changed_password);
+
+      if(changed_credit_card)
+          inData.append('creditCard', changed_credit_card);
+
+      if(deactivate)
+          inData.append('deactivate', deactivate);
+
+      return $http({
+          url: "http://localhost:8080/Photostock/rest/user/changeSettings",
+          method: "POST",
+          data: inData,
+          headers: {'Content-Type': undefined}
+      });
+    };
     return service;
 }]);

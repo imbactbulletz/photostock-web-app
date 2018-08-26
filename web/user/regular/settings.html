@@ -1,0 +1,47 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">User Settings</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <form name="settingsForm" role="form" ng-submit="userSettings()" novalidate>
+
+
+                    <div layout="row" layout-align="start center">
+                        <p>Password:</p> &nbsp&nbsp&nbsp
+                        <md-input-container md-no-float>
+                            <input type="password" size="50" ng-model="change_password" name="password" placeholder="Password">
+                        </md-input-container>
+                    </div>
+
+                    <div layout="row" layout-align="start center">
+                        <p>Credit Card:</p> &nbsp&nbsp&nbsp
+                        <md-input-container md-no-float>
+                            <input type="text" size="50" ng-model="change_credit_card" name="credit_card" placeholder="Credit card">
+
+                        </md-input-container>
+                    </div>
+
+                    <div class="error" align="center"> {{changePasswordErrorMessage}} </div>
+
+                    <div layout="row" layout-align="center">
+                        <p>Deactivate account</p> &nbsp&nbsp&nbsp
+                        <md-checkbox ng-model="change_deactivate" aria-label="Checkbox 1"></md-checkbox>
+                    </div>
+
+                    <div layout="row" layout-align="center">
+                        <md-button type="submit" class="md-raised md-primary capitalized">Submit</md-button>
+
+                    </div>
+                </form>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

@@ -11,7 +11,7 @@ import java.util.List;
 public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
 
     // Queries
-    private final String LOGIN = "SELECT * FROM USER WHERE USERNAME = \"%s\" AND PASSWORD = \"%s\"";
+    private final String LOGIN = "SELECT * FROM USER WHERE USERNAME = \"%s\" AND PASSWORD = \"%s\" AND NOT ACCOUNT_STATUS = 'deactivated'";
     private final String REGISTER = "INSERT INTO USER (USERNAME, PASSWORD, EMAIL, COUNTRY) VALUES ( \"%s\", \"%s\", \"%s\", \"%s\")";
     private final String ACTIVATE = "UPDATE USER SET ACCOUNT_STATUS = \"active\" WHERE USERNAME = \"%s\" and ACCOUNT_STATUS = \"unverified\"";
     private final String GET_USER = "SELECT * FROM USER WHERE USERNAME = \"%s\"";
@@ -295,6 +295,51 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
 
             if(result == 0)
                 return false;
+            return true;
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean changeSettings(String username, String password, String creditCard, String deactivate) {
+        Connection connection = createConnection();
+
+        if(connection == null || username == null){
+            return false;
+        }
+
+        String query = "UPDATE USER SET ";
+
+        if(password != null){
+            query += "PASSWORD ='" + password + "', ";
+        }
+
+        if(creditCard != null){
+            query += "CREDIT_CARD ='" + creditCard + "', ";
+        }
+
+        if(deactivate != null && Boolean.valueOf(deactivate)){
+            query += "ACCOUNT_STATUS = 'deactivated' ";
+        }
+
+        if(password == null && creditCard == null && deactivate == null){
+            return false;
+        }
+
+        query += "WHERE USERNAME = '" + username + "'";
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0){
+                return false;
+            }
+
             return true;
         }
 

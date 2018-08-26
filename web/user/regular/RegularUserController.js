@@ -59,4 +59,22 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
         });
 
     };
+
+    $scope.userSettings = function(){
+        var password = $scope.change_password;
+        var credit_card = $scope.change_credit_card;
+        var deactivate = $scope.change_deactivate;
+        var username = $rootScope.user.username;
+
+        UserService.userSettings(username, password, credit_card, deactivate).then(function(response){
+           var succeeded = response.data;
+
+           if(succeeded){
+               alert("Successfully changed settings!");
+           }
+           else {
+               alert("Could not change settings!");
+           }
+        });
+    }
 }]);

@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.User;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import services.IServiceUser;
 import services.ServiceUser;
 import utils.Cryptex;
@@ -8,7 +9,6 @@ import utils.Mailer;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
@@ -127,5 +127,22 @@ public class ControllerUser {
     @Produces("application/json")
     public boolean addUser(User user){
         return this.service.addUser(user);
+    }
+
+
+    @POST
+    @Path("/changeSettings")
+    @Consumes("multipart/form-data")
+    @Produces("application/json")
+    public boolean changeSettings(MultipartFormDataInput input) throws Exception {
+
+        String username = input.getFormDataPart("username", String.class, null);
+        String password = input.getFormDataPart("password", String.class, null);
+        String creditCard = input.getFormDataPart("creditCard", String.class, null);
+        String deactivate = input.getFormDataPart("deactivate", String.class, null);
+
+
+
+        return this.service.changeSettings(username, password, creditCard, deactivate);
     }
 }

@@ -14,4 +14,5 @@ public interface IDAOUser {
     boolean deleteUser(String username);
     boolean addUser(User user);
     boolean promoteToVendor(String username);
+    boolean changeSettings(String username, String password, String creditCard, String deactivate);
 }

@@ -78,6 +78,11 @@ app.config(function ($routeProvider) {
             controller: "VendorController"
         })
 
+        .when("/user_settings",{
+            templateUrl: "user/regular/settings.html",
+            controller: "RegularUserController"
+        })
+
         .otherwise({
             redirectTo: "/"
         });

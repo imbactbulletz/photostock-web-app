@@ -57,5 +57,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.promoteToVendor(username);
     }
 
+    @Override
+    public boolean changeSettings(String username, String password, String creditCard, String deactivate) {
+        return this.dao.changeSettings(username, password, creditCard, deactivate);
+    }
+
 
 }
