@@ -1,6 +1,6 @@
 var app = angular.module("photostock-app");
 
-app.controller("AdministratorController", ['$scope', 'AdministratorService', 'OperatorService', 'UserService', '$location', '$rootScope', function($scope, AdministratorService, OperatorService, UserService, $location, $rootScope){
+app.controller("AdministratorController", ['$scope', 'AdministratorService', 'OperatorService', 'UserService', '$location', '$rootScope', 'VendorService', function($scope, AdministratorService, OperatorService, UserService, $location, $rootScope, VendorService){
 
 
     //calling service to get all users
@@ -8,6 +8,16 @@ app.controller("AdministratorController", ['$scope', 'AdministratorService', 'Op
         $rootScope.users = response.data;
     });
 
+    // getting all categories
+    VendorService.getAllCategories().then(function(response){
+        var categories = response.data;
+
+        if(categories === undefined){
+            alert("COULDN'T FETCH CATEGORIES!");
+        }
+
+        $rootScope.categories = response.data;
+    });
 
     $scope.changePassword = function(){
 
@@ -73,4 +83,51 @@ app.controller("AdministratorController", ['$scope', 'AdministratorService', 'Op
 
     };
 
+
+    $scope.addCategory = function(){
+        var name = $scope.tmp_category_name;
+
+        AdministratorService.addCategory(name).then(function(response){
+            var succeeded = response.data;
+
+            if(succeeded){
+
+                // getting all categories
+                VendorService.getAllCategories().then(function(response){
+                    var categories = response.data;
+
+                    if(categories === undefined){
+                        alert("COULDN'T FETCH CATEGORIES!");
+                    }
+
+                    $rootScope.categories = response.data;
+                });
+            }
+
+            else {
+                alert("COULDN'T ADD THE CATEGORY!");
+            }
+        });
+
+    };
+
+    $scope.deleteCategory = function(name){
+        AdministratorService.deleteCategory(name).then(function(response){
+            var succeeded = response.data;
+
+            if(succeeded){
+
+                // getting all categories
+                VendorService.getAllCategories().then(function(response){
+                    var categories = response.data;
+
+                    if(categories === undefined){
+                        alert("COULDN'T FETCH CATEGORIES!");
+                    }
+
+                    $rootScope.categories = response.data;
+                });
+            }
+        });
+    };
 }]);
