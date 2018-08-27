@@ -33,4 +33,14 @@ public class ServicePhoto implements IServicePhoto {
     public List<Photo> getPhotosFor(String username) {
         return this.dao.getPhotosForUser(username);
     }
+
+    @Override
+    public List<Photo> getPendingPhotos() {
+        return this.dao.getPendingPhotos();
+    }
+
+    @Override
+    public boolean setPhotoStatus(String photoID, String status) {
+        return this.dao.setPhotoStatus(photoID, status);
+    }
 }

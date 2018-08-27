@@ -22,5 +22,14 @@ app.factory('OperatorService', ['$http', function($http){
     service.rateApplication = function(applicant, rating){
         return $http.get("http://localhost:8080/Photostock/rest/app/rateApplication/applicant="+ applicant + "/rating=" + rating);
     };
+
+    service.getPendingPhotos = function(){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/getPendingPhotos");
+    };
+
+    service.setPhotoStatus = function(photoID, status){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/setStatus=" + status + ",id=" + photoID);
+    };
+
     return service;
 }]);

@@ -18,6 +18,9 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
     private static final String COUNT_FOR_LAST_N_DAYS = "SELECT * FROM PHOTO WHERE UPLOADEDBY = '%s' AND DATE_UPLOADED BETWEEN CURDATE() - INTERVAL %d DAY AND CURDATE()";
     private static final String DELETE_PHOTO = "DELETE FROM PHOTO WHERE ID = %s";
     private static final String GET_ALL_PHOTOS_FOR_USER = "SELECT * FROM PHOTO WHERE UPLOADEDBY = '%s'";
+    private static final String GET_PENDING_PHOTOS = "SELECT * FROM PHOTO WHERE APPROVED = 'false'";
+    private static final String SET_PHOTO_STATUS = "UPDATE PHOTO SET APPROVED = '%s' WHERE ID = %s";
+
     public DAOPhoto(){
         super(Photo.class);
     }
@@ -134,4 +137,58 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
             return null;
         }
     }
+
+    @Override
+    public List<Photo> getPendingPhotos() {
+        Connection connection = createConnection();
+
+        if(connection == null){
+            return null;
+        }
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PENDING_PHOTOS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Photo> photos = new ArrayList<>();
+
+            while(resultSet.next()){
+                Photo tmp = readFromResultSet(resultSet);
+                photos.add(tmp);
+            }
+
+            return photos;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean setPhotoStatus(String photoID, String status) {
+        Connection connection = createConnection();
+
+        if(connection == null || photoID == null || status == null){
+            return false;
+        }
+
+        String query = String.format(SET_PHOTO_STATUS, status.equals("true") ? "true": "declined", photoID);
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

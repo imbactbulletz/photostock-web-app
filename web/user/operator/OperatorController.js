@@ -1,6 +1,6 @@
 var app = angular.module("photostock-app");
 
-app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService', '$location', '$rootScope', function($scope, OperatorService, UserService, $location, $rootScope){
+app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService', '$location', '$rootScope', '$mdDialog', function($scope, OperatorService, UserService, $location, $rootScope, $mdDialog){
 
 
     //calling service to get all users
@@ -8,6 +8,7 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
         $rootScope.users = response.data;
     });
 
+    // getting pending applications
     OperatorService.getPendingApplications().then(function(response){
         var pending_applications = response.data;
 
@@ -18,6 +19,19 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
 
         $rootScope.pending_applications = response.data;
     });
+
+    // getting pending pictures
+    OperatorService.getPendingPhotos().then(function(response){
+        var photos = response.data;
+
+        if(photos === undefined){
+            alert("COULD NOT FETCH PENDING PHOTOS");
+            return;
+        }
+
+        $rootScope.pendingPhotos = photos;
+    });
+
 
     $scope.changePassword = function(){
 
@@ -96,4 +110,44 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
             }
         });
     };
+
+    $scope.cancelDialog = function () {
+        $mdDialog.cancel();
+    };
+
+    $scope.previewPhoto = function (ev, photo) {
+
+        $rootScope.selectedPhoto = photo;
+
+        $mdDialog.show({
+            controller: 'OperatorController',
+            templateUrl: 'user/operator/preview_dialog.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+    };
+
+    $scope.setPhotoStatus = function(photoID, status){
+       OperatorService.setPhotoStatus(photoID, status).then(function(response){
+           var succeeded = response.data;
+
+           if(succeeded){
+               // getting pending pictures
+               OperatorService.getPendingPhotos().then(function(response){
+                   var photos = response.data;
+
+                   if(photos === undefined){
+                       alert("COULD NOT FETCH PENDING PHOTOS");
+                       return;
+                   }
+
+                   $rootScope.pendingPhotos = photos;
+               });
+           }
+
+       });
+    };
+
 }]);

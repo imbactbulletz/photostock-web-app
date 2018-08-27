@@ -10,4 +10,6 @@ public interface IServicePhoto {
     int getCountBy(String username, int daysOffset);
     boolean deletePhoto(String photoID);
     List<Photo> getPhotosFor(String username);
+    List<Photo> getPendingPhotos();
+    boolean setPhotoStatus(String photoID, String status);
 }

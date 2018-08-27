@@ -1,0 +1,23 @@
+<div>
+    <md-dialog aria-label="Photo preview" style="max-width: 900px;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Photo preview</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div align="center">
+                <md-content>
+                    <img style="height: 600px; width: 800px; padding: 10px;"  ng-src="{{'data:image/*;base64,'+$root.selectedPhoto.data}}" layout-fill>
+                </md-content>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary capitalized" ng-click="cancelDialog()">Close</md-button>
+            <span flex></span>
+        </md-dialog-actions>
+    </md-dialog>
+</div>

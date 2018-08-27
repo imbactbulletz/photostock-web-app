@@ -70,7 +70,33 @@
 
                     <md-tab label="Pending pictures">
                         <md-content>
-                            Pending pictures go here.
+                            <div layout-align="center">
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>By</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="photo in $root.pendingPhotos">
+                                        <tr align="center">
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ photo.uploadedBy }}</td>
+                                            <td>
+                                                <div layout="row">
+                                            <md-button class="md-raised md-primary" ng-click="previewPhoto($event, photo)">Preview</md-button>
+                                            <md-button class="md-raised md-primary" ng-click="setPhotoStatus(photo.id, 'true')">ACCEPT</md-button>
+                                            <md-button class="md-accent md-raised md-hue-3" ng-click="setPhotoStatus(photo.id, 'false')">DECLINE</md-button>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
                         </md-content>
                     </md-tab>
 

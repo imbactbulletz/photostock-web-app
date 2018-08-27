@@ -119,4 +119,30 @@ public class ControllerPhoto {
 
         return photos;
     }
+
+    @GET
+    @Path("/getPendingPhotos")
+    @Produces("application/json")
+    public List<Photo> getPendingPhotos(){
+        List<Photo> photos = servicePhoto.getPendingPhotos();
+
+        for(Photo photo : photos){
+            String photoPath = photo.getPath();
+
+            BufferedImage image = FileUtil.readBufferedImage(photoPath);
+
+            String encodedImage = FileUtil.encodeImage(image);
+
+            photo.setData(encodedImage);
+        }
+
+        return photos;
+    }
+
+    @GET
+    @Path("/setStatus={status},id={id}")
+    @Produces("application/json")
+    public boolean setPhotoStatus(@PathParam("status") String status, @PathParam("id") String id){
+        return this.servicePhoto.setPhotoStatus(id, status);
+    }
 }
