@@ -30,7 +30,7 @@
 22. Upravljanje aplikacijama (od strane prodavaca)  
 
 # Operator:
-23. Odobravanje slika za prodaju  
+~~23. Odobravanje slika za prodaju~~    
 24. Statistika za korisnike  
 25. Statistika za kategorije  
 ~~26. Odobravanje pristupa firmama  **(Septembar)**~~    
