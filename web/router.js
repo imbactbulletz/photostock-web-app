@@ -88,6 +88,17 @@ app.config(function ($routeProvider) {
             controller: "VendorController"
         })
 
+        .when("/moderator_set_up_settings", {
+            templateUrl: "user/moderator/setup_initial_settings.html",
+            controller: "ModeratorController"
+        })
+
+        .when("/moderator_dashboard", {
+            templateUrl: "user/moderator/dashboard.html",
+            controller: "ModeratorController"
+        })
+
+
         .otherwise({
             redirectTo: "/"
         });

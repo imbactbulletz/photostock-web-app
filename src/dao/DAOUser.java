@@ -156,7 +156,6 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
 
     @Override
     public boolean changePassword(User user) {
-        System.out.println(user.getUsername() + " " + user.getPassword());
         Connection connection = createConnection();
 
         // validating data
