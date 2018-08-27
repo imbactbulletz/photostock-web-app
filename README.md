@@ -26,7 +26,7 @@
 # Firma i Operator firme (Company/Moderator):
 ~~19. Kreiranje inicijalnog operatera po prihvatanju firme u sistem~~    
 20. Kacenje slika  
-21. Dodavanje operatera  
+~~21. Dodavanje operatera~~  
 22. Upravljanje aplikacijama (od strane prodavaca)  
 
 # Operator:
