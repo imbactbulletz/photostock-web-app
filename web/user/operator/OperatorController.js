@@ -33,6 +33,18 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
     });
 
 
+    // getting pending companies
+    OperatorService.getPendingCompanies().then(function(response){
+        var companies = response.data;
+
+        if(companies === undefined){
+            alert("COULD NOT FETCH PENDING COMPANIES");
+            return;
+        }
+
+        $rootScope.pendingCompanies = companies;
+    });
+
     $scope.changePassword = function(){
 
         var user = angular.copy($scope.user);
@@ -150,4 +162,27 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
        });
     };
 
+
+    $scope.setCompanyStatus = function(companyID, status){
+        OperatorService.setCompanyStatus(companyID, status).then(function(response){
+            var succeeded = response.data;
+
+            if(succeeded){
+                // getting pending companies
+                OperatorService.getPendingCompanies().then(function(response){
+                    var companies = response.data;
+
+                    if(companies === undefined){
+                        alert("COULD NOT FETCH PENDING COMPANIES");
+                        return;
+                    }
+
+                    $rootScope.pendingCompanies = companies;
+                });
+            }
+            else {
+                alert("COULD NOT SET COMPANY STATUS");
+            }
+        });
+    };
 }]);

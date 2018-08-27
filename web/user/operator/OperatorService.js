@@ -31,5 +31,13 @@ app.factory('OperatorService', ['$http', function($http){
         return $http.get("http://localhost:8080/Photostock/rest/photo/setStatus=" + status + ",id=" + photoID);
     };
 
+    service.getPendingCompanies = function(){
+        return $http.get("http://localhost:8080/Photostock/rest/company/getPendingCompanies");
+    };
+
+    service.setCompanyStatus = function(companyID, status){
+        return $http.get("http://localhost:8080/Photostock/rest/company/setCompanyStatus=" + status + ",id=" + companyID);
+    };
+
     return service;
 }]);

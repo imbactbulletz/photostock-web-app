@@ -1,16 +1,21 @@
 package dao;
 
-import com.sun.org.apache.regexp.internal.RE;
 import entities.Company;
 import utils.SafeConverter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOCompany{
 
     // Queries
     private final String REGISTER = "INSERT INTO COMPANY (NAME, ADDRESS, MEMBERSHIP, PIB, PROVISION_PERCENT) VALUES (\"%s\", \"%s\", \"%s\", \"%s\", %f)";
+    private final String GET_PENDING_COMPANIES = "SELECT * FROM COMPANY WHERE STATUS ='inactive'";
+    private final String SET_COMPANY_STATUS = "UPDATE COMPANY SET STATUS = '%s' WHERE ID = %s";
+
     public DAOCompany(){
         super(Company.class);
     }
@@ -61,5 +66,55 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
             return null;
         }
 
+    }
+
+    @Override
+    public List<Company> getPendingCompanies() {
+        Connection connection = createConnection();
+
+        if(connection == null)
+            return null;
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PENDING_COMPANIES);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Company> companies = new ArrayList<>();
+
+            while(resultSet.next()){
+                Company tmp  = readFromResultSet(resultSet);
+                companies.add(tmp);
+            }
+
+            return companies;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean setCompanyStatus(String companyID, String status) {
+        Connection connection = createConnection();
+
+        if(connection == null || companyID == null || status == null || SafeConverter.toSafeInt(companyID) == 0)
+            return false;
+
+        String query = String.format(SET_COMPANY_STATUS, status.equals("true") ? "active": "disabled", companyID);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

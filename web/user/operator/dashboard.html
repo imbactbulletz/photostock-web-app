@@ -67,6 +67,43 @@
                         </md-content>
                     </md-tab>
 
+                    <md-tab label="Pending companies">
+                        <md-content>
+                            <div layout-align="center">
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                        <tr>
+                                            <th width="10%">#</th>
+                                            <th width="10%">Name</th>
+                                            <th width="10%">Address</th>
+                                            <th width="10%">Membership</th>
+                                            <th width="10%">PIB</th>
+                                            <th width="10%">Provision</th>
+                                            <th width="20%"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="company in $root.pendingCompanies">
+                                        <tr align="center">
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ company.name }}</td>
+                                            <td>{{ company.address }}</td>
+                                            <td>{{ company.membership }}</td>
+                                            <td>{{ company.pib }}</td>
+                                            <td>{{ company.provision }}</td>
+                                            <td>
+                                                <div layout="row">
+                                                    <md-button class="md-raised md-primary" ng-click="setCompanyStatus(company.id, 'true')">ACCEPT</md-button>
+                                                    <md-button class="md-accent md-raised md-hue-3" ng-click="setCompanyStatus(company.id, 'false')">DECLINE</md-button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
 
                     <md-tab label="Pending pictures">
                         <md-content>

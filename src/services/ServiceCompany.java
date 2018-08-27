@@ -3,6 +3,8 @@ package services;
 import dao.DAOCompany;
 import entities.Company;
 
+import java.util.List;
+
 public class ServiceCompany implements IServiceCompany {
     protected DAOCompany dao;
 
@@ -21,4 +23,16 @@ public class ServiceCompany implements IServiceCompany {
     public Company register(Company company) {
         return this.dao.register(company);
     }
+
+    @Override
+    public List<Company> getPendingCompanies() {
+        return this.dao.getPendingCompanies();
+    }
+
+    @Override
+    public boolean setCompanyStatus(String companyID, String status) {
+        return this.dao.setCompanyStatus(companyID, status);
+    }
+
+
 }
