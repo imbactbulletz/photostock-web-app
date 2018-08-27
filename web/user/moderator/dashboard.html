@@ -1,0 +1,107 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="dashboard_container">
+
+            <md-card-content>
+                <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+                    <md-tab label="Members panel">
+                        <md-content>
+                            <div layout-align="center">
+                                <md-card>
+                                    <md-card-content>
+                                        <form role="form" name="addModeratorForm" ng-submit="addModerator()" novalidate>
+                                            <div layout="column" layout-align="start center">
+                                                <md-input-container md-no-float>
+                                                    <input required size="50" ng-model="tmp_moderator.username" name="username" placeholder="Username">
+                                                    <div ng-messages="addModeratorForm.username.$error">
+                                                        <div ng-message="required">
+                                                            Please enter a username.
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+                                                <md-input-container md-no-float>
+                                                    <input required type="password" size="50" ng-model="tmp_moderator.password" name="password" placeholder="Password">
+                                                    <div ng-messages="addModeratorForm.password.$error" role="alert">
+                                                        <div ng-message="required">
+                                                            Please enter a password.
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+
+                                                <md-input-container md-no-float>
+                                                    <input required type="email" size="50" ng-model="tmp_moderator.email" name="email" placeholder="E-mail">
+                                                    <div ng-messages="addModeratorForm.password.$error" role="alert">
+                                                        <div ng-message="required">
+                                                            Please enter an e-mail.
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+
+                                            <div class="button-div" layout="row" layout-align="center">
+                                                <md-button type="submit" class="md-raised md-primary capitalized">Add Moderator</md-button>
+                                            </div>
+                                            <div class="error" align="center" ng-show="addOperatorErrorMessage">{{addOperatorErrorMessage}}</div>
+                                        </form>
+                                    </md-card-content>
+
+                                </md-card>
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                        <tr>
+                                            <th width="5%">#</th>
+                                            <th width="12%">Username</th>
+                                            <th width="15%">E-mail</th>
+                                            <th width="10%">Country</th>
+                                            <th width="10%"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="member in $root.members">
+                                        <tr align="center">
+                                            <td>{{ $index + 1}}</td>
+                                            <td>{{ member.username}}</td>
+                                            <td>{{ member.email}}</td>
+                                            <td>{{ member.country}}</td>
+                                            <td ng-if="member.username != user.username"><md-button class="md-accent md-raised md-hue-3" ng-click="removeMember(member.username)">REVOKE MEMBERSHIP</md-button></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
+
+                    <md-tab label="Pending applications">
+                        <md-content>
+                            <div layout-align="center">
+                                <md-data-table-container>
+                                    <table md-data-table>
+                                        <thead md-trim-column-names>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>By</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="pending_application in $root.pending_applications">
+                                        <tr align="center">
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ pending_application.applicant }}</td>
+                                            <td><td><md-button class="md-raised md-primary" ng-click="reviewApplication(pending_application.applicant)">Review application</md-button></td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-data-table-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
+
+                </md-tabs>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

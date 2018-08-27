@@ -67,5 +67,15 @@ public class ServiceUser implements IServiceUser{
         return this.dao.insertModerator(username, password, email, companyName);
     }
 
+    @Override
+    public List<User> getMembersFor(String companyName) {
+        return this.dao.getMembersFor(companyName);
+    }
+
+    @Override
+    public boolean removeMembership(String username) {
+        return this.dao.removeMembership(username);
+    }
+
 
 }

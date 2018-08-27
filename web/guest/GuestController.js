@@ -75,7 +75,11 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             }
 
             else if (returned_value.account_type === "moderator") {
-                $location.path("/moderator_set_up_settings");
+                if(returned_value.account_status === "unverified"){
+                    $location.path("/moderator_set_up_settings");
+                }
+                else
+                    $location.path("/moderator_dashboard");
             }
 
             else if (returned_value.account_type === "administrator") {

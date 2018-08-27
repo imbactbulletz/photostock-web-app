@@ -21,6 +21,8 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
     private final String ADD_OPERATOR = "INSERT INTO USER (USERNAME,PASSWORD,EMAIL,COUNTRY, ACCOUNT_TYPE) VALUES ( \"%s\", \"%s\", \"%s\", \"%s\", 'operator')";
     private final String PROMOTE_TO_VENDOR = "UPDATE USER SET ACCOUNT_TYPE = 'vendor' WHERE USERNAME = '%s'";
     private final String INSERT_MODERATOR = "INSERT INTO USER (USERNAME,PASSWORD,EMAIL,COMPANY, ACCOUNT_TYPE) VALUES ('%s','%s','%s','%s', 'moderator')";
+    private final String GET_MODERATORS_FOR_COMPANY = "SELECT * FROM USER WHERE COMPANY = '%s'";
+    private final String REMOVE_COMPANY_FROM_MEMBER = "UPDATE USER SET COMPANY = NULL WHERE USERNAME = '%s'";
 
     public DAOUser() {
         super(User.class);
@@ -358,6 +360,60 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
         }
 
         String query = String.format(INSERT_MODERATOR, username, password, email, companyName);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public List<User> getMembersFor(String companyName) {
+        Connection connection = createConnection();
+
+        if(connection == null || companyName == null){
+            return null;
+        }
+
+        String query = String.format(GET_MODERATORS_FOR_COMPANY, companyName);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<User> users = new ArrayList<>();
+
+            while(resultSet.next()){
+                User tmp = readFromResultSet(resultSet);
+                users.add(tmp);
+            }
+
+            return users;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    @Override
+    public boolean removeMembership(String username) {
+        Connection connection = createConnection();
+
+        if(connection == null || username == null)
+            return false;
+
+        String query = String.format(REMOVE_COMPANY_FROM_MEMBER, username);
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);

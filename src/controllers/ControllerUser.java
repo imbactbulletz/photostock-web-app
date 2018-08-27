@@ -157,4 +157,32 @@ public class ControllerUser {
 
         return true;
     }
+
+    @POST
+    @Path("/addModerator")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public boolean addModerator(User user){
+
+        return this.service.insertModerator(user.getUsername(), user.getPassword(), user.getEmail(), user.getCompany());
+
+    }
+
+
+    @GET
+    @Path("/getMembersFor={companyName}")
+    @Produces("application/json")
+    public List<User> getMembersFor(@PathParam("companyName") String companyName){
+
+        return this.service.getMembersFor(companyName);
+    }
+
+    @GET
+    @Path("/removeMembership={username}")
+    @Produces("application/json")
+    public boolean removeMembership(@PathParam("username") String username){
+
+        return this.service.removeMembership(username);
+    }
+
 }

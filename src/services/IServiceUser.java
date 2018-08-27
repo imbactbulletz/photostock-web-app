@@ -16,4 +16,6 @@ public interface IServiceUser {
     boolean promoteToVendor(String username);
     boolean changeSettings(String username, String password, String creditCard, String deactivate);
     boolean insertModerator(String username, String password, String email, String companyName);
+    List<User> getMembersFor(String companyName);
+    boolean removeMembership(String username);
 }
