@@ -73,6 +73,16 @@
                                                 </div>
                                             </div>
                                         </md-input-container>
+
+                                        <md-input-container md-no-float>
+                                            <input required type="email" size="50" ng-model="company.email" name="email" placeholder="E-mail">
+                                            <div ng-messages="individualForm.email.$error">
+                                                <div ng-message="required">
+                                                    Please enter an e-mail.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+
                                         <md-input-container md-no-float>
                                             <input required size="50" ng-model="company.address" name="address" placeholder="Address">
                                             <div ng-messages="companyForm.address.$error">

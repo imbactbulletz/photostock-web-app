@@ -147,7 +147,7 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
 
 
         //validates
-        if(company === undefined || company.name === undefined || company.membership === undefined || company.pib === undefined
+        if(company === undefined || company.name === undefined || company.email === undefined || company.membership === undefined || company.pib === undefined
             || company.name == "" || company.membership == "" || company.pib == ""){
             return;
         }

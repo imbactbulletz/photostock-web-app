@@ -12,9 +12,10 @@ import java.util.List;
 public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOCompany{
 
     // Queries
-    private final String REGISTER = "INSERT INTO COMPANY (NAME, ADDRESS, MEMBERSHIP, PIB, PROVISION_PERCENT) VALUES (\"%s\", \"%s\", \"%s\", \"%s\", %f)";
+    private final String REGISTER = "INSERT INTO COMPANY (NAME, EMAIL, ADDRESS, MEMBERSHIP, PIB, PROVISION_PERCENT) VALUES (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", %f)";
     private final String GET_PENDING_COMPANIES = "SELECT * FROM COMPANY WHERE STATUS ='inactive'";
     private final String SET_COMPANY_STATUS = "UPDATE COMPANY SET STATUS = '%s' WHERE ID = %s";
+    private final String GET_COMPANY_BY_ID = "SELECT * FROM COMPANY WHERE ID = %s";
 
     public DAOCompany(){
         super(Company.class);
@@ -30,7 +31,7 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
 
         Connection connection = createConnection();
 
-        if(connection == null || company.getName() == null || company.getMembership() == null || company.getPib() == null
+        if(connection == null || company.getName() == null || company.getMembership() == null || company.getPib() == null || company.getEmail() == null
         || company.getName().equals("") || company.getMembership().equals("") || company.getPib().equals("")){
             return null;
         }
@@ -41,7 +42,7 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
         }
 
 
-        String query = String.format(REGISTER, company.getName(), company.getAddress(), company.getMembership(), company.getPib(), SafeConverter.toSafeFloat(company.getProvision()));
+        String query = String.format(REGISTER, company.getName(), company.getEmail(), company.getAddress(), company.getMembership(), company.getPib(), SafeConverter.toSafeFloat(company.getProvision()));
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -115,6 +116,31 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
         catch(Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public Company getCompanyByID(String ID) {
+        Connection connection = createConnection();
+        if(connection == null || ID == null ||  SafeConverter.toSafeInt(ID) == 0)
+            return null;
+
+        String query = String.format(GET_COMPANY_BY_ID, ID);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                Company tmp = readFromResultSet(resultSet);
+                return tmp;
+            }
+
+            return null;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

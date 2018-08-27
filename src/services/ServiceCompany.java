@@ -34,5 +34,10 @@ public class ServiceCompany implements IServiceCompany {
         return this.dao.setCompanyStatus(companyID, status);
     }
 
+    @Override
+    public Company getCompanyByID(String ID) {
+        return this.dao.getCompanyByID(ID);
+    }
+
 
 }

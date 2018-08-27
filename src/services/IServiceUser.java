@@ -15,4 +15,5 @@ public interface IServiceUser {
     boolean addUser(User user);
     boolean promoteToVendor(String username);
     boolean changeSettings(String username, String password, String creditCard, String deactivate);
+    boolean insertModerator(String username, String password, String email, String companyName);
 }

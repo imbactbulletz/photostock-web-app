@@ -20,6 +20,7 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
     private final String DELETE_USER = "DELETE FROM USER WHERE USERNAME = \"%s\"";
     private final String ADD_OPERATOR = "INSERT INTO USER (USERNAME,PASSWORD,EMAIL,COUNTRY, ACCOUNT_TYPE) VALUES ( \"%s\", \"%s\", \"%s\", \"%s\", 'operator')";
     private final String PROMOTE_TO_VENDOR = "UPDATE USER SET ACCOUNT_TYPE = 'vendor' WHERE USERNAME = '%s'";
+    private final String INSERT_MODERATOR = "INSERT INTO USER (USERNAME,PASSWORD,EMAIL,COMPANY, ACCOUNT_TYPE) VALUES ('%s','%s','%s','%s', 'moderator')";
 
     public DAOUser() {
         super(User.class);
@@ -343,6 +344,31 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
             return true;
         }
 
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean insertModerator(String username, String password, String email, String companyName) {
+        Connection connection = createConnection();
+
+        if(connection == null || username == null || password == null || email == null || companyName == null){
+            return false;
+        }
+
+        String query = String.format(INSERT_MODERATOR, username, password, email, companyName);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
         catch(Exception e){
             e.printStackTrace();
             return false;

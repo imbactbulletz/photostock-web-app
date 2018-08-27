@@ -1,6 +1,5 @@
 package entities;
 
-import com.sun.javafx.binding.StringFormatter;
 import utils.SafeConverter;
 
 public class Company extends BasicEntity {
@@ -11,6 +10,7 @@ public class Company extends BasicEntity {
     private String pib;
     private String status;
     private String provision;
+    private String email;
 
     // column names
     private String NAME = "NAME";
@@ -19,6 +19,7 @@ public class Company extends BasicEntity {
     private String PIB = "PIB";
     private String STATUS = "STATUS";
     private String PROVISION_PERCENT = "PROVISION_PERCENT";
+    private String EMAIL = "EMAIL";
 
     public Company(){
         super();
@@ -29,6 +30,7 @@ public class Company extends BasicEntity {
         this.columnNames.add(PIB);
         this.columnNames.add(STATUS);
         this.columnNames.add(PROVISION_PERCENT);
+        this.columnNames.add(EMAIL);
     }
 
     @Override
@@ -58,6 +60,10 @@ public class Company extends BasicEntity {
             return this.provision;
         }
 
+        if(EMAIL.equals(columnName)){
+            return this.email;
+        }
+
         return super.getValueForColumnName(columnName);
     }
 
@@ -85,6 +91,10 @@ public class Company extends BasicEntity {
 
         if(PROVISION_PERCENT.equals(columnName)){
             this.setProvision(SafeConverter.toSafeString(value));
+        }
+
+        if(EMAIL.equals(columnName)){
+            this.setEmail(SafeConverter.toSafeString(value));
         }
 
         super.setValueForColumnName(columnName, value);
@@ -136,6 +146,14 @@ public class Company extends BasicEntity {
 
     public void setProvision(String provision) {
         this.provision = provision;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

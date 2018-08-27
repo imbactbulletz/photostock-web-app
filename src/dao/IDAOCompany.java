@@ -9,4 +9,5 @@ public interface IDAOCompany {
     Company register(Company company);
     List<Company> getPendingCompanies();
     boolean setCompanyStatus(String companyID, String status);
+    Company getCompanyByID(String ID);
 }

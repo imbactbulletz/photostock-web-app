@@ -62,5 +62,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.changeSettings(username, password, creditCard, deactivate);
     }
 
+    @Override
+    public boolean insertModerator(String username, String password, String email, String companyName) {
+        return this.dao.insertModerator(username, password, email, companyName);
+    }
+
 
 }
