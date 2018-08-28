@@ -20,14 +20,14 @@
 ~~15. Restrikcija kacenja slika (3 dnevno, 8 nedeljno)~~    
 16. Obavestavanje putem mail-a o prodatoj slici  
 ~~17. Brisanje slika koje su postavljene za prodaju **(Jul)**~~    
-18. Biranje nacina za nastupanje (firma/samostalno i pravljenje aplikacije za firmu) **(Septembar)**  
+~~18. Biranje nacina za nastupanje (firma/samostalno i pravljenje aplikacije za firmu) **(Septembar)**~~  
 
 
 # Firma i Operator firme (Company/Moderator):
 ~~19. Kreiranje inicijalnog operatera po prihvatanju firme u sistem~~    
 20. Kacenje slika  
 ~~21. Dodavanje operatera~~  
-22. Upravljanje aplikacijama (od strane prodavaca)  
+~~22. Upravljanje aplikacijama (od strane prodavaca)~~  
 
 # Operator:
 ~~23. Odobravanje slika za prodaju~~    
