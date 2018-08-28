@@ -8,11 +8,11 @@ import services.*;
 import utils.FileUtil;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MultivaluedMap;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Path("/app")
@@ -69,17 +69,12 @@ public class ControllerApplication {
             for (Map.Entry<String, List<InputPart>> entry : uploadedForm.entrySet()) {
                 // each InputPart represents a photo
                 InputPart photo = uploadedForm.get(entry.getKey()).get(0);
-                // photo header (contains title and other info)
-                MultivaluedMap<String, String> header = photo.getHeaders();
-
-                // getting the filename from header
-                String filename = FileUtil.getFileName(header);
 
                 // getting the image content (it's located in the body of the InputPart)
                 InputStream file_is = photo.getBody(InputStream.class, null);
 
                 // saving file to disk
-                String file_path = FileUtil.saveFile(file_is, filename);
+                String file_path = FileUtil.saveFile(file_is, UUID.randomUUID().toString() + "_app");
 
                 // inserting photo into db
                 this.applicationPhotoService.insertPhoto(applicationID, file_path);

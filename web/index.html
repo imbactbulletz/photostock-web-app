@@ -40,6 +40,18 @@
             Register
         </md-nav-item>
 
+        <md-nav-item ng-if="$root.user.account_type == 'moderator' && $root.user.account_status == 'active'" md-nav-click="goto('moderator_dashboard')" name="moderator_dashboard">
+            Dashboard
+        </md-nav-item>
+
+        <md-nav-item ng-if="$root.user.account_type == 'operator' && $root.user.account_status == 'active'"  md-nav-click="goto('operator_dashboard')" name="operator_dashboard">
+            Dashboard
+        </md-nav-item>
+
+        <md-nav-item ng-if="$root.user.account_type == 'administrator' && $root.user.account_status == 'active'" md-nav-click="goto('administrator_dashboard')" name="administrator_dashboard">
+            Dashboard
+        </md-nav-item>
+
         <md-nav-item ng-if="$root.user.account_type == 'regular' && $root.user.account_status == 'active' && $root.user.pending_application == false" md-nav-click="goto('application')" name="application">
             Apply as a Vendor
         </md-nav-item>
@@ -48,7 +60,7 @@
             Apply for a company
         </md-nav-item>
 
-        <md-nav-item ng-if="$root.user.account_type == 'vendor' && $root.user.account_status == 'active'" md-nav-click="goto('upload')" name="upload">
+        <md-nav-item ng-if="($root.user.account_type == 'vendor' || $root.user.account_type == 'moderator') && $root.user.account_status == 'active'" md-nav-click="goto('upload')" name="upload">
             Upload
         </md-nav-item>
 
@@ -60,7 +72,7 @@
             Settings
         </md-nav-item>
 
-        <md-nav-item ng-if="$root.user.account_type == 'regular' || $root.user.account_type == 'vendor'" md-nav-click="goto('user_settings')" name="user_settings">
+        <md-nav-item ng-if="$root.user.account_type == 'regular' || $root.user.account_type == 'vendor' || $root.user.account_type == 'moderator' || $root.user.account_type == 'administrator'" md-nav-click="goto('user_settings')" name="user_settings">
             Settings
         </md-nav-item>
 
