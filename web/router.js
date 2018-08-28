@@ -98,6 +98,21 @@ app.config(function ($routeProvider) {
             controller: "ModeratorController"
         })
 
+        .when("/apply_for_company", {
+            templateUrl: "user/vendor/apply_for_company.html",
+            controller: "VendorController"
+        })
+
+
+        .when("/apply_for_company_successful", {
+            templateUrl: "user/vendor/successfully_applied.html",
+            controller: "VendorController"
+        })
+
+        .when("/moderator_review_application", {
+            templateUrl: "user/moderator/review_application.html",
+            controller: "ModeratorController"
+        })
 
         .otherwise({
             redirectTo: "/"

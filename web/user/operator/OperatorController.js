@@ -101,8 +101,8 @@ app.controller("OperatorController", ['$scope', 'OperatorService', 'UserService'
               }
 
               $rootScope.application_photos = application_photos;
-              $location.path("/review_application");
               $rootScope.applicant = applicant;
+              $location.path("/review_application");
           });
     };
 

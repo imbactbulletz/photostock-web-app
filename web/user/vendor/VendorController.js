@@ -37,6 +37,19 @@ app.controller("VendorController", ['$scope', '$location', 'VendorService', '$ro
         $rootScope.uploadedPhotos = uploaded_photos;
     });
 
+
+    // getting all the active companies
+    VendorService.getActiveCompanies().then(function(response){
+        var companies = response.data;
+
+        if(companies === undefined){
+            alert("COULD NOT FETCH ACTIVE COMPANIES");
+            return;
+        }
+
+        $rootScope.activeCompanies = companies;
+    });
+
     $scope.uploadPhoto = function(){
 
         var username = $rootScope.user.username;
@@ -173,4 +186,26 @@ app.controller("VendorController", ['$scope', '$location', 'VendorService', '$ro
             })
         });
     };
+
+    $scope.applyForCompany = function(){
+
+
+        // validation as md-select required doesn't work
+        if($rootScope.selectedCompany === undefined)
+            return;
+
+        var selectedCompany = $rootScope.selectedCompany;
+        var username = $rootScope.user.username;
+
+        VendorService.applyForCompany(username, selectedCompany).then(function(response){
+            var succeeded = response.data;
+
+            if(succeeded === undefined || succeeded === false){
+                alert("COULD NOT APPLY FOR COMPANY");
+                return;
+            }
+
+            $location.path("/apply_for_company_successful");
+        });
+    }
 }]);

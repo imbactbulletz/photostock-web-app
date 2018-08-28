@@ -73,4 +73,11 @@ public class ControllerCompany {
 
         return false;
     }
+
+    @GET
+    @Path("/getActiveCompanies")
+    @Produces("application/json")
+    public List<Company> getActiveCompanies(){
+        return this.serviceCompany.getActiveCompanies();
+    }
 }

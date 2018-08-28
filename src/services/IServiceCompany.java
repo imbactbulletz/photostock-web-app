@@ -10,4 +10,5 @@ public interface IServiceCompany {
     List<Company> getPendingCompanies();
     boolean setCompanyStatus(String companyID, String status);
     Company getCompanyByID(String ID);
+    List<Company> getActiveCompanies();
 }

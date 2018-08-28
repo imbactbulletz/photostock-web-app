@@ -36,4 +36,19 @@ public class ServiceApplication implements IServiceApplication{
     public boolean rateApplication(String username, String rating) {
         return this.dao.rateApplication(username, rating);
     }
+
+    @Override
+    public boolean makeApplicationForCompany(String username, String companyName) {
+        return this.dao.makeApplicationForCompany(username, companyName);
+    }
+
+    @Override
+    public List<Application> getPendingCompanyApplications(String companyName) {
+        return this.dao.getPendingCompanyApplications(companyName);
+    }
+
+    @Override
+    public boolean setApplicationStatus(String applicant, String status) {
+        return this.dao.setApplicationStatus(applicant, status);
+    }
 }

@@ -1,0 +1,27 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title style="margin-bottom:10px;">
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Apply for a Company</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <form role="form" name="applyForCompanyForm" ng-submit="applyForCompany()">
+                <div layout="column" align="center">
+                    <p style="margin-top: 10px; margin-bottom: 20px;">Submit your application to one of the companies in the list</p>
+                    <md-select required ng-model="$root.selectedCompany" placeholder="Choose a company">
+                        <md-option ng-repeat="company in $root.activeCompanies" value="{{ company.name }}">{{ company.name }} - Provision: {{ company.provision }}%</md-option>
+
+                    </md-select>
+                    <md-button type="submit" style="margin-top: 10px; margin-bottom: 10px;" class="md-raised md-primary capitalized search-button">Submit application</md-button>
+                </div>
+                </form>
+            </md-card-content>
+        </md-card>
+
+    </div>
+</div>

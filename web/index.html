@@ -44,6 +44,10 @@
             Apply as a Vendor
         </md-nav-item>
 
+        <md-nav-item ng-if="$root.user.account_type == 'vendor'" md-nav-click="goto('apply_for_company')" name="apply_for_company">
+            Apply for a company
+        </md-nav-item>
+
         <md-nav-item ng-if="$root.user.account_type == 'vendor' && $root.user.account_status == 'active'" md-nav-click="goto('upload')" name="upload">
             Upload
         </md-nav-item>

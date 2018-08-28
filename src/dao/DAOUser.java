@@ -23,6 +23,8 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
     private final String INSERT_MODERATOR = "INSERT INTO USER (USERNAME,PASSWORD,EMAIL,COMPANY, ACCOUNT_TYPE) VALUES ('%s','%s','%s','%s', 'moderator')";
     private final String GET_MODERATORS_FOR_COMPANY = "SELECT * FROM USER WHERE COMPANY = '%s'";
     private final String REMOVE_COMPANY_FROM_MEMBER = "UPDATE USER SET COMPANY = NULL WHERE USERNAME = '%s'";
+    private final String ASSIGN_USER_TO_COMPANY = "UPDATE USER SET COMPANY = '%s' WHERE USERNAME = '%s'";
+
 
     public DAOUser() {
         super(User.class);
@@ -414,6 +416,30 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
             return false;
 
         String query = String.format(REMOVE_COMPANY_FROM_MEMBER, username);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean assignUserToCompany(String username, String companyName) {
+        Connection connection = createConnection();
+
+        if(connection == null || username == null || companyName == null)
+            return false;
+
+        String query = String.format(ASSIGN_USER_TO_COMPANY, companyName, username);
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);

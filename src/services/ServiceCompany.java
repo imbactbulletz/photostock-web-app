@@ -39,5 +39,10 @@ public class ServiceCompany implements IServiceCompany {
         return this.dao.getCompanyByID(ID);
     }
 
+    @Override
+    public List<Company> getActiveCompanies() {
+        return this.dao.getActiveCompanies();
+    }
+
 
 }

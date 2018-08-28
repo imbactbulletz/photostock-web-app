@@ -29,6 +29,9 @@ app.controller("NavBarController", ['$scope', '$location', function ($scope, $lo
             case "uploaded_photos":
                 $location.path("/uploaded_photos");
                 break;
+            case "apply_for_company":
+                $location.path("/apply_for_company");
+                break;
             default:
                 $location.path("/");
         }

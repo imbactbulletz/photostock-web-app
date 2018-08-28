@@ -16,6 +16,8 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
     private final String GET_PENDING_COMPANIES = "SELECT * FROM COMPANY WHERE STATUS ='inactive'";
     private final String SET_COMPANY_STATUS = "UPDATE COMPANY SET STATUS = '%s' WHERE ID = %s";
     private final String GET_COMPANY_BY_ID = "SELECT * FROM COMPANY WHERE ID = %s";
+    private final String GET_ACTIVE_COMPANIES = "SELECT * FROM COMPANY WHERE STATUS = 'active'";
+
 
     public DAOCompany(){
         super(Company.class);
@@ -137,6 +139,32 @@ public class DAOCompany extends DAOAbstractDatabase<Company> implements IDAOComp
             }
 
             return null;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Company> getActiveCompanies() {
+        Connection connection = createConnection();
+
+        if(connection == null)
+            return null;
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ACTIVE_COMPANIES);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Company> companies = new ArrayList<>();
+
+            while(resultSet.next()){
+                Company tmp = readFromResultSet(resultSet);
+                companies.add(tmp);
+            }
+
+            return companies;
         }
         catch(Exception e){
             e.printStackTrace();

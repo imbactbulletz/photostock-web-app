@@ -86,11 +86,11 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody ng-repeat="pending_application in $root.pending_applications">
+                                        <tbody ng-repeat="application in $root.pendingApplications">
                                         <tr align="center">
                                             <td>{{ $index + 1 }}</td>
-                                            <td>{{ pending_application.applicant }}</td>
-                                            <td><td><md-button class="md-raised md-primary" ng-click="reviewApplication(pending_application.applicant)">Review application</md-button></td></td>
+                                            <td>{{ application.applicant }}</td>
+                                            <td><td><md-button class="md-raised md-primary" ng-click="reviewApplication(application.applicant)">Review application</md-button></td></td>
                                         </tr>
                                         </tbody>
                                     </table>

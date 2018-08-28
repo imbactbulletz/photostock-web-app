@@ -13,10 +13,13 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
 
     //Queries
     private final String MAKE_APP = "INSERT INTO APPLICATION (APPLICANT) VALUES (\"%s\")";
-    private final String GET_PENDING_APPS_FOR_APPLICANT = "SELECT * FROM APPLICATION WHERE APPLICANT = \"%s\" AND STATUS = 'pending'";
-    private final String GET_APPLICATION_ID = "SELECT ID FROM APPLICATION WHERE APPLICANT = \"%s\" AND STATUS = 'pending'";
+    private final String GET_APP_FOR_APPLICANT = "SELECT * FROM APPLICATION WHERE APPLICANT = \"%s\"";
     private final String GET_ALL_APPLICATIONS = "SELECT * FROM APPLICATION WHERE STATUS ='pending'";
     private final String RATE_USER = "UPDATE APPLICATION SET RATING = %s, STATUS = '%s' WHERE APPLICANT='%s'";
+    private final String APPLY_FOR_COMPANY = "UPDATE APPLICATION SET COMPANY_NAME = '%s', COMPANY_STATUS = 'pending' WHERE APPLICANT= '%s' AND STATUS = 'approved'";
+    private final String GET_PENDING_APPLICATIONS_FOR_COMPANY = "SELECT * FROM APPLICATION WHERE COMPANY_STATUS ='pending' AND COMPANY_NAME = '%s'";
+    private final String SET_COMPANY_STATUS = "UPDATE APPLICATION SET COMPANY_STATUS = '%s' WHERE APPLICANT = '%s'";
+
     public DAOApplication(){
         super(Application.class);
     }
@@ -33,7 +36,7 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
 
         // checking how many PENDING applications user has - only one activation that is PENDING
         // may exist at once in DB
-        String query = String.format(GET_PENDING_APPS_FOR_APPLICANT, applicant);
+        String query = String.format(GET_APP_FOR_APPLICANT, applicant);
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -80,7 +83,7 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
 
         // checking how many PENDING applications user has - only one activation that is PENDING
         // may exist at once in DB
-        String query = String.format(GET_PENDING_APPS_FOR_APPLICANT, applicant);
+        String query = String.format(GET_APP_FOR_APPLICANT, applicant);
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -114,7 +117,7 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
 
         // checking how many PENDING applications user has - only one activation that is PENDING
         // may exist at once in DB
-        String query = String.format(GET_PENDING_APPS_FOR_APPLICANT, applicant);
+        String query = String.format(GET_APP_FOR_APPLICANT, applicant);
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -197,6 +200,83 @@ public class DAOApplication extends DAOAbstractDatabase<Application> implements 
             return true;
         }
 
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean makeApplicationForCompany(String username, String companyName) {
+        Connection connection = createConnection();
+
+        if(connection == null || username == null || companyName == null)
+            return false;
+
+        String query = String.format(APPLY_FOR_COMPANY, companyName, username);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public List<Application> getPendingCompanyApplications(String companyName) {
+        Connection connection = createConnection();
+
+        if(connection == null)
+            return null;
+
+        String query = String.format(GET_PENDING_APPLICATIONS_FOR_COMPANY, companyName);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Application> applications = new ArrayList<>();
+
+            while(resultSet.next()){
+                Application tmp = readFromResultSet(resultSet);
+                applications.add(tmp);
+            }
+
+            return applications;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean setApplicationStatus(String applicant, String status) {
+        Connection connection = createConnection();
+
+        if(connection == null || applicant == null || status == null){
+            return false;
+        }
+
+        String query = String.format(SET_COMPANY_STATUS, status.equals("true") ? "approved" : "denied", applicant);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
         catch(Exception e){
             e.printStackTrace();
             return false;

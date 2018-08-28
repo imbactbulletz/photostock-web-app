@@ -1,0 +1,26 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center stretch">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Review Application</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content style="max-height: 600px; overflow-y:auto;">
+                <div ng-repeat="photo in $root.application_photos">
+                    <img style="padding: 10px;" ng-src="{{'data:image/*;base64,'+photo.data}}" layout-fill>
+                </div>
+            </md-card-content>
+            <form name="rateForm" role="form" ng-submit="rateApplication()">
+                <div style="padding: 10px;" layout="row" align="center" layout-align="center start">
+                        <md-button class="md-raised md-primary" ng-click="setApplicationStatus('true')">ACCEPT</md-button>
+                        <md-button class="md-accent md-raised md-hue-3" ng-click="setApplicationStatus('false')">DECLINE</md-button>
+                    </td>
+                </div>
+            </form>
+        </md-card>
+    </div>
+</div>

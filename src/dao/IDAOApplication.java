@@ -10,4 +10,7 @@ public interface IDAOApplication {
     String getApplicationID(String applicant);
     List<Application> getPendingApplications();
     boolean rateApplication(String username, String rating);
+    boolean makeApplicationForCompany(String username, String companyName);
+    List<Application> getPendingCompanyApplications(String companyName);
+    boolean setApplicationStatus(String applicant, String status);
 }

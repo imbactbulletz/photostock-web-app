@@ -43,5 +43,13 @@ app.factory('VendorService', ['$http', function($http){
         return $http.get("http://localhost:8080/Photostock/rest/photo/deletePhoto=" + ID);
     };
 
+    service.getActiveCompanies = function(){
+        return $http.get("http://localhost:8080/Photostock/rest/company/getActiveCompanies");
+    };
+
+    service.applyForCompany = function(username, companyName){
+        return $http.get("http://localhost:8080/Photostock/rest/app/applyForCompany=" + companyName + ",username=" + username)
+    };
+
     return service;
 }]);

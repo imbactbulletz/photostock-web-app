@@ -18,4 +18,5 @@ public interface IServiceUser {
     boolean insertModerator(String username, String password, String email, String companyName);
     List<User> getMembersFor(String companyName);
     boolean removeMembership(String username);
+    boolean assignUserToCompany(String username, String companyName);
 }

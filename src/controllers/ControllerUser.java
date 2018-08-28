@@ -185,4 +185,10 @@ public class ControllerUser {
         return this.service.removeMembership(username);
     }
 
+
+    @GET
+    @Path("/assignUserToCompany={companyName},username={username}")
+    public boolean assignUserToCompany(@PathParam("companyName") String companyName, @PathParam("username") String username){
+        return this.service.assignUserToCompany(username, companyName);
+    }
 }

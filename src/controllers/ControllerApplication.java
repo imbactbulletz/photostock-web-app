@@ -158,4 +158,35 @@ public class ControllerApplication {
 
         return true;
     }
+
+
+    @GET
+    @Path("/applyForCompany={companyName},username={username}")
+    @Produces("application/json")
+    public boolean applyForCompany(@PathParam("companyName") String companyName, @PathParam("username") String username){
+        return this.applicationService.makeApplicationForCompany(username, companyName);
+    }
+
+    @GET
+    @Path("/getPendingApplicationsFor={companyName}")
+    @Produces("application/json")
+    public List<Application> getPendingApplications(@PathParam("companyName") String companyName){
+        return this.applicationService.getPendingCompanyApplications(companyName);
+    }
+
+    @GET
+    @Path("/setApplicationStatus={status},username={username},company={companyName}")
+    @Produces("application/json")
+    public boolean setApplicationStatus(@PathParam("status") String status, @PathParam("username") String username, @PathParam("companyName") String companyName){
+
+        boolean set = this.applicationService.setApplicationStatus(username, status);
+
+        if(set){
+            if(status.equals("true")){
+                this.userService.assignUserToCompany(username, companyName);
+            }
+        }
+
+        return set;
+    }
 }

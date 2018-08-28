@@ -77,5 +77,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.removeMembership(username);
     }
 
+    @Override
+    public boolean assignUserToCompany(String username, String companyName) {
+        return this.dao.assignUserToCompany(username, companyName);
+    }
+
 
 }

@@ -71,7 +71,7 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             }
 
             else if (returned_value.account_type === "vendor") {
-                alert("You've logged in with a vendor account!");
+                // alert("You've logged in with a vendor account!");
             }
 
             else if (returned_value.account_type === "moderator") {
