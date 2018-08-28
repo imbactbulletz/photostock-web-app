@@ -64,7 +64,7 @@
                                         </tr>
                                         </thead>
                                         <tbody ng-repeat="uzer in $root.users">
-                                        <tr align="center" ng-if="uzer.username != user.username">
+                                        <tr align="center">
                                             <td>{{ $index + 1}}</td>
                                             <td>{{ uzer.username}}</td>
                                             <td>{{ uzer.password}}</td>
@@ -72,8 +72,8 @@
                                             <td>{{ uzer.country}}</td>
                                             <td>{{ uzer.account_type}}</td>
                                             <td>{{ uzer.account_status}}</td>
-                                            <td><md-button class="md-raised md-primary" ng-click="">STATS</md-button></td>
-                                            <td><md-button class="md-accent md-raised md-hue-3" ng-click="removeUser(uzer.username)">REMOVE</md-button></td>
+                                            <td><md-button ng-if="(uzer.username != user.username)" class="md-raised md-primary" ng-click="">STATS</md-button></td>
+                                            <td><md-button ng-if="(uzer.username != user.username)" class="md-accent md-raised md-hue-3" ng-click="removeUser(uzer.username)">REMOVE</md-button></td>
                                         </tr>
                                         </tbody>
                                     </table>

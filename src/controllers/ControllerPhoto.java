@@ -145,4 +145,15 @@ public class ControllerPhoto {
     public boolean setPhotoStatus(@PathParam("status") String status, @PathParam("id") String id){
         return this.servicePhoto.setPhotoStatus(id, status);
     }
+
+    @GET
+    @Path("/getPhotosBy={criteria},term={term}")
+    @Produces("application/json")
+    public List<Photo> getPhotosBy(@PathParam("criteria") String criteria, @PathParam("term") String term){
+
+
+        List<Photo> photos = this.servicePhoto.getPhotosBy(criteria, term);
+
+        return photos;
+    }
 }

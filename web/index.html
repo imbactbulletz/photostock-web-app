@@ -68,11 +68,11 @@
             Uploaded photos
         </md-nav-item>
 
-        <md-nav-item ng-if="$root.user.account_type == 'operator'" md-nav-click="goto('operator_settings')" name="operator_settings">
+        <md-nav-item ng-if="$root.user.account_type == 'operator' && $root.user.account_status == 'active'" md-nav-click="goto('operator_settings')" name="operator_settings">
             Settings
         </md-nav-item>
 
-        <md-nav-item ng-if="$root.user.account_type == 'regular' || $root.user.account_type == 'vendor' || $root.user.account_type == 'moderator' || $root.user.account_type == 'administrator'" md-nav-click="goto('user_settings')" name="user_settings">
+        <md-nav-item ng-if="($root.user.account_type == 'regular' || $root.user.account_type == 'vendor' || $root.user.account_type == 'moderator' || $root.user.account_type == 'administrator') && $root.user.account_status == 'active'" md-nav-click="goto('user_settings')" name="user_settings">
             Settings
         </md-nav-item>
 

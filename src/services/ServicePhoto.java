@@ -43,4 +43,9 @@ public class ServicePhoto implements IServicePhoto {
     public boolean setPhotoStatus(String photoID, String status) {
         return this.dao.setPhotoStatus(photoID, status);
     }
+
+    @Override
+    public List<Photo> getPhotosBy(String criteria, String term) {
+        return this.dao.getPhotosBy(criteria, term);
+    }
 }

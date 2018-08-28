@@ -191,4 +191,60 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
         }
     }
 
+    // title, author, category
+    @Override
+    public List<Photo> getPhotosBy(String criteria, String term) {
+        Connection connection = createConnection();
+
+        if(connection == null || criteria == null || term == null)
+            return null;
+
+        // building query
+        String GET_PHOTOS_BY = "SELECT * FROM PHOTO WHERE ";
+
+        if(criteria.equalsIgnoreCase("title"))
+            GET_PHOTOS_BY += "TITLE = '%s'";
+
+        else if(criteria.equalsIgnoreCase("author"))
+            GET_PHOTOS_BY += "UPLOADEDBY = '%s'";
+
+            else if(criteria.equalsIgnoreCase("category"))
+                    GET_PHOTOS_BY += "CATEGORY = '%s'";
+
+
+        String query = String.format(GET_PHOTOS_BY, term);
+
+        // filtering to get only approved photos
+        query += "AND APPROVED = 'true' ";
+
+
+        // add for sort
+//        LEFT JOIN USER user ON photo.uploadedby = user.username
+//        LEFT JOIN COMPANY comp ON comp.name = user.company
+//
+//        ORDER BY (
+//                CASE WHEN comp.membership = 'gold' OR (user.company IS NULL AND user.rating > 4) THEN 1
+//        WHEN comp.membership = 'silver' OR (user.rating > 3 AND user.rating < 4) THEN 2
+//        END) ASC;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Photo> photos = new ArrayList<>();
+
+            while(resultSet.next()){
+                Photo tmp = readFromResultSet(resultSet);
+                photos.add(tmp);
+            }
+
+            return photos;
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
