@@ -1,0 +1,22 @@
+<div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
+<md-grid-list class="search-results" md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-lg="4" md-row-height="400px" md-cols="5">
+    <md-grid-tile ng-repeat="photo in $root.displayedPhotos">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline"> {{ photo.title}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <div layout="column" align="right">
+                    <img height="200" width="300" style="padding: 10px;" ng-src="{{'data:image/*;base64,'+photo.data}}">
+                    <span style="padding-left: 10px;" align="left">Author: <b>{{ photo.uploadedBy}}</b></span>
+                    <span style="padding-left: 10px;" align="left">Category: <b>{{ photo.category }}</b></span>
+                    <md-button style="margin-top: -5px; max-width: 70px; width: 70px;" type="submit" class="md-raised md-primary capitalized search-button">MORE INFO</md-button>
+                </div>
+            </md-card-content>
+
+        </md-card>
+    </md-grid-tile>
+</md-grid-list>
+</div>

@@ -64,8 +64,8 @@ public class FileUtil {
 
 
     public static BufferedImage putWatermark(String caption, BufferedImage image){
-        Font font = new Font("Monospaced", Font.PLAIN, 14);
-        Color c = Color.black;
+        Font font = new Font("Monospaced", Font.PLAIN, 80);
+        Color c = Color.gray;
         Position position = Positions.CENTER;
         int insetPixels = 0;
 

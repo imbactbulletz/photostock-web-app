@@ -176,4 +176,49 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             $location.path("/forgotPassword");
         }
     }
+
+
+    $scope.searchPhotos = function(criteria, term){
+      var criteria = $rootScope.searchCriteria;
+      var term = $rootScope.searchTerm;
+
+      if(criteria === undefined || term === undefined)
+          return;
+
+      GuestService.searchPhotos(criteria, term).then(function(response){
+          var resultPhotos = response.data;
+
+          if(resultPhotos === undefined){
+              alert("Could not fetch photos for the given search result!");
+              return;
+          }
+
+
+          $rootScope.displayedPhotos = resultPhotos;
+
+          if(resultPhotos.length > 10){
+              $rootScope.displayedPhotos = resultPhotos.slice(0,10)
+          }
+
+          $rootScope.resultPhotos = resultPhotos;
+          $location.path("/search_results");
+      });
+    };
+
+    $scope.loadMore = function(){
+        var displayedItems = $rootScope.displayedPhotos.length;
+        var totalItems = $rootScope.resultPhotos.length;
+        var diff = totalItems - displayedItems;
+
+        var extraItems;
+
+        if(diff > 10){
+            extraItems = $rootScope.resultPhotos.slice(displayedItems, displayedItems+10);
+        }
+        else{
+            extraItems = $rootScope.resultPhotos.slice(displayedItems, displayedItems + diff);
+        }
+
+        $rootScope.displayedPhotos = $rootScope.displayedPhotos.concat(extraItems);
+    }
 }]);

@@ -154,6 +154,20 @@ public class ControllerPhoto {
 
         List<Photo> photos = this.servicePhoto.getPhotosBy(criteria, term);
 
+        for(Photo photo : photos){
+            String photoPath = photo.getPath();
+
+            BufferedImage image = FileUtil.readBufferedImage(photoPath);
+
+            BufferedImage temp = FileUtil.resizeImage(image,640, 480);
+            temp = FileUtil.putWatermark("PHOTOSTOCK", temp);
+
+
+            String encodedImage = FileUtil.encodeImage(temp);
+
+            photo.setData(encodedImage);
+        }
+
         return photos;
     }
 }

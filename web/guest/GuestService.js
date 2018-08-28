@@ -23,5 +23,9 @@ app.factory('GuestService', ['$http', function($http){
         return $http.post("http://localhost:8080/Photostock/rest/user/changePassword", user);
     };
 
+    service.searchPhotos = function(criteria, term){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/getPhotosBy=" + criteria + ",term=" + term);
+    };
+
     return service;
 }]);

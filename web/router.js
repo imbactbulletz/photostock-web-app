@@ -114,6 +114,12 @@ app.config(function ($routeProvider) {
             controller: "ModeratorController"
         })
 
+        .when("/search_results", {
+            templateUrl: "guest/search_result.html",
+            controller: "GuestController"
+        })
+
+
         .otherwise({
             redirectTo: "/"
         });

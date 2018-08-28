@@ -10,21 +10,27 @@
             </md-card-title>
 
             <md-card-content>
+                <form role="form" name="searchForm" ng-submit="searchPhotos()">
                 <div layout="row" layout-align="start center">
                     <md-input-container md-no-float>
-                        <input size="50" ng-model="user.address2" placeholder="Search for an image..">
+                        <input required size="50" ng-model="$root.searchTerm" name="search" placeholder="Search for an image..">
+                        <div ng-messages="searchForm.search.$error">
+                            <div ng-message="required">
+                                Please enter a search term.
+                            </div>
+                        </div>
                     </md-input-container>
 
-                    <md-select ng-model="searchCriteria" placeholder="Search by">
-                        <md-option value="artist">Artist</md-option>
+                    <md-select required ng-model="$root.searchCriteria" placeholder="Search by">
+                        <md-option value="author">Author</md-option>
                         <md-option value="category">Category</md-option>
-                        <md-option value="keyword">Keyword</md-option>
                         <md-option value="title">Title</md-option>
 
                     </md-select>
 
-                    <md-button class="md-raised md-primary capitalized search-button" ng-click="getBooks()">Search</md-button>
+                    <md-button type="submit" class="md-raised md-primary capitalized search-button">Search</md-button>
                 </div>
+                </form>
             </md-card-content>
 
         </md-card>
