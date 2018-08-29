@@ -5,7 +5,7 @@
 ~~1. Pretraga po kriterijumu~~  
 ~~2. Sortiranje slika po kriterijumu~~    
 ~~3. Infinite scroll ili paginacija~~  
-4. Prikaz detalja o izabranoj fotografiji (sa umanjenom slikom)  
+~~4. Prikaz detalja o izabranoj fotografiji (sa umanjenom slikom)~~    
 5. Isporucivanje kupljene slike na mail  
 6. Popust za korisnika (za svaku 3. sliku 5% popust)  
 7. Ocenjivanje kupljenih slika i autora od kojih je kupljeno  
