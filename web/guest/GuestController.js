@@ -220,5 +220,38 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
         }
 
         $rootScope.displayedPhotos = $rootScope.displayedPhotos.concat(extraItems);
-    }
+    };
+
+    $scope.sortPictures = function(){
+
+        if($rootScope.sortBy === undefined || $rootScope.flow === undefined)
+            return;
+
+        var criteria = $rootScope.sortBy;
+        var flow = $rootScope.flow;
+
+        var displayedPhotos = $rootScope.displayedPhotos;
+
+
+        if(criteria == 'date'){
+            if(flow == 'ascending')
+                displayedPhotos.sort(function(a,b){ return a.dateUploaded - b.dateUploaded});
+            else
+                displayedPhotos.sort(function(a,b){ return b.dateUploaded - a.dateUploaded});
+        }
+
+        else if(criteria == 'rating'){
+            // $rootScope.sort(function(a,b){ return a.rating - b.rating});
+        }
+        else if(criteria == 'title'){
+            if(flow == 'ascending')
+                displayedPhotos.sort(function(a,b){ return a.title > b.title ? 1 : a.title < b.title ? -1 : 0 });
+            else
+                displayedPhotos.sort(function(a,b){ return b.title > a.title ? 1 : b.title < a.title ? -1 : 0 });
+        }
+
+        $rootScope.displayedPhotos = displayedPhotos;
+
+    };
+
 }]);

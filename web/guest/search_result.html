@@ -1,3 +1,14 @@
+<div layout="row" style="margin-left: 50px;">
+    <md-select flex="15" ng-model="$root.sortBy" placeholder="Sort by" ng-change="sortPictures()">
+        <md-option value="date">Date</md-option>
+        <md-option value="rating">Rating</md-option>
+        <md-option value="title">Title</md-option>
+    </md-select>
+    <md-select flex="12" ng-model="$root.flow" placeholder="Ascending/Descending" ng-change="sortPictures()">
+        <md-option value="ascending">Ascending</md-option>
+        <md-option value="category">Descending</md-option>
+    </md-select>
+</div>
 <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
 <md-grid-list class="search-results" md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-lg="4" md-row-height="400px" md-cols="5">
     <md-grid-tile ng-repeat="photo in $root.displayedPhotos">
