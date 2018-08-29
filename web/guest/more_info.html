@@ -1,0 +1,33 @@
+<div>
+    <md-dialog aria-label="Photo preview" style="max-width: 900px;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Photo preview</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+                <md-content>
+                    <div layout="column" align="center">
+                    <img height="200" width="400" style="padding: 10px;"  ng-src="{{'data:image/*;base64,'+$root.selectedPhoto.data}}">
+                    <span style="padding-left: 10px;" >Author: <b>{{ $root.selectedPhoto.uploadedBy}}</b></span>
+                    <span style="padding-left: 10px;" >Category: <b>{{ $root.selectedPhoto.category}}</b></span>
+                    <span style="padding-left: 10px;" >Description: <b>{{ $root.selectedPhoto.description}}</b></span>
+                    <span style="padding-left: 10px;" >Rating: <b>{{ $root.selectedPhoto.rating }}</b></span>
+                    </div>
+                    <div align="center" style="margin-top: 10px;">
+                        <md-select align="center" flex="90" ng-model="$root.sortBy" placeholder="Available resolutions">
+                        <md-option ng-repeat="resolution in $root.selectedPhoto.resolutions" value="{{resolution.id}}">Resolution: {{ resolution.name }} - Price {{ resolution.price }}$</md-option>
+                        </md-select>
+                    </div>
+                </md-content>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary capitalized" ng-click="cancelDialog()">Add to card</md-button>
+            <md-button class="md-raised md-primary capitalized" ng-click="cancelDialog()">Close</md-button>
+            <span flex></span>
+        </md-dialog-actions>
+    </md-dialog>
+</div>

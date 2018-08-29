@@ -1,6 +1,9 @@
 package services;
 
 import dao.DAOPhotoResolution;
+import entities.PhotoResolution;
+
+import java.util.List;
 
 public class ServicePhotoResolution implements IServicePhotoResoluton{
     protected DAOPhotoResolution dao;
@@ -12,5 +15,10 @@ public class ServicePhotoResolution implements IServicePhotoResoluton{
     @Override
     public boolean insertPhotoResolution(int photoID, String name, double price) {
        return this.dao.insertPhotoResolution(photoID, name, price);
+    }
+
+    @Override
+    public List<PhotoResolution> getResolutionsForPhoto(String photoID) {
+        return this.dao.getResolutionsForPhoto(photoID);
     }
 }

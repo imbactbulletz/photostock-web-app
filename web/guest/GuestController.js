@@ -1,6 +1,6 @@
 var app = angular.module("photostock-app");
 
-app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestService', 'UserService', function ($scope, $rootScope, $location, GuestService, UserService) {
+app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestService', 'UserService', '$mdDialog', function ($scope, $rootScope, $location, GuestService, UserService, $mdDialog) {
     // navigate through navbar
     $scope.goto = function (page) {
         alert("opened");
@@ -251,7 +251,39 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
         }
 
         $rootScope.displayedPhotos = displayedPhotos;
+    };
+
+    $scope.moreInfo = function moreInfo(ev,photo){
+
+            $rootScope.selectedPhoto = photo;
+
+            // calling the service to get us photo resolutions and prices
+            GuestService.getPhotoResolutions(photo.id).then(function(response){
+                var resolutions = response.data;
+
+                if(resolutions === undefined){
+                    alert("COULD NOT FETCH PHOTO RESOLUTIONS FOR THE SELECTED PHOTO");
+                    return;
+                }
+
+                $rootScope.selectedPhoto.resolutions = resolutions;
+            });
+
+
+            $mdDialog.show({
+                controller: 'GuestController',
+                templateUrl: 'guest/more_info.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
 
     };
+
+    $scope.cancelDialog = function () {
+        $mdDialog.cancel();
+    };
+
 
 }]);

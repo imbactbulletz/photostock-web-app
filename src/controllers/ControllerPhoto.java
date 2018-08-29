@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Photo;
+import entities.PhotoResolution;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import services.IServicePhoto;
@@ -169,5 +170,12 @@ public class ControllerPhoto {
         }
 
         return photos;
+    }
+
+    @GET
+    @Path("/getPhotoResolutions={id}")
+    @Produces("application/json")
+    public List<PhotoResolution> getPhotoResolutions(@PathParam("id") String id){
+        return this.servicePhotoResoluton.getResolutionsForPhoto(id);
     }
 }

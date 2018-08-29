@@ -14,7 +14,8 @@ public class Photo extends BasicEntity {
     String path;
     String approved;
     Date dateUploaded;
-
+    double rating;
+    int times_rated;
 
 
     String data;
@@ -27,7 +28,8 @@ public class Photo extends BasicEntity {
     String PATH = "PATH";
     String APPROVED = "APPROVED";
     String DATEUPLOADED = "DATE_UPLOADED";
-
+    String RATING = "RATING";
+    String TIMES_RATED = "TIMES_RATED";
 
     public Photo(){
         super();
@@ -39,6 +41,8 @@ public class Photo extends BasicEntity {
         this.columnNames.add(PATH);
         this.columnNames.add(APPROVED);
         this.columnNames.add(DATEUPLOADED);
+        this.columnNames.add(RATING);
+        this.columnNames.add(TIMES_RATED);
     }
 
     @Override
@@ -69,6 +73,14 @@ public class Photo extends BasicEntity {
 
         if(DATEUPLOADED.equals(columnName)){
             return this.dateUploaded;
+        }
+
+        if(RATING.equals(columnName)){
+            return this.rating;
+        }
+
+        if(TIMES_RATED.equals(columnName)){
+            return this.times_rated;
         }
 
         return super.getValueForColumnName(columnName);
@@ -102,6 +114,14 @@ public class Photo extends BasicEntity {
 
         if(DATEUPLOADED.equals(columnName)){
             this.setDateUploaded(SafeConverter.toSafeDate(value));
+        }
+
+        if(RATING.equals(columnName)){
+            this.setRating(SafeConverter.toSafeDouble(value));
+        }
+
+        if(TIMES_RATED.equals(columnName)){
+            this.setTimes_rated(SafeConverter.toSafeInt(value));
         }
 
         super.setValueForColumnName(columnName, value);
@@ -169,5 +189,21 @@ public class Photo extends BasicEntity {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getTimes_rated() {
+        return times_rated;
+    }
+
+    public void setTimes_rated(int times_rated) {
+        this.times_rated = times_rated;
     }
 }

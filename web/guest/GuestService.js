@@ -27,5 +27,9 @@ app.factory('GuestService', ['$http', function($http){
         return $http.get("http://localhost:8080/Photostock/rest/photo/getPhotosBy=" + criteria + ",term=" + term);
     };
 
+    service.getPhotoResolutions = function(photoID){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/getPhotoResolutions=" + photoID);
+    };
+
     return service;
 }]);
