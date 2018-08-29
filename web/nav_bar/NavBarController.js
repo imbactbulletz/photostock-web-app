@@ -1,6 +1,6 @@
 var app = angular.module("photostock-app");
 
-app.controller("NavBarController", ['$scope', '$location', function ($scope, $location){
+app.controller("NavBarController", ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope){
 
 
     // navigation through navbar
@@ -50,6 +50,42 @@ app.controller("NavBarController", ['$scope', '$location', function ($scope, $lo
                 $location.path("/administrator_dashboard");
                 break;
 
+            case "shopping_cart":
+
+                var cart_str = sessionStorage.getItem('cart');
+
+                // disabling user to see empty shopping cart
+                // if(cart_str === undefined || cart_str == undefined){
+                //     alert("You don't have anything in your shopping cart!");
+                //     return;
+                // }
+
+                var cart = JSON.parse(cart_str);
+                // sorting items by price
+                cart.sort(function (a, b) { return b.selectedResolution.price - a.selectedResolution.price });
+
+                // checking how many items are in the cart
+                var items = cart.length;
+                var itemsToDiscount = Math.floor(items/4);
+
+                // checking prices
+                var totalSum = 0;
+                var discountedSum = 0;
+                for(i = cart.length-1 ; i >= 0; i--){
+                    var price = cart[i].selectedResolution.price;
+
+                    if(itemsToDiscount > 0) {
+                        discountedSum += (price / 100) * 5;
+                        itemsToDiscount -= 1;
+                    }
+
+                    totalSum += price;
+                }
+                $rootScope.cart = cart;
+                $rootScope.cart.discountedPrice = discountedSum;
+                $rootScope.cart.totalPrice = totalSum;
+                $location.path("/shopping_cart");
+                break;
                 
             default:
                 $location.path("/");

@@ -119,6 +119,10 @@ app.config(function ($routeProvider) {
             controller: "GuestController"
         })
 
+        .when("/shopping_cart", {
+            templateUrl: "guest/shopping_cart.html",
+            controller: "GuestController"
+        })
 
         .otherwise({
             redirectTo: "/"

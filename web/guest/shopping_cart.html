@@ -1,0 +1,47 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center none">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Your Shopping Cart</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <md-data-table-container>
+                    <table md-data-table>
+                        <thead md-trim-column-names>
+                        <tr>
+                            <th width="5%">#</th>
+                            <th>Photo name</th>
+                            <th>Uploaded by</th>
+                            <th>Resolution</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="photo in $root.cart track by $index">
+                        <tr align="center">
+                            <td>{{ $index + 1}}</td>
+                            <td>{{ photo.title}}</td>
+                            <td>{{ photo.uploadedBy}}</td>
+                            <td>{{ photo.selectedResolution.name }}</td>
+                            <td>{{ photo.selectedResolution.price }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 10px;" layout="column" align="right">
+                        <span>Original price: <b>{{ $root.cart.totalPrice }}$</b></span>
+                        <span>Discounted price : <b> {{ $root.cart.discountedPrice }}$</b></span>
+                        <span>Total price: <b> {{ $root.cart.totalPrice - $root.cart.discountedPrice }}$</b></span>
+                    </div>
+                </md-data-table-container>
+                <div align="center">
+                    <md-button class="md-raised md-primary" ng-click="">Checkout</md-button>
+                </div>
+            </md-card-content>
+
+        </md-card>
+    </div>
+</div>

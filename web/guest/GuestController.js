@@ -286,4 +286,35 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
     };
 
 
+    $scope.addToCart = function(){
+        var selectedPhoto = $rootScope.selectedPhoto;
+        var selectedResolution_str = $rootScope.selectedResolution;
+        var selectedResolution;
+
+        if(typeof selectedResolution_str === 'undefined'){
+            alert("You didn't select any resolution");
+            return;
+        }
+
+        selectedResolution = JSON.parse(selectedResolution_str);
+
+        selectedPhoto.selectedResolution = selectedResolution;
+
+        var cart_str = sessionStorage.getItem('cart');
+        var cart;
+
+        if(cart_str === undefined || cart_str == null)
+            cart = [];
+        else
+            cart = JSON.parse(cart_str);
+
+
+        // sorting cart by price
+        cart.push(selectedPhoto);
+
+        cart_str = JSON.stringify(cart, null, 2);
+        sessionStorage.setItem('cart', cart_str);
+    };
+
+
 }]);
