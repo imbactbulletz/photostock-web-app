@@ -2,9 +2,9 @@
 
 
 # Korisnik (Regular):
-1. Pretraga po kriterijumu  
+~~1. Pretraga po kriterijumu~~  
 2. Sortiranje slika po kriterijumu  
-3. Infinite scroll ili paginacija  
+~~3. Infinite scroll ili paginacija~~  
 4. Prikaz detalja o izabranoj fotografiji (sa umanjenom slikom)  
 5. Isporucivanje kupljene slike na mail  
 6. Popust za korisnika (za svaku 3. sliku 5% popust)  
@@ -13,7 +13,7 @@
 ~~9. Unos kreditne kartice~~  
 ~~10. Deaktivacija naloga **(Jul)**~~  
 11. Istorijski pregled kupljenih slika i mogucnost ponovnog preuzimanja **(Jul)**  
-12. Filtracija prioriteta prikaza po rezultatu pretrage **(Septembar)**  
+~~12. Filtracija prioriteta prikaza po rezultatu pretrage **(Septembar)**~~    
 # Prodavac (Vendor):
 ~~13. Postavljanje slike za prodaju~~  
 ~~14. Unos podataka o kartici pre prodaje slike~~  
