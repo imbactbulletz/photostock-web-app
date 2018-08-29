@@ -317,17 +317,24 @@ public class DAOUser extends DAOAbstractDatabase<User> implements IDAOUser {
         }
 
         String query = "UPDATE USER SET ";
-
+        int hasPrevious = 0;
         if(password != null){
             query += "PASSWORD ='" + password + "'";
+            hasPrevious++;
         }
 
         if(creditCard != null){
-            query += ", CREDIT_CARD ='" + creditCard + "'";
+            if(hasPrevious != 0)
+                query += ",";
+            query += " CREDIT_CARD ='" + creditCard + "'";
+            hasPrevious++;
         }
 
         if(deactivate != null && Boolean.valueOf(deactivate)){
-            query += ", ACCOUNT_STATUS = 'deactivated' ";
+            if(hasPrevious != 0)
+                query += ",";
+            query += " ACCOUNT_STATUS = 'deactivated' ";
+            hasPrevious++;
         }
 
         if(password == null && creditCard == null && deactivate == null){

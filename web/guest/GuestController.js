@@ -316,5 +316,18 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
         sessionStorage.setItem('cart', cart_str);
     };
 
+    $scope.checkOut = function(){
 
+        if($rootScope.user === undefined){
+            alert("You have to log in in order to check out!");
+            return;
+        }
+
+        var user = $rootScope.user;
+
+        if(user.creditcard === undefined || user.creditcard == null || user.creditcard == ''){
+            alert("You have to set up a credit card before checking out!");
+            return;
+        }
+    };
 }]);

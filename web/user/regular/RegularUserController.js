@@ -72,6 +72,7 @@ app.controller("RegularUserController", ['$scope', 'UserService', '$location', '
 
            if(succeeded){
                alert("Successfully changed settings!");
+               $rootScope.user.creditcard = credit_card;
            }
            else {
                alert("Could not change settings!");
