@@ -1,0 +1,19 @@
+<div layout-fill layout="column" layout-align="center none">
+    <div layout="row" layout-align="center stretch">
+
+        <md-card class="container">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span align="center" class="md-headline">Photos you bought</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content style="max-height: 600px; overflow-y:auto;">
+                <div align="right" ng-repeat="photo in $root.boughtPhotos">
+                    <img style="padding: 10px;" ng-src="{{'data:image/*;base64,'+photo.data}}" layout-fill>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

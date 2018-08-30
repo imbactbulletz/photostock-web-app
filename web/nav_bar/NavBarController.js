@@ -1,6 +1,6 @@
 var app = angular.module("photostock-app");
 
-app.controller("NavBarController", ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope){
+app.controller("NavBarController", ['$scope', '$location', '$rootScope', 'UserService', function ($scope, $location, $rootScope, UserService){
 
 
     // navigation through navbar
@@ -54,11 +54,10 @@ app.controller("NavBarController", ['$scope', '$location', '$rootScope', functio
 
                 var cart_str = sessionStorage.getItem('cart');
 
-                // disabling user to see empty shopping cart
-                // if(cart_str === undefined || cart_str == undefined){
-                //     alert("You don't have anything in your shopping cart!");
-                //     return;
-                // }
+                if(cart_str === undefined || cart_str == undefined){
+                    alert("You don't have anything in your shopping cart!");
+                    return;
+                }
 
                 var cart = JSON.parse(cart_str);
                 // sorting items by price
@@ -86,7 +85,24 @@ app.controller("NavBarController", ['$scope', '$location', '$rootScope', functio
                 $rootScope.cart.totalPrice = totalSum;
                 $location.path("/shopping_cart");
                 break;
-                
+
+            case "bought_photos":
+                var username = $rootScope.user.username;
+
+                UserService.getBoughtPhotos(username).then(function(response){
+                    var bought_photos = response.data;
+
+                    if(bought_photos === undefined){
+                        alert("Could not fetch bought photos!");
+                        return;
+                    }
+
+                    $rootScope.boughtPhotos = bought_photos;
+                });
+
+                $location.path("/bought_photos");
+                break;
+
             default:
                 $location.path("/");
         }

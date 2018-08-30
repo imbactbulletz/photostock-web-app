@@ -39,7 +39,6 @@ app.factory('UserService', ['$http', function($http){
 
     service.userSettings = function(username, changed_password, changed_credit_card, deactivate){
 
-      alert("ALERT ZENERAAAAAAAAAL");
 
       var inData = new FormData();
 
@@ -65,6 +64,10 @@ app.factory('UserService', ['$http', function($http){
 
     service.getCreditCard = function(username){
       return $http.get("http://localhost:8080/Photostock/rest/user/hasCreditCard=" + username);
+    };
+
+    service.getBoughtPhotos = function(username){
+        return $http.get("http://localhost:8080/Photostock/rest/photo/getBoughtPhotosForUser=" + username);
     };
 
     return service;

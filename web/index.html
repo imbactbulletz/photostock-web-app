@@ -36,6 +36,11 @@
         <md-nav-item md-nav-click="goto('shopping_cart')" name="shopping_cart">
             Shopping cart
         </md-nav-item>
+
+        <md-nav-item ng-hide="$root.user === undefined" md-nav-click="goto('bought_photos')" name="bought_photos">
+            Bought photos
+        </md-nav-item>
+
         <md-nav-item ng-hide="$root.user" md-nav-click="goto('login')" name="login">
             Login
         </md-nav-item>

@@ -124,6 +124,11 @@ app.config(function ($routeProvider) {
             controller: "GuestController"
         })
 
+        .when("/bought_photos", {
+            templateUrl: "user/regular/bought_photos.html",
+            controller: "RegularUserController"
+        })
+
         .otherwise({
             redirectTo: "/"
         });
