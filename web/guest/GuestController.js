@@ -432,7 +432,52 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
            $scope.cancelDialog();
         });
 
-    }
+    };
+
+
+    $scope.comment = function moreInfo(ev,username){
+
+        $rootScope.selectedUser = username;
+
+        $mdDialog.show({
+            controller: 'GuestController',
+            templateUrl: 'guest/comment_user.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+
+    };
+
+    $scope.commentSubmit = function(){
+
+        if($rootScope.user === undefined){
+            alert("You need to log in before commenting!");
+            return;
+        }
+
+        var fromUser = $rootScope.user.username;
+        var toUser = $rootScope.selectedUser;
+        var content = $scope.content;
+
+        var comment = {};
+        comment.posted_by = fromUser;
+        comment.posted_to = toUser;
+        comment.content = content;
+
+        GuestService.comment(comment).then(function(response){
+            var succeeded = response.data;
+
+            if(succeeded === undefined || succeeded == false){
+                alert("Could not post the comment!");
+                return;
+            }
+
+            alert("Successfully posted the comment!");
+            $scope.cancelDialog();
+        });
+    };
 }]);
 
 

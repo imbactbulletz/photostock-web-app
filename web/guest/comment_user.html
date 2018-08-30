@@ -1,0 +1,32 @@
+<div>
+    <form name="commentUser" role="form" ng-submit="commentSubmit()">
+        <md-dialog aria-label="Comment user" style="max-width: 900px;">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Leave a comment for {{$root.selectedUser}}</h2>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <md-content fill-layout>
+                    <div align="center" style="margin-top: 10px;">
+                        <md-input-container md-no-float>
+                            <input style="margin-top: 20px;" required type="text" size="15" ng-model="content" name="content" placeholder="Please enter a comment.">
+                            <div ng-messages="commentUser.content.$error">
+                                <div ng-message="required">
+                                    Please enter a rating.
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </md-content>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button type="submit" class="md-raised md-primary capitalized">Submit</md-button>
+                <span flex></span>
+            </md-dialog-actions>
+        </md-dialog>
+    </form>
+</div>

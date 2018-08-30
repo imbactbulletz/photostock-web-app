@@ -18,6 +18,7 @@ public class PhotostockRESTApp extends Application{
         classes.add(ControllerResolution.class);
         classes.add(ControllerCategory.class);
         classes.add(ControllerPhoto.class);
+        classes.add(ControllerComment.class);
         return classes;
     }
 }
