@@ -53,4 +53,9 @@ public class ServicePhoto implements IServicePhoto {
     public Photo getPhotoByID(String id) {
         return this.dao.getPhotoByID(id);
     }
+
+    @Override
+    public boolean ratePhoto(String photoID, String rating) {
+        return this.dao.ratePhoto(photoID, rating);
+    }
 }

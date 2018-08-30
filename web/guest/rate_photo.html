@@ -1,0 +1,39 @@
+<div>
+    <form name="ratePhoto" role="form" ng-submit="rate()">
+    <md-dialog aria-label="Rate photo" style="max-width: 900px;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Rate photo</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <md-content>
+                <div layout="column" align="center">
+                    <img height="200" width="400" style="padding: 10px;"  ng-src="{{'data:image/*;base64,'+$root.selectedPhoto.data}}">
+                    <span style="padding-left: 10px;" >Author: <b>{{ $root.selectedPhoto.uploadedBy}}</b></span>
+                    <span style="padding-left: 10px;" >Category: <b>{{ $root.selectedPhoto.category}}</b></span>
+                    <span style="padding-left: 10px;" >Description: <b>{{ $root.selectedPhoto.description}}</b></span>
+                    <span style="padding-left: 10px;" >Rating: <b>{{ $root.selectedPhoto.rating }}</b></span>
+                </div>
+                <div align="center" style="margin-top: 10px;">
+                    <md-input-container md-no-float>
+                        <input required type="number" size="15" ng-model="rating" name="rating" placeholder="Please enter a rating.">
+                        <div ng-messages="rateForm.rating.$error">
+                            <div ng-message="required">
+                                Please enter a rating.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </md-content>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary capitalized">Rate</md-button>
+            <span flex></span>
+        </md-dialog-actions>
+    </md-dialog>
+    </form>
+</div>

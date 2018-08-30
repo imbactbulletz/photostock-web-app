@@ -340,4 +340,54 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
 
         //$rootScope['cart'] = undefined;
     };
+
+
+    $scope.ratePhoto = function moreInfo(ev,photo){
+
+        $rootScope.selectedPhoto = photo;
+
+        $mdDialog.show({
+            controller: 'GuestController',
+            templateUrl: 'guest/rate_photo.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+
+    };
+
+    $scope.rate = function(){
+
+
+        if($rootScope.user === undefined) {
+            alert("You have to log in in order to rate someone!");
+            return;
+        }
+
+        var username = $rootScope.user.username;
+        var selectedPhotoID = $rootScope.selectedPhoto.id;
+        var rating = $scope.rating;
+
+        GuestService.ratePhoto(username, selectedPhotoID, rating).then(function(response){
+            var succeeded = response.data;
+
+            if(succeeded === undefined){
+                alert("COULD NOT RATE PHOTO");
+                return;
+            }
+
+            if(succeeded == false){
+                alert("You haven't bought this photo so you can't rate it!");
+                return;
+            }
+
+            alert("Successfully rated photo!");
+            $scope.cancelDialog();
+
+        });
+
+    }
 }]);
+
+

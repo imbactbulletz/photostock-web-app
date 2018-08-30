@@ -23,6 +23,9 @@
                     <img height="200" width="300" style="padding: 10px;" ng-src="{{'data:image/*;base64,'+photo.data}}">
                     <span style="padding-left: 10px;" align="left">Author: <b>{{ photo.uploadedBy}}</b></span>
                     <span style="padding-left: 10px;" align="left">Category: <b>{{ photo.category }}</b></span>
+                </div>
+                <div layout="row" align="center end" style="margin-top: 10%; margin-left: 15%">
+                    <md-button style="margin-top: -5px; max-width: 70px; width: 70px;" align="right" class="md-raised md-primary capitalized search-button" ng-click="ratePhoto($event, photo)">RATE</md-button>
                     <md-button style="margin-top: -5px; max-width: 70px; width: 70px;" class="md-raised md-primary capitalized search-button" ng-click="moreInfo($event, photo)">MORE INFO</md-button>
                 </div>
             </md-card-content>

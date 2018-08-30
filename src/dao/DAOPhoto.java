@@ -21,6 +21,7 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
     private static final String GET_PENDING_PHOTOS = "SELECT * FROM PHOTO WHERE APPROVED = 'false'";
     private static final String SET_PHOTO_STATUS = "UPDATE PHOTO SET APPROVED = '%s' WHERE ID = %s";
     private static final String GET_PHOTO_BY_ID = "SELECT * FROM PHOTO WHERE ID = '%s'";
+    private static final String RATE_PHOTO = "UPDATE PHOTO SET RATING = (RATING + %s)/ (TIMES_RATED + 1), TIMES_RATED = TIMES_RATED + 1  WHERE ID = %s";
 
     public DAOPhoto(){
         super(Photo.class);
@@ -274,6 +275,30 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
         }
 
 
+    }
+
+    @Override
+    public boolean ratePhoto(String photoID, String rating) {
+        Connection connection = createConnection();
+
+        if(connection == null || SafeConverter.toSafeInt(photoID) == 0 || SafeConverter.toSafeDouble(rating) == 0)
+            return false;
+
+        String query = String.format(RATE_PHOTO, rating, photoID);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            int result = preparedStatement.executeUpdate();
+
+            if(result == 0)
+                return false;
+
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

@@ -235,4 +235,16 @@ public class ControllerPhoto {
 
         return true;
     }
+
+    @GET
+    @Path("/ratePhoto={photoID},user={username},rating={rating}")
+    @Produces("application/json")
+    public boolean hasBoughtPhoto(@PathParam("photoID") String photoID, @PathParam("username") String username,
+                                  @PathParam("rating") String rating){
+        if(this.serviceBoughtPhoto.hasBoughtPhoto(username, photoID)){
+            return this.servicePhoto.ratePhoto(photoID, rating);
+        }
+
+        return false;
+    }
 }

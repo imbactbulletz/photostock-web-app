@@ -16,4 +16,9 @@ public class ServiceBoughtPhoto implements IServiceBoughtPhoto {
     public boolean addBoughtPhoto(String username, String photoID, String resolutionPhotoID) {
         return this.dao.addBoughtPhoto(username, photoID, resolutionPhotoID);
     }
+
+    @Override
+    public boolean hasBoughtPhoto(String username, String photoID) {
+        return this.dao.hasBoughtPhoto(username, photoID);
+    }
 }
