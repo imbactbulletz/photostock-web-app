@@ -82,5 +82,10 @@ public class ServiceUser implements IServiceUser{
         return this.dao.assignUserToCompany(username, companyName);
     }
 
+    @Override
+    public boolean rateUser(String username, String rating) {
+        return this.dao.rateUser(username, rating);
+    }
+
 
 }

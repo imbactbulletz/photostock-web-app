@@ -19,4 +19,5 @@ public interface IServiceUser {
     List<User> getMembersFor(String companyName);
     boolean removeMembership(String username);
     boolean assignUserToCompany(String username, String companyName);
+    boolean rateUser(String username, String rating);
 }

@@ -60,5 +60,9 @@ app.factory('GuestService', ['$http', function($http){
       return $http.get("http://localhost:8080/Photostock/rest/photo/ratePhoto=" + photoID + ",user=" + username + ",rating=" + rating);
     };
 
+    service.rateUser = function(buyer, vendor, rating){
+      return $http.get("http://localhost:8080/Photostock/rest/user/rateUser=" + vendor + ",by=" + buyer + ",rating=" + rating)
+    };
+
     return service;
 }]);

@@ -1,6 +1,9 @@
 package services;
 
 import dao.DAOBoughtPhoto;
+import entities.BoughtPhoto;
+
+import java.util.List;
 
 public class ServiceBoughtPhoto implements IServiceBoughtPhoto {
 
@@ -20,5 +23,10 @@ public class ServiceBoughtPhoto implements IServiceBoughtPhoto {
     @Override
     public boolean hasBoughtPhoto(String username, String photoID) {
         return this.dao.hasBoughtPhoto(username, photoID);
+    }
+
+    @Override
+    public List<BoughtPhoto> getBoughtPhotos(String username) {
+        return this.dao.getBoughtPhotos(username);
     }
 }

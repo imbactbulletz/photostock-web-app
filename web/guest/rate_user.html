@@ -1,0 +1,32 @@
+<div>
+    <form name="rateUser" role="form" ng-submit="rateUserSubmit()">
+        <md-dialog aria-label="Rate photo" style="max-width: 900px;">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Rate user - {{$root.selectedUser}}</h2>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <md-content fill-layout>
+                    <div align="center" style="margin-top: 10px;">
+                        <md-input-container md-no-float>
+                            <input style="margin-top: 20px;" required type="number" size="15" ng-model="rating" name="rating" placeholder="Please enter a rating.">
+                            <div ng-messages="rateUser.rating.$error">
+                                <div ng-message="required">
+                                    Please enter a rating.
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </md-content>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button type="submit" class="md-raised md-primary capitalized">Rate</md-button>
+                <span flex></span>
+            </md-dialog-actions>
+        </md-dialog>
+    </form>
+</div>

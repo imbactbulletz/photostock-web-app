@@ -357,7 +357,7 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
 
     };
 
-    $scope.rate = function(){
+    $scope.ratePhotoSubmit = function(){
 
 
         if($rootScope.user === undefined) {
@@ -385,6 +385,51 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
             alert("Successfully rated photo!");
             $scope.cancelDialog();
 
+        });
+
+    };
+
+    $scope.rateUser = function moreInfo(ev,username){
+
+        $rootScope.selectedUser = username;
+
+        $mdDialog.show({
+            controller: 'GuestController',
+            templateUrl: 'guest/rate_user.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+
+    };
+
+    $scope.rateUserSubmit = function(){
+
+        if($rootScope.user == undefined){
+            alert("You need to log in in order to rate this user!");
+            return;
+        }
+
+        var username = $rootScope.user.username;
+        var vendorUsername = $rootScope.selectedUser;
+        var rating = $scope.rating;
+
+        GuestService.rateUser(username, vendorUsername, rating).then(function(response){
+           var succeeded = response.data;
+
+           if(succeeded === undefined){
+               alert("Could not rate user!");
+               return;
+           }
+
+           if(succeeded == false){
+               alert("You have to buy a photo from the user in order to rate him!");
+               return;
+           }
+
+           alert("Successfully rated the user!");
+           $scope.cancelDialog();
         });
 
     }

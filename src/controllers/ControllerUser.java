@@ -1,9 +1,10 @@
 package controllers;
 
+import entities.BoughtPhoto;
+import entities.Photo;
 import entities.User;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-import services.IServiceUser;
-import services.ServiceUser;
+import services.*;
 import utils.Cryptex;
 import utils.Mailer;
 
@@ -15,10 +16,14 @@ import java.util.List;
 
 @Path("/user")
 public class ControllerUser {
-    private IServiceUser service;
+    private IServiceUser serviceUser;
+    private IServiceBoughtPhoto serviceBoughtPhoto;
+    private IServicePhoto servicePhoto;
 
     public ControllerUser(){
-        this.service = new ServiceUser();
+        this.serviceUser = new ServiceUser();
+        this.serviceBoughtPhoto = new ServiceBoughtPhoto();
+        this.servicePhoto = new ServicePhoto();
     }
 
     @POST
@@ -26,7 +31,7 @@ public class ControllerUser {
     @Consumes("application/json")
     @Produces("application/json")
     public Response login(User user){
-        User result = this.service.login(user);
+        User result = this.serviceUser.login(user);
 
         if(result == null){
             return Response.noContent().build();
@@ -40,7 +45,7 @@ public class ControllerUser {
     @Consumes("application/json")
     @Produces("application/json")
     public Response register(User user){
-        User result = this.service.register(user);
+        User result = this.serviceUser.register(user);
 
         // registration failed
         if(result == null){
@@ -76,7 +81,7 @@ public class ControllerUser {
             e.printStackTrace();
         }
 
-        if(this.service.activate(decryptedUsername)){
+        if(this.serviceUser.activate(decryptedUsername)){
             return true;
         }
 
@@ -88,7 +93,7 @@ public class ControllerUser {
     @Produces("application/json")
     public boolean sendPassword(@PathParam("username") String username){
 
-        User result = this.service.getUser(username);
+        User result = this.serviceUser.getUser(username);
 
         if(result == null){
             return false;
@@ -103,14 +108,14 @@ public class ControllerUser {
     @Path("/changePassword")
     @Produces("application/json")
     public boolean changePassword(User user){
-        return this.service.changePassword(user);
+        return this.serviceUser.changePassword(user);
     }
 
     @POST
     @Path("/getAllUsers")
     @Produces("application/json")
     public List<User> getAllUsers(){
-        return this.service.getAllUsers();
+        return this.serviceUser.getAllUsers();
     }
 
     @POST
@@ -118,7 +123,7 @@ public class ControllerUser {
     @Consumes("application/json")
     @Produces("application/json")
     public boolean deleteUser(String username){
-        return this.service.deleteUser(username);
+        return this.serviceUser.deleteUser(username);
     }
 
     @POST
@@ -126,7 +131,7 @@ public class ControllerUser {
     @Consumes("application/json")
     @Produces("application/json")
     public boolean addUser(User user){
-        return this.service.addUser(user);
+        return this.serviceUser.addUser(user);
     }
 
 
@@ -143,14 +148,14 @@ public class ControllerUser {
 
 
 
-        return this.service.changeSettings(username, password, creditCard, deactivate);
+        return this.serviceUser.changeSettings(username, password, creditCard, deactivate);
     }
 
     @GET
     @Path("/hasCreditCard={username}")
     @Produces("application/json")
     public boolean hasCreditCard(@PathParam("username") String username){
-        User tmp = service.getUser(username);
+        User tmp = serviceUser.getUser(username);
 
         if(tmp == null || tmp.getCreditcard() == null )
             return false;
@@ -164,7 +169,7 @@ public class ControllerUser {
     @Produces("application/json")
     public boolean addModerator(User user){
 
-        return this.service.insertModerator(user.getUsername(), user.getPassword(), user.getEmail(), user.getCompany());
+        return this.serviceUser.insertModerator(user.getUsername(), user.getPassword(), user.getEmail(), user.getCompany());
 
     }
 
@@ -174,7 +179,7 @@ public class ControllerUser {
     @Produces("application/json")
     public List<User> getMembersFor(@PathParam("companyName") String companyName){
 
-        return this.service.getMembersFor(companyName);
+        return this.serviceUser.getMembersFor(companyName);
     }
 
     @GET
@@ -182,13 +187,38 @@ public class ControllerUser {
     @Produces("application/json")
     public boolean removeMembership(@PathParam("username") String username){
 
-        return this.service.removeMembership(username);
+        return this.serviceUser.removeMembership(username);
     }
 
 
     @GET
     @Path("/assignUserToCompany={companyName},username={username}")
     public boolean assignUserToCompany(@PathParam("companyName") String companyName, @PathParam("username") String username){
-        return this.service.assignUserToCompany(username, companyName);
+        return this.serviceUser.assignUserToCompany(username, companyName);
+    }
+
+    @GET
+    @Path("/rateUser={vendor},by={username},rating={rating}")
+    @Produces("application/json")
+    public boolean rateUser(@PathParam("vendor") String vendor, @PathParam("username") String username, @PathParam("rating") String rating){
+
+        List<BoughtPhoto> boughtPhotos = this.serviceBoughtPhoto.getBoughtPhotos(username);
+        List<Photo> vendorsPhotos = this.servicePhoto.getPhotosFor(vendor);
+
+        boolean foundBoughtPhoto = false;
+
+        for(BoughtPhoto boughtPhoto : boughtPhotos){
+            for (Photo vendorsPhoto: vendorsPhotos){
+                if(boughtPhoto.getPhotoID() == vendorsPhoto.getId()){
+                    foundBoughtPhoto = true;
+                    break;
+                }
+            }
+        }
+
+        if(!foundBoughtPhoto)
+            return false;
+
+        return this.serviceUser.rateUser(username, rating);
     }
 }
