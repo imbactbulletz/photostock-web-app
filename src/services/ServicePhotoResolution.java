@@ -21,4 +21,9 @@ public class ServicePhotoResolution implements IServicePhotoResoluton{
     public List<PhotoResolution> getResolutionsForPhoto(String photoID) {
         return this.dao.getResolutionsForPhoto(photoID);
     }
+
+    @Override
+    public PhotoResolution getPhotoResolutionByID(String photoResolutionID) {
+        return this.dao.getPhotoResolutionByID(photoResolutionID);
+    }
 }

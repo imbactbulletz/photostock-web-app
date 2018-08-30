@@ -31,5 +31,30 @@ app.factory('GuestService', ['$http', function($http){
         return $http.get("http://localhost:8080/Photostock/rest/photo/getPhotoResolutions=" + photoID);
     };
 
+    service.checkOut = function(username, cart){
+          var inData = new FormData();
+
+          inData.append("username", username);
+
+          for(i = 0 ; i < cart.length ; i++){
+              // selected photo's id
+              var photoID = cart[i].id;
+              // id of selected resolution of the photo
+              var photoResolutionID = cart[i].selectedResolution.id;
+
+              var bundle = photoID + ";" + photoResolutionID;
+
+              inData.append(i, bundle);
+          }
+
+        return $http({
+            url: "http://localhost:8080/Photostock/rest/photo/checkOut",
+            method: "POST",
+            data: inData,
+            headers: {'Content-Type': undefined}
+        });
+
+    };
+
     return service;
 }]);

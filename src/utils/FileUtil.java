@@ -102,4 +102,15 @@ public class FileUtil {
 
         return encodedImage;
     }
+
+    public static File imageToFile(BufferedImage image){
+        File file = new File("temp.png");
+        try {
+            ImageIO.write(image, "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file;
+    }
 }

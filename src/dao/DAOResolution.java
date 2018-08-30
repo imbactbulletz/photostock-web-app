@@ -12,6 +12,7 @@ public class DAOResolution extends DAOAbstractDatabase<Resolution> implements ID
 
     // queries
     private static final String GET_ALL_RESOLUTIONS = "SELECT * FROM RESOLUTION";
+    private static final String GET_RESOLUTION_BY_NAME = "SELECT * FROM RESOLUTION WHERE NAME = '%s'";
 
     public DAOResolution(){
         super(Resolution.class);
@@ -37,6 +38,32 @@ public class DAOResolution extends DAOAbstractDatabase<Resolution> implements ID
             }
 
             return resolutions;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Resolution getResolutionByName(String name) {
+        Connection connection = createConnection();
+
+        if(connection == null || name == null)
+            return null;
+
+        String query = String.format(GET_RESOLUTION_BY_NAME, name);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                Resolution tmp = readFromResultSet(resultSet);
+                return tmp;
+            }
+
+            return null;
         }
         catch(Exception e){
             e.printStackTrace();

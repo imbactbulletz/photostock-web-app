@@ -48,4 +48,9 @@ public class ServicePhoto implements IServicePhoto {
     public List<Photo> getPhotosBy(String criteria, String term) {
         return this.dao.getPhotosBy(criteria, term);
     }
+
+    @Override
+    public Photo getPhotoByID(String id) {
+        return this.dao.getPhotoByID(id);
+    }
 }

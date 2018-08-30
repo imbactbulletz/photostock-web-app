@@ -20,6 +20,7 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
     private static final String GET_ALL_PHOTOS_FOR_USER = "SELECT * FROM PHOTO WHERE UPLOADEDBY = '%s'";
     private static final String GET_PENDING_PHOTOS = "SELECT * FROM PHOTO WHERE APPROVED = 'false'";
     private static final String SET_PHOTO_STATUS = "UPDATE PHOTO SET APPROVED = '%s' WHERE ID = %s";
+    private static final String GET_PHOTO_BY_ID = "SELECT * FROM PHOTO WHERE ID = '%s'";
 
     public DAOPhoto(){
         super(Photo.class);
@@ -245,6 +246,34 @@ public class DAOPhoto extends DAOAbstractDatabase<Photo> implements IDAOPhoto {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Photo getPhotoByID(String id) {
+        Connection connection = createConnection();
+
+        if(connection == null || SafeConverter.toSafeInt(id) == 0)
+            return null;
+
+        String query = String.format(GET_PHOTO_BY_ID, id);
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                Photo tmp = readFromResultSet(resultSet);
+                return tmp;
+            }
+
+            return null;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+
     }
 
 }

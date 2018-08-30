@@ -14,4 +14,5 @@ public interface IDAOPhoto {
     List<Photo> getPendingPhotos();
     boolean setPhotoStatus(String photoID, String status);
     List<Photo> getPhotosBy(String criteria, String term);
+    Photo getPhotoByID(String id);
 }

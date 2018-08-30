@@ -11,4 +11,5 @@ public interface IDAOCompany {
     boolean setCompanyStatus(String companyID, String status);
     Company getCompanyByID(String ID);
     List<Company> getActiveCompanies();
+    Company getCompanyByName(String companyName);
 }

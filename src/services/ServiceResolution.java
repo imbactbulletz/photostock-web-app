@@ -17,4 +17,9 @@ public class ServiceResolution implements IServiceResolution {
     public List<Resolution> getAllResolutions() {
         return this.dao.getAllResolutions();
     }
+
+    @Override
+    public Resolution getResolutionByName(String name) {
+        return this.dao.getResolutionByName(name);
+    }
 }

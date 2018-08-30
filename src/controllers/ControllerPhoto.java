@@ -1,18 +1,16 @@
 package controllers;
 
-import entities.Photo;
-import entities.PhotoResolution;
+import entities.*;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-import services.IServicePhoto;
-import services.IServicePhotoResoluton;
-import services.ServicePhoto;
-import services.ServicePhotoResolution;
+import services.*;
 import utils.FileUtil;
+import utils.Mailer;
 import utils.SafeConverter;
 
 import javax.ws.rs.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.Calendar;
@@ -23,10 +21,18 @@ import java.util.UUID;
 public class ControllerPhoto {
     private IServicePhoto servicePhoto;
     private IServicePhotoResoluton servicePhotoResoluton;
+    private IServiceBoughtPhoto serviceBoughtPhoto;
+    private IServiceUser serviceUser;
+    private IServiceResolution serviceResolution;
+    private IServiceCompany serviceCompany;
 
     public ControllerPhoto(){
         this.servicePhoto = new ServicePhoto();
         this.servicePhotoResoluton = new ServicePhotoResolution();
+        this.serviceBoughtPhoto = new ServiceBoughtPhoto();
+        this.serviceUser = new ServiceUser();
+        this.serviceResolution = new ServiceResolution();
+        this.serviceCompany = new ServiceCompany();
     }
 
     @POST
@@ -44,7 +50,7 @@ public class ControllerPhoto {
         String username = input.getFormDataPart("username", String.class, null);
 
 
-        // getting photo
+        // getting photo    Company getCompanyByName(String companyName);
         InputPart photo = input.getFormDataMap().get("photo").get(0);
         InputStream file_is = photo.getBody(InputStream.class, null);
 
@@ -177,5 +183,56 @@ public class ControllerPhoto {
     @Produces("application/json")
     public List<PhotoResolution> getPhotoResolutions(@PathParam("id") String id){
         return this.servicePhotoResoluton.getResolutionsForPhoto(id);
+    }
+
+    @POST
+    @Path("/checkOut")
+    @Produces("application/json")
+    public boolean checkOut(MultipartFormDataInput input) throws Exception {
+
+        String username = input.getFormDataPart("username", String.class, null);
+
+        int size = input.getFormData().size();
+
+
+        String[] bundle;
+        for(int i = 0; i < size - 1 ; i++){
+            bundle = input.getFormDataPart(String.valueOf(i), String.class, null).split(";");
+
+
+            // getting relevant data
+            Photo boughtPhoto = this.servicePhoto.getPhotoByID(bundle[0]);
+            User user = this.serviceUser.getUser(username);
+            PhotoResolution photoResolution = this.servicePhotoResoluton.getPhotoResolutionByID(bundle[1]);
+            Resolution resolution = this.serviceResolution.getResolutionByName(photoResolution.getName());
+
+            // sending image to the user in the format they bought
+            String path = boughtPhoto.getPath();
+            int width = resolution.getWidth();
+            int height = resolution.getHeight();
+            BufferedImage image = FileUtil.readBufferedImage(path);
+            // resizing image
+            image = FileUtil.resizeImage(image, width, height);
+            String email = user.getEmail();
+            File file = FileUtil.imageToFile(image);
+            Mailer.sendPhoto( email, file);
+
+            // sending notification to the vendor
+            username = boughtPhoto.getUploadedBy();
+            user = serviceUser.getUser(username);
+            email = user.getEmail();
+            Mailer.sendNotification(email);
+
+            // sending notification to the company
+            String companyName = user.getCompany();
+            if( companyName != null && !companyName.trim().equals("")){
+                Company company = this.serviceCompany.getCompanyByName(companyName);
+                email = company.getEmail();
+                Mailer.sendNotification(email);
+            }
+            this.serviceBoughtPhoto.addBoughtPhoto(username, bundle[0], bundle[1]);
+        }
+
+        return true;
     }
 }

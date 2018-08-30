@@ -1,12 +1,14 @@
 package utils;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.File;
 import java.util.Properties;
 
 public class Mailer {
@@ -64,7 +66,6 @@ public class Mailer {
                     InternetAddress.parse(c_email));
             message.setSubject("Photostock - password request");
             message.setText(requestedPassword + c_password + "\n \n Log in here: http://localhost:8080/Photostock/login");
-
             Transport.send(message);
 
             return true;
@@ -74,6 +75,82 @@ public class Mailer {
         }
 
     }
+
+    public static boolean sendPhoto(String c_email, File file){
+        setupProps();
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(c_email));
+            message.setSubject("Photostock - photo acquisition");
+
+
+            BodyPart messageBodyPart = new MimeBodyPart();
+
+            messageBodyPart.setText("Here's the photo you just bought!");
+
+            Multipart multipart = new MimeMultipart();
+
+            multipart.addBodyPart(messageBodyPart);
+
+            messageBodyPart = new MimeBodyPart();
+
+            DataSource source = new FileDataSource(file);
+
+            messageBodyPart.setDataHandler(new DataHandler(source));
+
+            messageBodyPart.setFileName("photo");
+
+            multipart.addBodyPart(messageBodyPart);
+
+            message.setContent(multipart);
+
+            Transport.send(message);
+
+            return true;
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean sendNotification(String c_email){
+        setupProps();
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(c_email));
+            message.setSubject("Photostock - sale notification");
+            message.setText("Hey there, we'd just like to inform you that one of your photos just got sold!");
+            Transport.send(message);
+
+            return true;
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     public static void setupProps(){
         props = new Properties();

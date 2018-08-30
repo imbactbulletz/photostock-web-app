@@ -314,6 +314,8 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
 
         cart_str = JSON.stringify(cart, null, 2);
         sessionStorage.setItem('cart', cart_str);
+
+        $scope.cancelDialog();
     };
 
     $scope.checkOut = function(){
@@ -327,7 +329,15 @@ app.controller("GuestController", ['$scope', '$rootScope', '$location', 'GuestSe
 
         if(user.creditcard === undefined || user.creditcard == null || user.creditcard == ''){
             alert("You have to set up a credit card before checking out!");
-            return;
         }
+
+        var username = $rootScope.user.username;
+        var cart = $rootScope.cart;
+
+        GuestService.checkOut(username, cart).then(function (response) {
+            
+        });
+
+        //$rootScope['cart'] = undefined;
     };
 }]);
