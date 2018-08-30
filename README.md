@@ -8,7 +8,7 @@
 ~~4. Prikaz detalja o izabranoj fotografiji (sa umanjenom slikom)~~    
 ~~5. Isporucivanje kupljene slike na mail~~    
 ~~6. Popust za korisnika (za svaku 3. sliku 5% popust)~~    
-7. Ocenjivanje kupljenih slika i autora od kojih je kupljeno  
+~~7. Ocenjivanje kupljenih slika i autora od kojih je kupljeno~~    
 8. Ostavljanje komentara za autora od kojeg je kupljena slika  
 ~~9. Unos kreditne kartice~~  
 ~~10. Deaktivacija naloga **(Jul)**~~  
