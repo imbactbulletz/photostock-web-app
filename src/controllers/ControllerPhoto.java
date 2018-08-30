@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
@@ -246,5 +247,43 @@ public class ControllerPhoto {
         }
 
         return false;
+    }
+
+    @GET
+    @Path("/getBoughtPhotosForUser={username}")
+    @Produces("application/json")
+    public List<Photo> getBoughtPhotosForUser(@PathParam("username") String username){
+
+        List<BoughtPhoto> boughtPhotos = serviceBoughtPhoto.getBoughtPhotos(username);
+
+        List<Photo> photos = new ArrayList<>();
+
+        for(BoughtPhoto boughtPhoto : boughtPhotos){
+
+            int photoResolutionID = boughtPhoto.getResolutionID();
+
+            PhotoResolution photoResolution = servicePhotoResoluton.getPhotoResolutionByID(String.valueOf(photoResolutionID));
+            Resolution resolution = serviceResolution.getResolutionByName(photoResolution.getName());
+
+
+            Photo photo = this.servicePhoto.getPhotoByID(String.valueOf(boughtPhoto.getPhotoID()));
+
+            String path = photo.getPath();
+            int width = resolution.getWidth();
+            int height = resolution.getHeight();
+            BufferedImage image = FileUtil.readBufferedImage(path);
+            // resizing image
+            image = FileUtil.resizeImage(image, width, height);
+
+
+            String encodedImage = FileUtil.encodeImage(image);
+
+            photo.setData(encodedImage);
+
+            photos.add(photo);
+        }
+
+
+        return photos;
     }
 }
