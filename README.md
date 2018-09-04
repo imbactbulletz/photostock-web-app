@@ -12,7 +12,7 @@
 8. Ostavljanje komentara za autora od kojeg je kupljena slika  
 ~~9. Unos kreditne kartice~~  
 ~~10. Deaktivacija naloga **(Jul)**~~  
-11. Istorijski pregled kupljenih slika i mogucnost ponovnog preuzimanja **(Jul)**  
+~~11. Istorijski pregled kupljenih slika i mogucnost ponovnog preuzimanja **(Jul)**~~    
 ~~12. Filtracija prioriteta prikaza po rezultatu pretrage **(Septembar)**~~    
 # Prodavac (Vendor):
 ~~13. Postavljanje slike za prodaju~~  
